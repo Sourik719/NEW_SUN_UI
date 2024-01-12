@@ -1,5 +1,5 @@
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 const Fields = ({ label, dataType, options, onChange }) => {
     const [isBlank, setIsBlank] = useState(true);
     const [selectedOption, setSelectedOption] = useState('');

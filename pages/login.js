@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+
 const login = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setLoginData] = useState({
         email: '',
@@ -23,7 +26,8 @@ const login = () => {
             errors.password = "Password is required";
         }
         if (Object.keys(errors).length === 0) {
-            console.log("Signing In", loginData)
+            console.log("Signing In", loginData);
+            router.push('/users/123');
         }
         else {
             const errorsMessage = JSON.stringify(errors, null, 2);

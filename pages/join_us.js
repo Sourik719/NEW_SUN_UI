@@ -2,6 +2,8 @@ import Fields from "@/components/join_us/Fields";
 import formValidation from "@/components/join_us/formValidation";
 import ImageField from "@/components/join_us/imagefield";
 import SubmitBtn from "@/components/join_us/submit";
+import bloodGroupoptions from "@/components/options/bloodGrpOptions";
+import genderOptions from "@/components/options/genderoptions";
 import { useState } from "react";
 const joinUs = () => {
     const [validationErrors, setValidationErrors] = useState({});
@@ -18,22 +20,6 @@ const joinUs = () => {
         bloodGroup: '',
         profileImage: null
     });
-    const genderOptions = [
-        { label: "Male", value: "male" },
-        { label: "Female", value: "female" },
-        { label: "Others", value: "others" }
-    ]
-    const bloodGroupoptions = [
-        { label: "A+", value: "A+" },
-        { label: "A-", value: "A-" },
-        { label: "B+", value: "B+" },
-        { label: "B-", value: "B-" },
-        { label: "AB+", value: "AB+" },
-        { label: "AB-", value: "AB-" },
-        { label: "O+", value: "O+" },
-        { label: "O-", value: "O-" }
-    ]
-
 
     const handleSubmit = () => {
         const errors = formValidation(formData);
