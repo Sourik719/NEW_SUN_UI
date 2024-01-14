@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-const Fields = ({ label, dataType, options, onChange }) => {
+const Fields = ({ label, dataType, options, onChange, errorMsg }) => {
     const [isBlank, setIsBlank] = useState(true);
     const [selectedOption, setSelectedOption] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState(null);
+
     const handlePassword = () => {
         setShowPassword(!showPassword);
     }
-
     const inputRef = useRef(null);
     const handleFocus = () => {
         if (inputRef.current) {
@@ -22,13 +23,14 @@ const Fields = ({ label, dataType, options, onChange }) => {
 
     const handleChange = (e) => {
         const inputValue = e.target.value.trim();
-
         if (dataType === "Select") {
             setSelectedOption(e.target.value);
             onChange(e.target.value)
+            setErrors(errorMsg);
         } else {
             setIsBlank(inputValue === '');
-            onChange(inputValue)
+            onChange(inputValue);
+            setErrors(errorMsg);
         }
     };
     useEffect(() => {
@@ -38,9 +40,9 @@ const Fields = ({ label, dataType, options, onChange }) => {
     }, [selectedOption, dataType]);
 
     return (
-        <div className="relative w-full px-5">
+        <div className="relative my-2 w-full px-5">
             {!isBlank && (
-                <label className="absolute text-black -top-1 left-8 bg-white px-1 transition-all duration-300 z-10">
+                <label className="absolute text-black -top-3 left-8 bg-white px-1 py-0 transition-all duration-300 z-10">
                     {label}:
                 </label>
             )}
@@ -49,14 +51,14 @@ const Fields = ({ label, dataType, options, onChange }) => {
                     placeholder={label}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 my-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
+                    className="w-full px-3 py-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
                 />
             ) : dataType === "Select" ? (
                 <select
                     value={selectedOption}
                     onChange={handleChange}
                     required
-                    className="w-full sm:w-[210px] px-3 py-2 my-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
+                    className="w-full sm:w-[210px] px-3 py-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
                 >
                     <option value="" disabled> Select {label} </option>
                     {options.map((option) => (
@@ -75,7 +77,7 @@ const Fields = ({ label, dataType, options, onChange }) => {
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         required
-                        className="w-full sm:w-[210px] px-3 py-2 my-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
+                        className="w-full sm:w-[210px] px-3 py-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
                     />
                 </div>
             ) : dataType === "Password" ? (
@@ -85,9 +87,9 @@ const Fields = ({ label, dataType, options, onChange }) => {
                         placeholder={label}
                         onChange={handleChange}
                         required
-                        className="w-full px-3 py-2 my-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
+                        className="w-full px-3 py-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
                     />
-                    <div className="absolute top-5 right-1">
+                    <div className="absolute top-3 right-1">
                         <button
                             type="button"
                             onClick={handlePassword}
@@ -107,7 +109,7 @@ const Fields = ({ label, dataType, options, onChange }) => {
                     placeholder={label}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 my-2 border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
+                    className="w-full px-3 py-2  border border-2 border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-blue-300 text-black focus:bg-white  placeholder-black"
                 />
             )
             }

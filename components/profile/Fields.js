@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
-import RequireError from "../join_us/requireError";
+import RequireError from "./requireError";
 
 const ProfileFields = ({ label, dataType, value, editAble, options }) => {
     const [fieldType, setFieldType] = useState('text');
@@ -37,7 +37,6 @@ const ProfileFields = ({ label, dataType, value, editAble, options }) => {
 
     useEffect(() => {
         const errorMsg = RequireError({ label: label, fieldValue: fieldvalue, type: dataType });
-        console.log(Number.isInteger('861779016a'));
         setErrors(errorMsg);
     }, [fieldvalue, label, dataType]);
 
