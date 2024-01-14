@@ -17,7 +17,7 @@ const profile = () => {
                 <ProfileFields value="sourikbhuiya@gmail.com" label="Email" dataType="Text" editAble={false} />
                 <ProfileFields value="2/A,Degree College Road, Belgharia, kol-56" label="Address" dataType="Text" editAble={true} />
                 <div className='flex flex-row justify-end w-5/6'>
-                    <ProfileFields value="8617790162" label="Phone No." dataType="Text" editAble={true} />
+                    <ProfileFields value="8617790162" label="Phone No." dataType="text" editAble={true} />
                     <ProfileFields value="2003-08-20" label="D.O.B" dataType="Date" editAble={true} />
                 </div>
                 <div className='flex flex-row justify-end w-5/6'>
@@ -25,7 +25,7 @@ const profile = () => {
                     <ProfileFields value="AB+" label="Blood Group" dataType="Select" editAble={true} options={bloodGroupoptions} />
                 </div>
                 <div className='flex flex-row justify-end w-5/6'>
-                    <ProfileFields value="7" label="Due" dataType="Text" editAble={false} />
+                    <ProfileFields value="7" label="Due" dataType="Number" editAble={false} />
                     <ProfileFields value="Active" label="Membership Status" dataType="Text" editAble={false} />
                 </div>
             </div>
