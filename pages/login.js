@@ -1,8 +1,11 @@
+import { useHttp } from '@/hooks/use-http';
 import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import jwt from 'jsonwebtoken';
 
 const login = () => {
+    const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const router = useRouter();
@@ -17,7 +20,18 @@ const login = () => {
             [fieldName]: value,
         }));
     };
-    const handleSignin = () => {
+    const handleSignin = async () => {
+        try {
+            console.log('Before signin request');
+            const responseData = await httpRequest('/signin', 'POST', loginData);
+            console.log('After signin request');
+            return responseData;
+        } catch (error) {
+            console.error('Error during signin:', error.message);
+            throw error;
+        }
+    };
+    const handleSubmit = async () => {
         const errors = {};
         if (!loginData.email.trim()) {
             errors.email = "Email is required";
@@ -26,8 +40,8 @@ const login = () => {
             errors.password = "Password is required";
         }
         if (Object.keys(errors).length === 0) {
-            console.log("Signing In", loginData);
-            router.push('/users/123');
+            const responseData = await handleSignin();
+            router.push(`/users/${responseData.id}`);
         }
         else {
             const errorsMessage = JSON.stringify(errors, null, 2);
@@ -71,7 +85,7 @@ const login = () => {
                     </div>
                 </div>
                 <div>
-                    <button className="bg-green-500 px-2 py-2 my-1 text-center text-white border-2 rounded-lg hover:bg-blue-500" onClick={handleSignin}>Sign In</button>
+                    <button className="bg-green-500 px-2 py-2 my-1 text-center text-white border-2 rounded-lg hover:bg-blue-500" onClick={handleSubmit}>{isLoading ? "Signing In" : "Sign In"}</button>
                 </div>
                 <div className="text-black flex items-center text-center mt-3">
                     <p className="px-2">Not a member yet?</p>

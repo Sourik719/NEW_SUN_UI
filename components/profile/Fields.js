@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
-import RequireError from "./requireError";
+import RequireError from "../../validation/requireError";
 
 const ProfileFields = ({ label, dataType, value, editAble, options }) => {
     const [fieldType, setFieldType] = useState('text');

@@ -1,7 +1,7 @@
-import bloodGroupoptions from '@/components/options/bloodGrpOptions';
-import genderOptions from '@/components/options/genderoptions';
 import ProfileFields from '@/components/profile/Fields';
 import ProfileImage from '@/components/profile/profileImage';
+import bloodGroupoptions from '@/options/bloodGrpOptions';
+import genderOptions from '@/options/genderoptions';
 import { useRouter } from 'next/router';
 const profile = () => {
     const router = useRouter();

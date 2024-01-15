@@ -10,15 +10,15 @@ const formValidation = (formData) => {
         errors.profileImage = "Profile Image is required";
     }
 
-    if (!formData.firstName.trim()) {
-        errors.firstName = "First Name is required";
-    } else if ((formData.firstName.length) < 2) {
-        errors.firstName = "Input too short";
+    if (!formData.firstname.trim()) {
+        errors.firstname = "First Name is required";
+    } else if ((formData.firstname.length) < 2) {
+        errors.firstname = "Input too short";
     }
-    if (!formData.lastName.trim()) {
-        errors.lastName = "Last name is required";
-    } else if ((formData.lastName.length) < 2) {
-        errors.lastName = "Input too short";
+    if (!formData.lastname.trim()) {
+        errors.lastname = "Last name is required";
+    } else if ((formData.lastname.length) < 2) {
+        errors.lastname = "Input too short";
     }
 
     if (!formData.email.trim()) {
@@ -33,10 +33,10 @@ const formValidation = (formData) => {
         errors.address = "Input too short";
     }
 
-    if (!formData.phoneNo.trim()) {
-        errors.phoneNo = "Phone number is required";
-    } else if (isNaN(formData.phoneNo) || (formData.phoneNo.length !== 9)) {
-        errors.phoneNo = "Invalid Phone No.";
+    if (!formData.phone.trim()) {
+        errors.phone = "Phone number is required";
+    } else if (isNaN(formData.phone) || (formData.phone.length !== 10)) {
+        errors.phone = "Invalid Phone No.";
     }
 
     if (!formData.dob.trim()) {
@@ -45,8 +45,8 @@ const formValidation = (formData) => {
         errors.dob = "Invalid D.O.B.";
     }
 
-    if (!formData.gender) {
-        errors.gender = "Gender is required";
+    if (!formData.sex) {
+        errors.sex = "Gender is required";
     }
 
     if (!formData.bloodGroup) {

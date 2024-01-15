@@ -1,43 +1,62 @@
 import Fields from "@/components/join_us/Fields";
-import formValidation from "@/components/join_us/formValidation";
 import ImageField from "@/components/join_us/imagefield";
 import SubmitBtn from "@/components/join_us/submit";
-import bloodGroupoptions from "@/components/options/bloodGrpOptions";
-import genderOptions from "@/components/options/genderoptions";
+import { useHttp } from "@/hooks/use-http";
+import bloodGroupoptions from "@/options/bloodGrpOptions";
+import genderOptions from "@/options/genderoptions";
+import formValidation from "@/validation/formValidation";
 
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 const joinUs = () => {
     const [validationErrors, setValidationErrors] = useState({});
+    const [httpRequest, isLoading] = useHttp();
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
+        firstname: '',
+        lastname: '',
         address: '',
-        phoneNo: '',
+        phone: '',
         dob: '',
-        gender: '',
+        sex: '',
         bloodGroup: '',
         profileImage: null
     });
 
-    const handleSubmit = () => {
-        const errors = formValidation(formData);
-        console.log(errors);
-        if (Object.keys(errors).length === 0) {
-            const isConfirmed = window.confirm("Are you sure you want to join as a member?")
-            if (isConfirmed) {
-                console.log("Membership Taken", formData)
-                window.location.reload();
-            }
-            else {
-                console.log("Action Cancelled")
-            }
+    const handleSignup = async () => {
+        try {
+            const responseData = await httpRequest('/signup', 'POST', formData);
+            return responseData;
+        } catch (error) {
+            console.error('Error during signup:', error.message);
+            throw error;
         }
-        else {
+    };
+
+    const handleSubmit = async () => {
+        const errors = formValidation(formData);
+        const dispatch = useDispatch();
+        if (Object.keys(errors).length === 0) {
+            try {
+                console.log('Before signup request');
+                const isConfirmed = window.confirm("Are you sure you want to join as a member?");
+                if (isConfirmed) {
+                    const responseData = await handleSignup();
+                    const { token } = responseData;
+                    dispatch(setToken(token));
+                    console.log("Membership Taken", responseData);
+                } else {
+                    console.log("Action Cancelled");
+                }
+            } catch (error) {
+                window.alert('Signup Failed');
+            }
+        } else {
             window.alert("Fill all the required fields.");
         }
     };
+
 
 
     const handleFieldChange = (fieldName, value) => {
@@ -66,15 +85,15 @@ const joinUs = () => {
                 <div className="flex flex-col items-center my-2">
                     <div className="flex flex-row justify-end w-full">
                         <div className="w-full">
-                            <Fields label="First Name" dataType="Text" onChange={(value) => handleFieldChange('firstName', value)} />
+                            <Fields label="First Name" dataType="Text" onChange={(value) => handleFieldChange('firstname', value)} />
                             <div className="text-yellow-600 text-sm px-6">
-                                {JSON.stringify(validationErrors.firstName, null, 2)}
+                                {JSON.stringify(validationErrors.firstname, null, 2)}
                             </div>
                         </div>
                         <div className="w-full">
-                            <Fields label="Last Name" dataType="Text" onChange={(value) => handleFieldChange('lastName', value)} />
+                            <Fields label="Last Name" dataType="Text" onChange={(value) => handleFieldChange('lastname', value)} />
                             <div className="text-yellow-600 text-sm px-6">
-                                {JSON.stringify(validationErrors.lastName, null, 2)}
+                                {JSON.stringify(validationErrors.lastname, null, 2)}
                             </div>
                         </div>
                     </div>
@@ -98,9 +117,9 @@ const joinUs = () => {
                     </div>
                     <div className="flex flex-row justify-end">
                         <div className="w-full">
-                            <Fields label="Phone No." dataType="Text" onChange={(value) => handleFieldChange('phoneNo', value)} />
+                            <Fields label="Phone No." dataType="Text" onChange={(value) => handleFieldChange('phone', value)} />
                             <div className="text-yellow-600 text-sm px-6">
-                                {JSON.stringify(validationErrors.phoneNo, null, 2)}
+                                {JSON.stringify(validationErrors.phone, null, 2)}
                             </div>
                         </div>
                         <div className="w-full">
@@ -112,9 +131,9 @@ const joinUs = () => {
                     </div>
                     <div className="flex flex-row justify-content">
                         <div className="w-full">
-                            <Fields label="Gender" dataType="Select" options={genderOptions} onChange={(value) => handleFieldChange('gender', value)} />
+                            <Fields label="Gender" dataType="Select" options={genderOptions} onChange={(value) => handleFieldChange('sex', value)} />
                             <div className="text-yellow-600 text-sm px-6">
-                                {JSON.stringify(validationErrors.gender, null, 2)}
+                                {JSON.stringify(validationErrors.sex, null, 2)}
                             </div>
                         </div>
                         <div className="w-full">
@@ -126,7 +145,7 @@ const joinUs = () => {
                     </div>
 
                 </div>
-                <SubmitBtn onClick={handleSubmit} />
+                <SubmitBtn onClick={handleSubmit} label={isLoading ? 'Signing up' : 'Register'} />
             </div>
         </div>
     )
