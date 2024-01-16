@@ -1,11 +1,15 @@
 import { useHttp } from '@/hooks/use-http';
 import { userActions } from '@/store/user-slice';
+import decodeToken from '@/utilities/decodeToken';
+import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
+
 const login = () => {
     const router = useRouter();
+    const { publicRuntimeConfig } = getConfig();
     const dispatch = useDispatch();
     const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
@@ -15,6 +19,8 @@ const login = () => {
         email: '',
         password: ''
     })
+    const token_secret = publicRuntimeConfig.TOKEN_SECRET;
+    ;
     const handleFieldChange = (fieldName, value) => {
         setLoginData((prevData) => ({
             ...prevData,
@@ -40,12 +46,15 @@ const login = () => {
         }
         if (Object.keys(errors).length === 0) {
             const responseData = await handleSignin();
-            const token = responseData.token;
+            const { token } = responseData;
             console.log(token);
             dispatch(userActions.setToken(token));
-            const userId = responseData.id;
+            const userId = decodeToken(token, token_secret);
             console.log(userId);
-            router.push(`/users/${userId}`);
+            const id = userId._id;
+            router.push(`/users/${id}`);
+
+
         }
         else {
             const errorsMessage = JSON.stringify(errors, null, 2);
