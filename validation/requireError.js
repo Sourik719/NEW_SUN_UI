@@ -5,7 +5,6 @@ const RequireError = ({ label, fieldValue, type }) => {
 
     if (length === 0) {
         errorMessage = `${label} is required.`;
-
     }
     else if (isNaN(fieldValue) && label === "Phone No.") {
         errorMessage = "Invalid Phone No.";

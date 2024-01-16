@@ -4,12 +4,14 @@ import SubmitBtn from "@/components/join_us/submit";
 import { useHttp } from "@/hooks/use-http";
 import bloodGroupoptions from "@/options/bloodGrpOptions";
 import genderOptions from "@/options/genderoptions";
+import { userActions } from "@/store/user-slice";
 import formValidation from "@/validation/formValidation";
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 const joinUs = () => {
     const [validationErrors, setValidationErrors] = useState({});
+    const dispatch = useDispatch();
     const [httpRequest, isLoading] = useHttp();
     const [formData, setFormData] = useState({
         email: '',
@@ -36,20 +38,19 @@ const joinUs = () => {
 
     const handleSubmit = async () => {
         const errors = formValidation(formData);
-        const dispatch = useDispatch();
         if (Object.keys(errors).length === 0) {
             try {
-                console.log('Before signup request');
                 const isConfirmed = window.confirm("Are you sure you want to join as a member?");
                 if (isConfirmed) {
                     const responseData = await handleSignup();
                     const { token } = responseData;
-                    dispatch(setToken(token));
+                    dispatch(userActions.setToken(token));
                     console.log("Membership Taken", responseData);
                 } else {
                     console.log("Action Cancelled");
                 }
             } catch (error) {
+                console.log(error.message);
                 window.alert('Signup Failed');
             }
         } else {

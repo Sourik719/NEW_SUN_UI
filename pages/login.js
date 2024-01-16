@@ -1,14 +1,15 @@
 import { useHttp } from '@/hooks/use-http';
+import { userActions } from '@/store/user-slice';
 import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import jwt from 'jsonwebtoken';
-
+import { useDispatch } from 'react-redux';
 const login = () => {
+    const router = useRouter();
+    const dispatch = useDispatch();
     const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setLoginData] = useState({
         email: '',
@@ -22,9 +23,7 @@ const login = () => {
     };
     const handleSignin = async () => {
         try {
-            console.log('Before signin request');
             const responseData = await httpRequest('/signin', 'POST', loginData);
-            console.log('After signin request');
             return responseData;
         } catch (error) {
             console.error('Error during signin:', error.message);
@@ -41,13 +40,19 @@ const login = () => {
         }
         if (Object.keys(errors).length === 0) {
             const responseData = await handleSignin();
-            router.push(`/users/${responseData.id}`);
+            const token = responseData.token;
+            console.log(token);
+            dispatch(userActions.setToken(token));
+            const userId = responseData.id;
+            console.log(userId);
+            router.push(`/users/${userId}`);
         }
         else {
             const errorsMessage = JSON.stringify(errors, null, 2);
             window.alert(`${errorsMessage}`);
         }
     }
+
 
     return (
         <div className="flex flex-col items-center justify-center">
