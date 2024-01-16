@@ -1,8 +1,9 @@
+import { useHttp } from "@/hooks/use-http";
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
 import RequireError from "../../validation/requireError";
 
-const ProfileFields = ({ label, dataType, value, editAble, options }) => {
+const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldName }) => {
     const [fieldType, setFieldType] = useState('text');
     const inputRef = useRef(null);
     const selectRef = useRef(null);
@@ -11,18 +12,38 @@ const ProfileFields = ({ label, dataType, value, editAble, options }) => {
     const [fieldvalue, setfieldValue] = useState(value);
     const [isBlank, setIsBlank] = useState(value === null);
     const [errors, setErrors] = useState(null);
+    const [httpRequest] = useHttp();
 
     const handleEdit = (e) => {
         setFieldType(dataType);
         setEditMode(true);
         inputRef.current.focus();
     };
+    const handleUpdate = async (updateData) => {
 
-    const handleSave = (e) => {
-        setFieldType('text');
-        setEditMode(false);
-        console.log(label + ":" + fieldvalue);
+        try {
+            const responseData = await httpRequest(`/users/${id}`, 'PUT', updateData);
+            console.log(responseData);
+            return responseData;
+        } catch (error) {
+            console.error("Error while updating data.");
+        }
+    }
+
+    const handleSave = async (e) => {
+        const updateData = { "update": { [fieldName]: fieldvalue } };
+        console.log(updateData);
+        try {
+            const updateResponse = await handleUpdate(updateData);
+            console.log(updateResponse);
+            setFieldType('text');
+            setEditMode(false);
+            console.log(label + ":" + fieldvalue);
+        } catch (error) {
+            console.error("Error while saving data.", error);
+        }
     };
+
 
     const handleChange = (e) => {
         if (dataType === 'Select') {

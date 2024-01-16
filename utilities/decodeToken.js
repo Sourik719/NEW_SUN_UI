@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
 
 const decodeToken = (token, token_secret) => {
-
-    console.log(token_secret);
     try {
         const id = jwt.verify(token, token_secret);
         return id;

@@ -47,14 +47,10 @@ const login = () => {
         if (Object.keys(errors).length === 0) {
             const responseData = await handleSignin();
             const { token } = responseData;
-            console.log(token);
             dispatch(userActions.setToken(token));
             const userId = decodeToken(token, token_secret);
-            console.log(userId);
             const id = userId._id;
             router.push(`/users/${id}`);
-
-
         }
         else {
             const errorsMessage = JSON.stringify(errors, null, 2);
