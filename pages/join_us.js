@@ -14,6 +14,7 @@ const joinUs = () => {
     const dispatch = useDispatch();
     const [httpRequest, isLoading] = useHttp();
     const [formData, setFormData] = useState({
+        image: null,
         email: '',
         password: '',
         firstname: '',
@@ -22,12 +23,11 @@ const joinUs = () => {
         phone: '',
         dob: '',
         sex: '',
-        bloodGroup: '',
-        profileImage: null
+        bloodGroup: ''
     });
-
     const handleSignup = async () => {
         try {
+            console.log(formData);
             const responseData = await httpRequest('/signup', 'POST', formData);
             return responseData;
         } catch (error) {
@@ -35,9 +35,8 @@ const joinUs = () => {
             throw error;
         }
     };
-
+    const errors = formValidation(formData);
     const handleSubmit = async () => {
-        const errors = formValidation(formData);
         if (Object.keys(errors).length === 0) {
             try {
                 const isConfirmed = window.confirm("Are you sure you want to join as a member?");
@@ -51,7 +50,8 @@ const joinUs = () => {
                 }
             } catch (error) {
                 console.log(error.message);
-                window.alert('Signup Failed');
+                const errorMsg = JSON.stringify(error.message, null, 2);
+                window.alert(`Signup failed.${errorMsg}`);
             }
         } else {
             window.alert("Fill all the required fields.");
@@ -78,9 +78,9 @@ const joinUs = () => {
         <div className="flex flex-col items-center" >
             <div className="flex flex-col items-center bg-white w-2/5 sm:w-[500px] border-2 border-yellow-300 rounded-xl">
                 <div className="w-full items-center flex flex-col">
-                    <ImageField label="Profile" onChange={(value) => handleFieldChange('profileImage', value)} />
+                    <ImageField label="Profile" onChange={(value) => handleFieldChange('image', value)} />
                     <div className="text-yellow-600 text-sm px-7">
-                        {JSON.stringify(validationErrors.profileImage, null, 2)}
+                        {JSON.stringify(validationErrors.image, null, 2)}
                     </div>
                 </div>
                 <div className="flex flex-col items-center my-2">
@@ -146,7 +146,7 @@ const joinUs = () => {
                     </div>
 
                 </div>
-                <SubmitBtn onClick={handleSubmit} label={isLoading ? 'Signing up' : 'Register'} />
+                {(Object.keys(errors).length === 0) && <SubmitBtn onClick={handleSubmit} label={isLoading ? 'Signing up' : 'Register'} />}
             </div>
         </div>
     )

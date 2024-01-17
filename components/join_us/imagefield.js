@@ -7,14 +7,12 @@ const ImageField = ({ label, onChange }) => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-
-
         setUploadState(!uploadState);
         const url = URL.createObjectURL(file);
         setImageURL(url);
         onChange(url);
-
     };
+    
     const handleUpload = () => {
         setUploadState(true);
     };

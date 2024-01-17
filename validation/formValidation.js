@@ -6,9 +6,6 @@ const formValidation = (formData) => {
     const dob = new Date(formData.dob);
     const errors = {};
 
-    if (formData.profileImage === null) {
-        errors.profileImage = "Profile Image is required";
-    }
 
     if (!formData.firstname.trim()) {
         errors.firstname = "First Name is required";
@@ -26,11 +23,10 @@ const formValidation = (formData) => {
     } else if (!emailRegex.test(formData.email)) {
         errors.email = "Invalid email"
     }
-
-    if (!formData.address.trim()) {
-        errors.address = "Address is required";
-    } else if ((formData.address.length) < 2) {
-        errors.address = "Input too short";
+    if (formData.address) {
+        if ((formData.address.length) < 2) {
+            errors.address = "Input too short";
+        }
     }
 
     if (!formData.phone.trim()) {

@@ -1,7 +1,10 @@
+
 const RequireError = ({ label, fieldValue, type }) => {
     let errorMessage = '';
-
-    const length = fieldValue.length;
+    let length = 0;
+    if (fieldValue) {
+        length = fieldValue.length;
+    }
 
     if (length === 0) {
         errorMessage = `${label} is required.`;

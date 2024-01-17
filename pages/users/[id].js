@@ -5,11 +5,14 @@ import bloodGroupoptions from '@/options/bloodGrpOptions';
 import genderOptions from '@/options/genderoptions';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
 const profile = () => {
     const router = useRouter();
     const { id } = router.query;
     const [user, setUser] = useState(null);
+    const [gender, setGender] = useState(null);
     const [httpRequest] = useHttp();
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -23,17 +26,26 @@ const profile = () => {
         fetchData();
     }, [id]);
 
+    useEffect(() => {
+        if (user) {
+            setGender(user.sex);
+        }
+    }, [user]);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
     if (user) {
         return (
             <div className='flex flex-col justify-end items-center'>
                 <div className='bg-white sm:w-2/3 lg:w-1/2  flex flex-col items-center my-5 mx-1 text-black border-2 rounded-md'>
-                    <ProfileImage />
+                    <ProfileImage key={gender} value={user.image} fieldName="image" gender={gender} />
                     <div className='flex flex-row justify-content w-5/6'>
                         <ProfileFields value={user.firstname} label="First Name" dataType="Text" editAble={true} id={id} fieldName="firstname" />
                         <ProfileFields value={user.lastname} label="Last Name" dataType="Text" editAble={true} id={id} fieldName="lastname" />
                     </div>
                     <ProfileFields value={user.email} label="Email" dataType="Text" editAble={false} id={id} fieldName="email" />
-                    <ProfileFields value="2/A,Degree College Road" label="Address" dataType="Text" editAble={true} id={id} fieldName="address" />
+                    <ProfileFields value={user.address} label="Address" dataType="Text" editAble={true} id={id} fieldName="address" />
                     <div className='flex flex-row justify-end w-5/6'>
                         <ProfileFields value={user.phone} label="Phone No." dataType="text" editAble={true} id={id} fieldName="phone" />
                         <ProfileFields value={user.dob} label="D.O.B" dataType="Date" editAble={true} id={id} fieldName="dob" />

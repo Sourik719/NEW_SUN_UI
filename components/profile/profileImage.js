@@ -1,9 +1,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import blank from "../../public/blank.jpeg";
-const ProfileImage = ({ label, value }) => {
+import female_blank from "../../public/female_blank.jpg";
+import male_blank from "../../public/male_blank.jpg";
+
+const ProfileImage = ({ label, value, gender }) => {
     const [uploadState, setUploadState] = useState(false);
-    const [imageURL, setImageURL] = useState(value);
+    const [genderuser, setGenderuser] = useState(gender);
+    const [imageURL, setImageURL] = useState(value ? value : null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -17,15 +21,21 @@ const ProfileImage = ({ label, value }) => {
     useEffect(() => {
         console.log("ProfileImage:" + imageURL);
     }, [imageURL]);
+
+    useEffect(() => {
+        setGenderuser(gender);
+    }, gender);
     return (
         <div className="mb-2 mt-2">
             <div className="relative mt-1">
                 <div className="relative w-40 h-40 rounded-full overflow-hidden border-2 border-black" onClick={handleUpload}>
-                    {imageURL === null ? (<Image
-                        src={blank}
-                        alt="Selected"
-                        className="w-full h-full object-cover "
-                    />) : (
+                    {imageURL === null ? (
+                        <Image
+                            src={genderuser === "Male" ? male_blank : (genderuser === "Female" ? female_blank : blank)}
+                            alt="Selected"
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
                         <Image
                             src={imageURL}
                             alt="Selected"
@@ -33,6 +43,7 @@ const ProfileImage = ({ label, value }) => {
                             className="w-full h-full object-cover"
                         />
                     )}
+
                     {uploadState && (<input
                         type="file"
                         accept="image/*"
