@@ -1,17 +1,15 @@
 import { useHttp } from "@/hooks/use-http";
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
 import RequireError from "../../validation/requireError";
 
 const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldName }) => {
-    const router = useRouter();
     const [fieldType, setFieldType] = useState('text');
     const inputRef = useRef(null);
     const selectRef = useRef(null);
     const [editMode, setEditMode] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(value);
     const [fieldvalue, setfieldValue] = useState(value);
+    const [finalvalue, setFinalValue] = useState(value);
     const [isBlank, setIsBlank] = useState(value === null);
     const [errors, setErrors] = useState(null);
     const [httpRequest] = useHttp();
@@ -28,10 +26,14 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
             const confirmation = window.confirm(`Are you sure you want to update ${label}?`);
             if (confirmation) {
                 window.alert(`${label} updated`);
+                setFinalValue(fieldvalue);
                 return responseData;
+            } else {
+                setfieldValue(finalvalue);
             }
         } catch (error) {
             console.error("Error while updating data.");
+            setfieldValue(finalvalue);
             window.alert("Error while updating data");
         }
     }
@@ -42,7 +44,6 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
             const updateResponse = await handleUpdate(updateData);
             setFieldType('text');
             setEditMode(false);
-            console.log(label + ":" + fieldvalue);
         } catch (error) {
             console.error("Error while saving data.", error);
         }
@@ -51,7 +52,6 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
 
     const handleChange = (e) => {
         if (dataType === 'Select') {
-            setSelectedOption(e.target.value);
             setfieldValue(e.target.value);
         } else {
             const instantValue = e.target.value.trim();
@@ -77,7 +77,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
             {fieldType === 'Select' ? (
                 <div className="relative">
                     <select
-                        value={selectedOption}
+                        value={fieldvalue}
                         onChange={handleChange}
                         ref={selectRef}
                         required
@@ -103,7 +103,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                     <input
                         className={`w-full px-4  pt-6 my-2 ${dataType === 'Date' ? 'w-[160px] sm:w-[140px]' : 'w-full'} appearance-none focus:outline-none border-0 rounded-md ${editAble ? 'bg-white' : 'bg-gray-300'} `}
                         readOnly={!editAble || !editMode}
-                        value={fieldvalue}
+                        value={!editMode ? finalvalue : fieldvalue}
                         type={!editMode ? 'text' : dataType}
                         placeholder={label}
                         onChange={handleChange}
