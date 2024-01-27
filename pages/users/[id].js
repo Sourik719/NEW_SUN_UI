@@ -3,35 +3,36 @@ import ProfileImage from '@/components/profile/profileImage';
 import { useHttp } from '@/hooks/use-http';
 import bloodGroupoptions from '@/options/bloodGrpOptions';
 import genderOptions from '@/options/genderoptions';
+import { userActions } from '@/store/user-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
+import { useDispatch } from 'react-redux';
 const profile = () => {
     const router = useRouter();
     const { id } = router.query;
     const [user, setUser] = useState(null);
-    const [gender, setGender] = useState(null);
     const [httpRequest] = useHttp();
-
+    const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userDetails = await httpRequest(`/users/${id}`, 'GET', null);
-                console.log(userDetails.user);
-                setUser(userDetails.user);
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    router.push('/login');
+                    return;
+                }
+                dispatch(userActions.setToken(token));
+                if (id != undefined) {
+                    const userDetails = await httpRequest(`/users/${id}`, 'GET', null);
+                    setUser(userDetails.user);
+                }
             } catch (error) {
                 console.error('Error fetching user details:', error.message);
             }
         };
         fetchData();
     }, [id]);
-
-    useEffect(() => {
-        if (user) {
-            setGender(user.sex);
-        }
-    }, [user]);
-
+    
     if (!user) {
         return <div>Loading...</div>;
     }
@@ -39,7 +40,7 @@ const profile = () => {
         return (
             <div className='flex flex-col justify-end items-center'>
                 <div className='bg-white sm:w-2/3 lg:w-1/2  flex flex-col items-center my-5 mx-1 text-black border-2 rounded-md'>
-                    <ProfileImage key={gender} value={user.image} fieldName="image" gender={gender} />
+                    <ProfileImage value={user.image} fieldName="image" gender={user.sex} />
                     <div className='flex flex-row justify-content w-5/6'>
                         <ProfileFields value={user.firstname} label="First Name" dataType="Text" editAble={true} id={id} fieldName="firstname" />
                         <ProfileFields value={user.lastname} label="Last Name" dataType="Text" editAble={true} id={id} fieldName="lastname" />

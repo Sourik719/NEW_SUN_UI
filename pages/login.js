@@ -20,7 +20,6 @@ const login = () => {
         password: ''
     })
     const token_secret = publicRuntimeConfig.TOKEN_SECRET;
-    ;
     const handleFieldChange = (fieldName, value) => {
         setLoginData((prevData) => ({
             ...prevData,
@@ -33,30 +32,39 @@ const login = () => {
             return responseData;
         } catch (error) {
             console.error('Error during signin:', error.message);
+            window.alert(error.message);
             throw error;
         }
     };
     const handleSubmit = async () => {
         const errors = {};
+
         if (!loginData.email.trim()) {
-            errors.email = "Email is required";
+            errors.email = "Please enter your email.";
         }
+
         if (!loginData.password.trim()) {
-            errors.password = "Password is required";
+            errors.password = "Please enter your password.";
         }
+
         if (Object.keys(errors).length === 0) {
-            const responseData = await handleSignin();
-            const { token } = responseData;
-            dispatch(userActions.setToken(token));
-            const userId = decodeToken(token, token_secret);
-            const id = userId._id;
-            router.push(`/users/${id}`);
+            try {
+                const responseData = await handleSignin();
+                const { token } = responseData;
+                dispatch(userActions.setToken(token));
+                localStorage.setItem('token', token);
+                const userId = decodeToken(token, token_secret);
+                const id = userId._id;
+                router.push(`/users/${id}`);
+            } catch (error) {
+                console.error('Error during sign-in:', error.message);
+            }
+        } else {
+            const errorsMessage = JSON.stringify(errors.email || errors.password, null, 2);
+            window.alert(errorsMessage);
         }
-        else {
-            const errorsMessage = JSON.stringify(errors, null, 2);
-            window.alert(`${errorsMessage}`);
-        }
-    }
+    };
+
 
 
     return (

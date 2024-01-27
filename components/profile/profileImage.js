@@ -6,7 +6,6 @@ import male_blank from "../../public/male_blank.jpg";
 
 const ProfileImage = ({ label, value, gender }) => {
     const [uploadState, setUploadState] = useState(false);
-    const [genderuser, setGenderuser] = useState(gender);
     const [imageURL, setImageURL] = useState(value ? value : null);
 
     const handleImageChange = (e) => {
@@ -18,20 +17,15 @@ const ProfileImage = ({ label, value, gender }) => {
     const handleUpload = () => {
         setUploadState(true);
     };
-    useEffect(() => {
-        console.log("ProfileImage:" + imageURL);
-    }, [imageURL]);
 
-    useEffect(() => {
-        setGenderuser(gender);
-    }, gender);
+
     return (
         <div className="mb-2 mt-2">
             <div className="relative mt-1">
                 <div className="relative w-40 h-40 rounded-full overflow-hidden border-2 border-black" onClick={handleUpload}>
                     {imageURL === null ? (
                         <Image
-                            src={genderuser === "Male" ? male_blank : (genderuser === "Female" ? female_blank : blank)}
+                            src={gender === "Male" ? male_blank : (gender === "Female" ? female_blank : blank)}
                             alt="Selected"
                             className="w-full h-full object-cover"
                         />

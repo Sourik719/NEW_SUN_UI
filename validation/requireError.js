@@ -1,6 +1,8 @@
 
 const RequireError = ({ label, fieldValue, type }) => {
     let errorMessage = '';
+    const today = new Date();
+    const dob = new Date(fieldValue);
     let length = 0;
     if (fieldValue) {
         length = fieldValue.length;
@@ -17,6 +19,8 @@ const RequireError = ({ label, fieldValue, type }) => {
 
     } else if (length < 2 && type === 'Text') {
         errorMessage = "Too short input.";
+    } else if (dob > today && type === 'Date') {
+        errorMessage = "Invalid D.O.B";
     }
     if (errorMessage !== '') {
         return errorMessage;

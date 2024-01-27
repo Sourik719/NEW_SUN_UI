@@ -1,9 +1,11 @@
 import { useHttp } from "@/hooks/use-http";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
 import RequireError from "../../validation/requireError";
 
 const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldName }) => {
+    const router = useRouter();
     const [fieldType, setFieldType] = useState('text');
     const inputRef = useRef(null);
     const selectRef = useRef(null);
@@ -19,23 +21,25 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
         setEditMode(true);
         inputRef.current.focus();
     };
-    const handleUpdate = async (updateData) => {
 
+    const handleUpdate = async (updateData) => {
         try {
             const responseData = await httpRequest(`/users/${id}`, 'PUT', updateData);
-            console.log(responseData);
-            return responseData;
+            const confirmation = window.confirm(`Are you sure you want to update ${label}?`);
+            if (confirmation) {
+                window.alert(`${label} updated`);
+                return responseData;
+            }
         } catch (error) {
             console.error("Error while updating data.");
+            window.alert("Error while updating data");
         }
     }
 
     const handleSave = async (e) => {
         const updateData = { "update": { [fieldName]: fieldvalue } };
-        console.log(updateData);
         try {
             const updateResponse = await handleUpdate(updateData);
-            console.log(updateResponse);
             setFieldType('text');
             setEditMode(false);
             console.log(label + ":" + fieldvalue);
@@ -83,7 +87,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                             Select {label}
                         </option>
                         {options.map((option) => (
-                            <option key={option.value} value={option.label}>
+                            <option key={option.value} value={option.value}>
                                 {option.label}
                             </option>
                         ))}
