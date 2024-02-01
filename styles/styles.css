@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'CustomFont';
-    src: url('/fonts/Robotoslab.ttf') format('truetype');
-
-}
-
-body {
-    font-family: 'CustomFont', 'Courier New', Courier, monospace;
-}
