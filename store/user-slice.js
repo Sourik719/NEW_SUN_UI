@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { HYDRATE } from "next-redux-wrapper"
 
 const userSlice = createSlice({
     name: 'user',
@@ -10,12 +9,6 @@ const userSlice = createSlice({
         setToken(state, action) {
             state.token = action.payload.token
         }
-    },
-    extraReducers: {
-        [HYDRATE]: (state, action) => ({
-            ...state,
-            ...action.payload.user
-        })
     }
 })
 
