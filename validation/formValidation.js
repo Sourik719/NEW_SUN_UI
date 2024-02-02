@@ -50,6 +50,7 @@ const formValidation = (formData) => {
     }
     if (!formData.password || !formData.password.trim()) {
         errors.password = "Password is required";
+
     } else if (!passwordRegex.test(formData.password)) {
         errors.password = "Password must contain at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long"
     }

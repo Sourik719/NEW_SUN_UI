@@ -1,18 +1,20 @@
 import Image from "next/image";
 import { useState } from "react";
-import blank from "../../public/blank.jpeg";
+import blank from "../../public/blank.png";
 const ImageField = ({ label, onChange }) => {
     const [uploadState, setUploadState] = useState(false);
     const [imageURL, setImageURL] = useState(null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+
+
         setUploadState(!uploadState);
         const url = URL.createObjectURL(file);
         setImageURL(url);
         onChange(url);
+
     };
-    
     const handleUpload = () => {
         setUploadState(true);
     };

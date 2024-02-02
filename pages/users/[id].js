@@ -1,8 +1,7 @@
 import ProfileFields from '@/components/profile/Fields';
 import ProfileImage from '@/components/profile/profileImage';
+import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useHttp } from '@/hooks/use-http';
-import bloodGroupoptions from '@/options/bloodGrpOptions';
-import genderOptions from '@/options/genderoptions';
 import { userActions } from '@/store/user-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -32,7 +31,7 @@ const profile = () => {
         };
         fetchData();
     }, [id]);
-    
+
     if (!user) {
         return <div>Loading...</div>;
     }
@@ -53,7 +52,7 @@ const profile = () => {
                     </div>
                     <div className='flex flex-row justify-end w-5/6'>
                         <ProfileFields value={user.sex} label="Gender" dataType="Select" editAble={true} options={genderOptions} id={id} fieldName="sex" />
-                        <ProfileFields value={user.bloodGroup} label="Blood Group" dataType="Select" editAble={true} options={bloodGroupoptions} id={id} fieldName="bloodGroup" />
+                        <ProfileFields value={user.bloodGroup} label="Blood Group" dataType="Select" editAble={true} options={bloodGroupOptions} id={id} fieldName="bloodGroup" />
                     </div>
                     <div className='flex flex-row justify-end w-5/6'>
                         <ProfileFields value="7" label="Due" dataType="Number" editAble={false} id={id} fieldName="due" />

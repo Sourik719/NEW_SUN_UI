@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import blank from "../../public/blank.jpeg";
+import blank from "../../public/blank.png";
 import female_blank from "../../public/female_blank.jpg";
 import male_blank from "../../public/male_blank.jpg";
 
