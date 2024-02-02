@@ -17,10 +17,10 @@ const userSlice = createSlice({
                 return {
                     ...state,
                     ...action.payload.user,
-                };
-            });
-    },
-});
+                }
+            })
+    }
+})
 
 export const userReducer = userSlice.reducer;
 export const userActions = userSlice.actions;
