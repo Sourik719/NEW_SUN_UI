@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
-import { Roboto } from "next/font/google"
-
-const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, validationError }) => {
     const [isBlank, setIsBlank] = useState(true)
-    const [selectedOption, setSelectedOption] = useState('')
+    const [selectedOption, setSelectedOption] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const inputRef = useRef(null)
 
@@ -42,15 +39,14 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
         placeholder={label}
         onChange={handleChange}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none`}
+        className="w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none"
     />
 
     const selectField = <select
         value={selectedOption}
         onChange={handleChange}
-        defaultValue=""
         required
-        className={`${roboto.className} w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none`}
+        className="w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none"
     >
         <option value="" disabled>{label}</option>
         {options.map((option) => (
@@ -67,7 +63,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
         onChange={handleChange}
         onFocus={handleFocus}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none`}
+        className="w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none"
     />
 
     const passwordField = <div className="relative z-0">
@@ -76,7 +72,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
             placeholder={label}
             onChange={handleChange}
             required
-            className={`${roboto.className} w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none`}
+            className="w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none"
         />
         <div className="absolute top-4 right-2">
             <button
@@ -94,7 +90,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
         placeholder={label}
         onChange={handleChange}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none`}
+        className="w-full px-3 py-2 my-2 border border-gray-300 rounded-md focus:outline-none"
     />
 
     return (

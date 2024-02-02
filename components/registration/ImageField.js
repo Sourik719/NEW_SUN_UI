@@ -6,34 +6,34 @@ import Image from "next/image"
 const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const ImageField = ({ onChange }) => {
-    const [uploadState, setUploadState] = useState(false)
     const [imageURL, setImageURL] = useState(null)
 
     const handleImageChange = (e) => {
+        if (!e.target.files.length) return
         const file = e.target.files[0]
-        setUploadState(!uploadState)
         const url = URL.createObjectURL(file)
         setImageURL(url)
         onChange(url)
     }
 
-    const handleUpload = () => setUploadState(true)
-
     return (<div className="p-3 m-2">
-        <div className="group bg-white relative flex justify-center items-end w-40 h-40 rounded-full overflow-hidden" onClick={handleUpload}>
+        <div className="group bg-white relative flex justify-center items-end w-40 h-40 rounded-full overflow-hidden">
             <Image
                 src={imageURL || "/blank.png"}
                 alt="Your Picture"
-                layout="fill"
+                width={100}
+                height={100}
+                className="w-full h-full"
             />
-            <span className={`${roboto.className} text-xs pb-4 group-hover:scale-110 transition-transform duration-200`}>+ Add photo</span>
-            {uploadState &&
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="absolute z-10 inset-0 opacity-0 cursor-pointer w-full h-full"
-                />}
+            <span className={`${roboto.className} bg-white absolute text-xs opacity-0 group-hover:opacity-100 transition-all duration-100 p-1 mb-4 rounded-md`}>
+                {imageURL ? "Change Photo" : "Add Photo"}
+            </span>
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="bg-red-400 absolute opacity-0 z-10 w-full h-full cursor-pointer rounded-full"
+            />
         </div>
     </div>)
 }
