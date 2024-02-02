@@ -1,45 +1,68 @@
-import Field from "@/components/registration/Field";
-import formValidation from "@/components/registration/formValidation";
-import ImageField from "@/components/registration/Image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHttp } from "@/hooks/use-http";
+import { bloodGroupOptions, genderOptions } from "@/data/registration";
+import { Roboto } from "next/font/google"
 
-import Image from "next/image";
 import Head from "next/head";
-import { genderOptions, bloodGroupOptions } from "@/data/registration";
+import Image from "next/image";
+import Link from "next/link";
+import Field from "@/components/registration/Field";
+import ImageField from "@/components/registration/ImageField";
+import formValidation from "@/validation/formValidation";
+
+const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const JoinUs = () => {
+    const dispatch = useDispatch();
     const [validationErrors, setValidationErrors] = useState({});
+    const [httpRequest, isLoading] = useHttp();
 
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
         confirmpassword: '',
         address: '',
-        phoneNo: '',
+        phone: '',
         dob: '',
-        gender: '',
+        sex: '',
         bloodGroup: '',
         profileImage: null
     });
 
-    const handleSubmit = () => {
-        const errors = formValidation(formData);
-        console.log(errors);
+    const handleSignup = async () => {
+        try {
+            console.log(formData);
+            const responseData = await httpRequest('/signup', 'POST', formData);
+            return responseData;
+        } catch (error) {
+            console.error('Error during signup:', error.message);
+            throw error;
+        }
+    };
+
+    const errors = formValidation(formData);
+    const handleSubmit = async () => {
         if (Object.keys(errors).length === 0) {
-            const isConfirmed = window.confirm("Are you sure you want to join as a member?")
-            if (isConfirmed) {
-                console.log("Membership Taken", formData)
-                window.location.reload();
-            }
-            else {
-                console.log("Action Cancelled")
+            try {
+                const isConfirmed = window.confirm("Are you sure you want to join as a member?");
+                if (isConfirmed) {
+                    const responseData = await handleSignup();
+                    const { token } = responseData;
+                    dispatch(userActions.setToken(token));
+                    console.log("Membership Taken", responseData);
+                } else {
+                    console.log("Action Cancelled");
+                }
+            } catch (error) {
+                console.log(error.message);
+                const errorMsg = JSON.stringify(error.message, null, 2);
+                window.alert(`Signup failed.${errorMsg}`);
             }
         } else {
-            setValidationErrors(errors);
-            const errorsMessage = JSON.stringify(errors, null, 2);
-            window.alert(`${errorsMessage}`);
+            window.alert("Fill all the required fields.");
         }
     };
 
@@ -47,47 +70,59 @@ const JoinUs = () => {
         setFormData((prevData) => ({
             ...prevData,
             [fieldName]: value,
-        }));
+        }))
     };
+
+    useEffect(() => {
+        const errors = formValidation(formData);
+        setValidationErrors(errors);
+    }, [formData]);
 
     return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center" >
         <Head>
             <title>Join Us</title>
         </Head>
-        <div className="relative flex flex-col items-center bg-white rounded-xl shadow-sm shadow-gray-600">
+        <div className="relative w-full sm:w-auto rounded-xl m-3">
             <div className="absolute w-full h-full pointer-events-none">
                 <Image
                     src={"/registration.svg"}
+                    alt="Background"
                     width={0}
                     height={0}
+                    priority
                     className="rounded-xl w-full h-full object-cover"
                 />
             </div>
-            <ImageField label="Profile" onChange={(value) => handleFieldChange('profileImage', value)} />
-            <div className="flex flex-col items-center px-2 py-5">
-                <div className="w-full flex flex-col md:flex-row justify-between">
-                    <Field label="First Name" dataType="text" onChange={(value) => handleFieldChange('firstName', value)} />
-                    <Field label="Last Name" dataType="text" onChange={(value) => handleFieldChange('lastName', value)} />
+            <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
+                <ImageField onChange={(value) => handleFieldChange("profileImage", value)} />
+                <div className="flex flex-col items-center my-2 w-full">
+                    <div className="flex flex-col sm:flex-row justify-end w-full">
+                        <Field label="First Name" dataType="Text" onChange={(value) => handleFieldChange('firstname', value)} validationError={validationErrors.firstname} />
+                        <Field label="Last Name" dataType="Text" onChange={(value) => handleFieldChange('lastname', value)} validationError={validationErrors.lastname} />
+                    </div>
+                    <Field label="Email" dataType="Email" onChange={(value) => handleFieldChange('email', value)} validationError={validationErrors.email} />
+                    <Field label="Password" dataType="password" onChange={(value) => handleFieldChange('password', value)} validationError={validationErrors.password} />
+                    <Field label="Address" dataType="textarea" onChange={(value) => handleFieldChange('address', value)} validationError={validationErrors.address} />
+                    <div className="flex flex-col sm:flex-row justify-end w-full">
+                        <Field label="Mobile Number" dataType="Text" onChange={(value) => handleFieldChange('phone', value)} validationError={validationErrors.phone} />
+                        <Field label="Date of Birth" dataType="date" onChange={(value) => handleFieldChange('dob', value)} validationError={validationErrors.dob} />
+                    </div>
+                    <div className="flex flex-col sm:flex-row justify-end w-full">
+                        <Field label="Gender" dataType="select" options={genderOptions} onChange={(value) => handleFieldChange('sex', value)} validationError={validationErrors.sex} />
+                        <Field label="Blood Group" dataType="select" options={bloodGroupOptions} onChange={(value) => handleFieldChange('bloodGroup', value)} validationError={validationErrors.bloodGroup} />
+                    </div>
                 </div>
-                <Field label="Email" dataType="email" onChange={(value) => handleFieldChange('email', value)} />
-                <div className="w-full flex flex-col md:flex-row justify-between">
-                    <Field label="Password" dataType="password" onChange={(value) => handleFieldChange('password', value)} />
-                    <Field label="Confirm Password" dataType="password" onChange={(value) => handleFieldChange('confirmpassword', value)} />
+                {/* {Object.keys(errors).length === 0 && */}
+                <div className="w-full sm:w-2/3 p-3">
+                    <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 text-white transition-colors duration-300" onClick={handleSubmit}>
+                        Join as Member
+                    </button>
                 </div>
-                <Field label="Address" dataType="textarea" onChange={(value) => handleFieldChange('address', value)} />
-                <div className="w-full flex flex-col md:flex-row justify-between">
-                    <Field label="Mobile Number" dataType="number" onChange={(value) => handleFieldChange('phoneNo', value)} />
-                    <Field label="Date of Birth" dataType="date" onChange={(value) => handleFieldChange('dob', value)} />
+                {/* } */}
+                <div className="text-sm flex justify-center items-center mb-5">
+                    <span>Are you a member already?</span>
+                    <Link href="/login" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Login</Link>
                 </div>
-                <div className="w-full flex flex-col md:flex-row justify-between">
-                    <Field label="Gender" dataType="select" options={genderOptions} onChange={(value) => handleFieldChange('gender', value)} />
-                    <Field label="Blood Group" dataType="select" options={bloodGroupOptions} onChange={(value) => handleFieldChange('bloodGroup', value)} />
-                </div>
-            </div>
-            <div className="w-2/3 p-3 z-10">
-                <button className="w-full bg-green-500 p-3 text-center rounded-lg hover:bg-blue-500 transition-colors duration-300" onClick={handleSubmit}>
-                    Join as Member
-                </button>
             </div>
         </div>
     </div>)
