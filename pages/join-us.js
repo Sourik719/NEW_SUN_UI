@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 
 const joinUs = () => {
     const [validationErrors, setValidationErrors] = useState({});
+    const [atFirst, setAtfirst] = useState(true);
     const dispatch = useDispatch();
     const [httpRequest, isLoading] = useHttp();
     const [formData, setFormData] = useState({
@@ -35,8 +36,11 @@ const joinUs = () => {
             throw error;
         }
     };
-    const errors = formValidation(formData);
+
     const handleSubmit = async () => {
+        setAtfirst(false);
+        const errors = formValidation(formData);
+        setValidationErrors(errors);
         if (Object.keys(errors).length === 0) {
             try {
                 const isConfirmed = window.confirm("Are you sure you want to join as a member?");
@@ -57,6 +61,12 @@ const joinUs = () => {
             window.alert("Fill all the required fields.");
         }
     };
+    useEffect(() => {
+        if (!atFirst) {
+            const errors = formValidation(formData);
+            setValidationErrors(errors);
+        }
+    }, [formData]);
 
 
 
@@ -67,10 +77,7 @@ const joinUs = () => {
         }))
     };
 
-    useEffect(() => {
-        const errors = formValidation(formData);
-        setValidationErrors(errors);
-    }, [formData]);
+
 
 
 
@@ -78,13 +85,13 @@ const joinUs = () => {
         <Head>
             <title>Join Us</title>
         </Head>
-        <div className="relative w-[500px] xs:w-full flex flex-col items-center rounded-xl shadow-sm shadow-gray-600">
+        <div className="relative w-[500px] xs:w-full flex bg-white flex-col items-center rounded-xl shadow-sm shadow-gray-600">
             <div className="absolute w-full h-full pointer-events-none">
                 <Image
                     src={"/registration.svg"}
                     width={0}
                     height={0}
-                    className="rounded-xl w-full h-full object-cover"
+                    className="rounded-xl w-full h-4/5 object-cover"
                 />
             </div>
             <ImageField label="Profile" onChange={(value) => handleFieldChange('profileImage', value)} />
@@ -105,7 +112,7 @@ const joinUs = () => {
                     <Fields label="Blood Group" dataType="select" options={bloodGroupOptions} onChange={(value) => handleFieldChange('bloodGroup', value)} validationError={validationErrors.bloodGroup} />
                 </div>
             </div>
-            {Object.keys(errors).length === 0 && <div className="w-2/3 p-3 z-10">
+            {Object.keys(validationErrors).length == 0 && <div className="w-2/3 p-3 z-10">
                 <button className="w-full bg-green-500 p-3 text-center rounded-lg hover:bg-blue-500 transition-colors duration-300" onClick={handleSubmit}>
                     Join as Member
                 </button>

@@ -45,14 +45,14 @@ const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, 
         placeholder={label}
         onChange={handleChange}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-1 border border-gray-300 rounded-md focus:outline-blue-300`}
+        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     />
 
     const selectField = <select
         value={selectedOption}
         onChange={handleChange}
         required
-        className={`${roboto.className} w-[210px] px-3 py-2 my-1 border border-gray-300 rounded-md focus:outline-blue-300`}
+        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     >
         <option value="" selected disabled>{label}</option>
         {options.map((option) => (
@@ -71,7 +71,7 @@ const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, 
             onFocus={handleFocus}
             onBlur={handleBlur}
             required
-            className={`${roboto.className} w-[210px] px-3 py-2 my-1 border border-gray-300 rounded-md focus:outline-blue-300`}
+            className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
         />
     </div>
 
@@ -81,7 +81,7 @@ const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, 
             placeholder={label}
             onChange={handleChange}
             required
-            className={`${roboto.className} w-full  px-3 py-2 my-1 border border-gray-300 rounded-md focus:outline-blue-300`}
+            className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
         />
         <div className="absolute top-4 right-2">
             <button
@@ -99,7 +99,7 @@ const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, 
         placeholder={label}
         onChange={handleChange}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-1 border border-gray-300 rounded-md focus:outline-blue-300`}
+        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     />
 
     return (
