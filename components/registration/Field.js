@@ -11,6 +11,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
     const [showPassword, setShowPassword] = useState(false);
     const handlePassword = () => setShowPassword(!showPassword);
     const inputRef = useRef(null);
+    const errorMsg = JSON.stringify(validationError, null, 2);
     const handleFocus = () => {
         if (inputRef.current) {
             inputRef.current.type = "date"
@@ -47,17 +48,19 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
         onChange={handleChange}
         required
         className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+        title={validationError ? errorMsg : ''}
     />
 
     const selectField = <select
         value={selectedOption}
         onChange={handleChange}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md ${selectedOption == "" ? 'text-gray-400' : 'text-black'} ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+        title={validationError ? errorMsg : ''}
     >
         <option value="" selected disabled>{label}</option>
         {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option key={option.value} value={option.value} className="text-black">
                 {option.label}
             </option>
         ))}
@@ -73,6 +76,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
             onBlur={handleBlur}
             required
             className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+            title={validationError ? errorMsg : ''}
         />
     </div>
 
@@ -83,6 +87,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
             onChange={handleChange}
             required
             className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+            title={validationError ? errorMsg : ''}
         />
         <div className="absolute top-4 right-2">
             <button
@@ -101,6 +106,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
         onChange={handleChange}
         required
         className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+        title={validationError ? errorMsg : ''}
     />
 
     return (
@@ -115,7 +121,7 @@ const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, v
                     : dataType === "date" ? dateField
                         : dataType === "password" ? passwordField : textField
             }
-            {validationError && <div className="text-yellow-600 text-sm px-2">{JSON.stringify(validationError, null, 2)}</div>}
+
         </div >
     );
 }

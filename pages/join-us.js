@@ -7,23 +7,32 @@ import { Roboto } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const JoinUs = () => {
     const dispatch = useDispatch();
-    const [validationErrors, setValidationErrors] = useState({});
     const [atFirst, setAtfirst] = useState(true);
     const [httpRequest, isLoading] = useHttp();
-
+    const [validationErrors, setValidationErrors] = useState({
+        firstname: null,
+        lastname: null,
+        email: null,
+        password: null,
+        address: null,
+        phone: null,
+        dob: null,
+        sex: null,
+        bloodGroup: null,
+        profileImage: null
+    });;
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
         email: '',
         password: '',
-        confirmpassword: '',
         address: '',
         phone: '',
         dob: '',
@@ -44,7 +53,7 @@ const JoinUs = () => {
     };
 
     const handleSubmit = async () => {
-        setAtfirst(false);
+
         const errors = formValidation(formData);
         setValidationErrors(errors);
         if (Object.keys(errors).length === 0) {
@@ -65,21 +74,21 @@ const JoinUs = () => {
             }
         }
     };
-    useEffect(() => {
-        if (!atFirst) {
-            const errors = formValidation(formData);
-            setValidationErrors(errors);
-        }
-    }, [formData]);
-
 
 
     const handleFieldChange = (fieldName, value) => {
+
         setFormData((prevData) => ({
             ...prevData,
             [fieldName]: value,
-        }))
+        }));
+
+        setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: formValidation({ ...formData, [fieldName]: value }, fieldName),
+        }));
     };
+
 
 
 
