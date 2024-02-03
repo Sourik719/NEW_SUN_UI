@@ -1,16 +1,23 @@
+import { useRef, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { Roboto } from "next/font/google";
 import { useHttp } from '@/hooks/use-http';
 import { userActions } from '@/store/user-slice';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import decodeToken from '@/utilities/decodeToken';
 import getConfig from 'next/config';
-import { useRouter } from 'next/router';
-import { useRef, useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useDispatch } from 'react-redux';
 
-const login = () => {
+const roboto = Roboto({ subsets: ['latin'], weight: '300' })
+
+const Login = () => {
     const router = useRouter();
-    const { publicRuntimeConfig } = getConfig();
     const dispatch = useDispatch();
+    const { publicRuntimeConfig } = getConfig();
     const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -38,15 +45,12 @@ const login = () => {
     };
     const handleSubmit = async () => {
         const errors = {};
-
         if (!loginData.email.trim()) {
             errors.email = "Please enter your email.";
         }
-
         if (!loginData.password.trim()) {
             errors.password = "Please enter your password.";
         }
-
         if (Object.keys(errors).length === 0) {
             try {
                 const responseData = await handleSignin();
@@ -65,53 +69,68 @@ const login = () => {
         }
     };
 
-
-
-    return (
-        <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-col bg-white boder-2 rounded-lg w-1/3 p-5 my-20 items-center">
-                <p className="text-black px-5 text-2xl pb-5">SIGN IN</p>
-                <div className="relative pt-5 w-full px-5">
-                    {emailRef.current && emailRef.current.value.trim() !== '' && <label className="absolute text-black top-1 left-5 bg-white px-1 py-1 transition-all duration-300 z-10 text-sm">
-                        Email:
-                    </label>
+    return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center">
+        <Head>
+            <title>Login</title>
+        </Head>
+        <div className="relative w-full sm:w-2/5 rounded-xl m-3">
+            <div className="absolute w-full h-full pointer-events-none">
+                <Image
+                    src={"/login.svg"}
+                    alt="Background"
+                    width={0}
+                    height={0}
+                    priority
+                    className="rounded-xl w-full h-full object-cover"
+                />
+            </div>
+            <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
+                <p className="text-xl p-3 m-2 mb-5 pointer-events-none">Team New Sun</p>
+                <div className="flex relative w-full px-5 mb-2">
+                    {emailRef.current && emailRef.current.value.trim() &&
+                        <label className="pr-4 py-2 mb-2">
+                            Email
+                        </label>
                     }
                     <input
                         onInput={(event) => handleFieldChange('email', event.target.value)}
                         placeholder="Email"
-                        className="text-black w-full py-2 px-2 my-1 border-b-2 border-yellow-500  border-0 focus:outline-none focus:border-b-4 focus:border-blue-300"
-                        datatype="Email"
-                        ref={emailRef} />
+                        className="w-full border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-300 py-2 mb-2"
+                        datatype="email"
+                        ref={emailRef}
+                    />
                 </div>
-                <div className="relative py-5 w-full px-5">
-                    {passwordRef.current && passwordRef.current.value.trim() !== '' && <label className="absolute text-black top-1 left-5 bg-white px-1 py-1 transition-all duration-300 z-10 text-sm">
-                        Password:
-                    </label>
+                <div className="flex relative w-full px-5 mb-2">
+                    {passwordRef.current && passwordRef.current.value.trim() &&
+                        <label className="pr-4 py-2 mb-2">
+                            Password
+                        </label>
                     }
-                    <div className="relative">
+                    <div className="w-full relative flex items-center">
                         <input
                             onInput={(event) => handleFieldChange('password', event.target.value)}
                             placeholder="Password"
-                            className="text-black w-full py-2 px-2 my-1  border-b-2 border-yellow-500  border-0 focus:outline-none focus:border-b-4 focus:border-blue-300"
+                            className="w-full border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-300 py-2 mb-2"
                             type={showPassword ? "text" : "password"}
-                            ref={passwordRef} />
-                        <button onClick={() => setShowPassword(!showPassword)} className="text-black absolute top-5 right-2">
-                            {showPassword ?
-                                <FaRegEye /> :
-                                <FaRegEyeSlash />
-                            }</button>
+                            ref={passwordRef}
+                        />
+                        <button className="text-gray-400 absolute right-2" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <FaEye /> : <FaEyeSlash />}
+                        </button>
                     </div>
                 </div>
-                <div>
-                    <button className="bg-green-500 px-2 py-2 my-1 text-center text-white border-2 rounded-lg hover:bg-blue-500" onClick={handleSubmit}>{isLoading ? "Signing In" : "Sign In"}</button>
+                <div className="w-full sm:w-2/3 p-3 mt-5">
+                    <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 text-white transition-colors duration-300" onClick={handleSubmit}>
+                        Login as Member
+                    </button>
                 </div>
-                <div className="text-black flex items-center text-center mt-3">
-                    <p className="px-2">Not a member yet?</p>
-                    <a className="focus:border-b-2 focus:text-black text-blue-400 hover:border-b-2" href='/join_us'>Join Us</a>
+                <div className="text-sm flex justify-center items-center mb-5">
+                    <span>Not a member yet?</span>
+                    <Link href="/join-us" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Join us</Link>
                 </div>
             </div>
         </div>
-    )
+    </div>)
 }
 
-export default login
+export default Login

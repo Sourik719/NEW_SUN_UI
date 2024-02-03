@@ -2,20 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { Roboto } from "next/font/google";
-const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
-const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, validationError }) => {
+const roboto = Roboto({ subsets: ['latin'], weight: '300' });
+const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, validationError }) => {
+
     const [isBlank, setIsBlank] = useState(true);
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const handlePassword = () => {
-        setShowPassword(!showPassword);
-    }
-
+    const handlePassword = () => setShowPassword(!showPassword);
     const inputRef = useRef(null);
     const handleFocus = () => {
         if (inputRef.current) {
-            inputRef.current.type = "date";
+            inputRef.current.type = "date"
+            const today = new Date()
+            inputRef.current.defaultValue = `${today.toISOString().substring(0, 10)}`
+            setIsBlank(false)
         }
     };
     const handleBlur = () => {
@@ -37,9 +38,9 @@ const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, 
 
     useEffect(() => {
         if (dataType === "select") {
-            setIsBlank(selectedOption === '');
+            setIsBlank(selectedOption === '')
         }
-    }, [selectedOption, dataType]);
+    }, [selectedOption, dataType])
 
     const textAreaField = <textarea
         placeholder={label}
@@ -119,4 +120,4 @@ const Fields = ({ label, dataType = 'text', options = [], onChange = () => { }, 
     );
 }
 
-export default Fields;
+export default Field;
