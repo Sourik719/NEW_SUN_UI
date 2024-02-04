@@ -11,7 +11,7 @@ const Notification = () => {
         setTimeout(notificationCancelHandler, 5000)
     }, [])
 
-    return message && (<div className="w-full flex justify-center absolute top-10">
+    return message && (<div className="w-full flex justify-center absolute top-14 z-40">
         <div className={`relative w-full sm:w-2/5 p-4 m-2 rounded-md ${type === 'error' ? "bg-rose-500 text-rose-900" : type === 'success' ? "bg-lime-500 text-lime-900" : "bg-slate-100 text-slate-900"}`}>
             <span>{message}</span>
             <div

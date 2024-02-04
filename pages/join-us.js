@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHttp } from "@/hooks/use-http";
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
-import { Roboto } from "next/font/google"
 
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import Container from "@/components/ui/Container";
 import Field from "@/components/registration/Field";
 import ImageField from "@/components/registration/ImageField";
 import formValidation from "@/validation/formValidation";
-
-const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const JoinUs = () => {
     const dispatch = useDispatch();
@@ -78,7 +76,7 @@ const JoinUs = () => {
         setValidationErrors(errors);
     }, [formData]);
 
-    return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center" >
+    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center" >
         <Head>
             <title>Join Us</title>
         </Head>
@@ -93,7 +91,7 @@ const JoinUs = () => {
                     className="rounded-xl w-full h-full object-cover"
                 />
             </div>
-            <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
+            <div className="relative flex flex-col justify-center items-center z-10 p-3">
                 <ImageField onChange={(value) => handleFieldChange("profileImage", value)} />
                 <div className="flex flex-col items-center my-2 w-full">
                     <div className="flex flex-col sm:flex-row justify-end w-full">
@@ -125,7 +123,7 @@ const JoinUs = () => {
                 </div>
             </div>
         </div>
-    </div>)
+    </Container>)
 }
 
 export default JoinUs;

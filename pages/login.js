@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { Roboto } from "next/font/google";
 import { useHttp } from '@/hooks/use-http';
 import { userActions } from '@/store/user-slice';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -9,10 +8,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import Container from "@/components/ui/Container";
 import decodeToken from '@/utilities/decodeToken';
 import getConfig from 'next/config';
-
-const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const Login = () => {
     const router = useRouter();
@@ -69,7 +67,7 @@ const Login = () => {
         }
     };
 
-    return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center">
+    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center">
         <Head>
             <title>Login</title>
         </Head>
@@ -84,7 +82,7 @@ const Login = () => {
                     className="rounded-xl w-full h-full object-cover"
                 />
             </div>
-            <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
+            <div className="relative flex flex-col justify-center items-center z-10 p-3">
                 <p className="text-xl p-3 m-2 mb-5 pointer-events-none">Team New Sun</p>
                 <div className="flex relative w-full px-5 mb-2">
                     {emailRef.current && emailRef.current.value.trim() &&
@@ -130,7 +128,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
-    </div>)
+    </Container>)
 }
 
 export default Login
