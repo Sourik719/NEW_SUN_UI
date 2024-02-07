@@ -5,6 +5,7 @@ import { bloodGroupOptions, genderOptions } from "@/data/registration";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
+import { userActions } from "@/store/user-slice";
 import formValidation from "@/validation/formValidation";
 import Head from "next/head";
 import Image from "next/image";
@@ -90,7 +91,7 @@ const JoinUs = () => {
 
 
 
-    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center" >
+    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center py-2" >
         <Head>
             <title>Join Us</title>
         </Head>

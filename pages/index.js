@@ -1,8 +1,11 @@
+import Carousel from "@/components/carousel/carousel"
+import Contact from "@/components/contact/contact"
 import Container from "@/components/ui/Container"
 
 const Home = () => {
     return (<Container>
-        <p>This is Home</p>
+        <Carousel />
+        <Contact />
     </Container>)
 }
 

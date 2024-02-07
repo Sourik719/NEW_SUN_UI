@@ -1,9 +1,12 @@
 import ProfileFields from '@/components/profile/Fields';
 import ProfileImage from '@/components/profile/profileImage';
+import Container from '@/components/ui/Container';
+import Loader from '@/components/ui/Loader';
 import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,7 +15,7 @@ const profile = () => {
     const router = useRouter();
     const { id } = router.query;
     const [user, setUser] = useState(null);
-    const [httpRequest] = useHttp();
+    const [httpRequest, isLoading] = useHttp();
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
@@ -38,13 +41,16 @@ const profile = () => {
         fetchData();
     }, [id]);
 
-    if (!user) {
-        return <div>Loading...</div>;
+    if (!user || isLoading) {
+        return <Loader />;
     }
     if (user) {
         return (
-            <div className='flex flex-col justify-end items-center'>
-                <div className='bg-white sm:w-2/3 lg:w-1/2  flex flex-col items-center my-5 mx-1 text-black border-2 rounded-md'>
+            <Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center" >
+                <Head>
+                    <title>Profile</title>
+                </Head>
+                <div className='relative w-[500px] xs:w-full flex flex-col bg-white items-center rounded-xl shadow-sm shadow-gray-600  mx-1 text-black border-2'>
                     <ProfileImage value={user.image} fieldName="image" gender={user.sex} />
                     <div className='flex flex-row justify-content w-5/6'>
                         <ProfileFields value={user.firstname} label="First Name" dataType="Text" editAble={true} id={id} fieldName="firstname" />
@@ -65,7 +71,8 @@ const profile = () => {
                         <ProfileFields value={user.status} label="Membership Status" dataType="Text" editAble={false} id={id} fieldName="status" />
                     </div>
                 </div>
-            </div>
+
+            </Container>
         )
     }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import NavLink from "./NavLink"
 
 const Navbar = () => {
@@ -13,16 +13,16 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', scrollHandler)
     }, [])
 
-    return (<div className={`fixed top-0 z-20 w-screen flex justify-between ${isScrolled && 'bg-red-400 bg-opacity-95'} transition-all duration-500 py-5 px-48`}>
-        <span>Navbar</span>
-        <div>
+    return (<div className={`fixed top-0 z-20 w-full flex flex-row justify-between ${isScrolled && 'bg-red-400 bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
+        <span className="p-2 mx-3 my-1">Navbar</span>
+        <div className="flex flex-row w-5/6">
             <NavLink label={'Home'} href={'/'} />
             <NavLink label={'About'} href={'/about'} />
             <NavLink label={'Contact'} href={'/contact'} />
             <NavLink label={'Join Us'} href={'/join-us'} />
             <NavLink label={'Login'} href={'/login'} />
         </div>
-        <span>Profile</span>
+        <span className="p-2 mx-3 my-1">Profile</span>
     </div>)
 }
 

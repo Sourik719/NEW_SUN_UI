@@ -1,10 +1,12 @@
 import Container from "@/components/ui/Container";
+import Loader from "@/components/ui/Loader";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
 import decodeToken from '@/utilities/decodeToken';
 import getConfig from 'next/config';
+import { Island_Moments } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +14,6 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
-
 const Login = () => {
     const router = useRouter();
     const dispatch = useDispatch();
@@ -71,11 +72,11 @@ const Login = () => {
         }
     };
 
-    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center">
+    return (<Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center">
         <Head>
             <title>Login</title>
         </Head>
-        <div className="relative w-full sm:w-2/5 rounded-xl m-3">
+        <div className="relative w-[500px] xs:w-full rounded-xl m-3">
             <div className="absolute w-full h-full pointer-events-none">
                 <Image
                     src={"/login.svg"}
@@ -123,7 +124,7 @@ const Login = () => {
                 </div>
                 <div className="w-full sm:w-2/3 p-3 mt-5">
                     <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 text-white transition-colors duration-300" onClick={handleSubmit}>
-                        Login as Member
+                        {isLoading ? <Loader isLoading={isLoading}/> : "Login as Member"}
                     </button>
                 </div>
                 <div className="text-sm flex justify-center items-center mb-5">

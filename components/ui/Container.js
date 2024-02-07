@@ -1,5 +1,5 @@
 const Container = ({ children, className = "" }) => {
-    return (<div className={`px-48 py-20 ${className}`}>
+    return (<div className={`pt-20 ${className}`}>
         {children}
     </div>)
 }
