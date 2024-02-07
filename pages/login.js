@@ -1,10 +1,10 @@
-import { useAsync } from '@/hooks/use-async';
+import Container from "@/components/ui/Container";
+import { useAsync } from "@/hooks/use-async";
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
 import decodeToken from '@/utilities/decodeToken';
 import getConfig from 'next/config';
-import { Roboto } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,8 +12,6 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
-
-const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const Login = () => {
     const router = useRouter();
@@ -73,7 +71,7 @@ const Login = () => {
         }
     };
 
-    return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center">
+    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center">
         <Head>
             <title>Login</title>
         </Head>
@@ -88,7 +86,7 @@ const Login = () => {
                     className="rounded-xl w-full h-full object-cover"
                 />
             </div>
-            <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
+            <div className="relative flex flex-col justify-center items-center z-10 p-3">
                 <p className="text-xl p-3 m-2 mb-5 pointer-events-none">Team New Sun</p>
                 <div className="flex relative w-full px-5 mb-2">
                     {emailRef.current && emailRef.current.value.trim() &&
@@ -134,7 +132,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
-    </div>)
+    </Container>)
 }
 
 export default Login

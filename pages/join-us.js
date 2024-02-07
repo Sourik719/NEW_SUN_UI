@@ -1,17 +1,16 @@
 import Field from "@/components/registration/Field";
 import ImageField from "@/components/registration/ImageField";
+import Container from "@/components/ui/Container";
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
 import formValidation from "@/validation/formValidation";
-import { Roboto } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const JoinUs = () => {
     const dispatch = useDispatch();
@@ -48,7 +47,7 @@ const JoinUs = () => {
         const responseData = await httpRequest('/signup', 'POST', formData);
         return responseData;
     };
-    
+
     const handleSubmit = async () => {
         const errors = formValidation(formData);
         setValidationErrors(errors);
@@ -91,7 +90,7 @@ const JoinUs = () => {
 
 
 
-    return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center" >
+    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center" >
         <Head>
             <title>Join Us</title>
         </Head>
@@ -107,16 +106,13 @@ const JoinUs = () => {
                     className="rounded-xl w-full h-4/5 object-cover"
                 />
             </div>
-
-            <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
+            <div className="relative flex flex-col justify-center items-center z-10 p-3">
                 <ImageField onChange={(value) => handleFieldChange("profileImage", value)} />
                 <div className="flex flex-col items-center my-2 w-full">
 
                     <div className="flex flex-col sm:flex-row justify-end w-full">
-
                         <Field label="First Name" dataType="Text" onChange={(value) => handleFieldChange('firstname', value)} validationError={validationErrors.firstname} />
                         <Field label="Last Name" dataType="Text" onChange={(value) => handleFieldChange('lastname', value)} validationError={validationErrors.lastname} />
-
                     </div>
 
                     <Field label="Email" dataType="Email" onChange={(value) => handleFieldChange('email', value)} validationError={validationErrors.email} />
@@ -132,21 +128,18 @@ const JoinUs = () => {
                         <Field label="Blood Group" dataType="select" options={bloodGroupOptions} onChange={(value) => handleFieldChange('bloodGroup', value)} validationError={validationErrors.bloodGroup} />
                     </div>
                 </div>
-                {/* {Object.keys(errors).length === 0 && */}
                 <div className="w-full sm:w-2/3 p-3">
                     <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 text-white transition-colors duration-300" onClick={handleSubmit}>
                         {isLoading ? "Signing Up" : "Join as Member"}
                     </button>
                 </div>
-                {/* } */}
                 <div className="text-sm flex justify-center items-center mb-5">
                     <span>Are you a member already?</span>
                     <Link href="/login" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Login</Link>
                 </div>
             </div>
         </div>
-
-    </div>)
+    </Container>)
 }
 
 export default JoinUs;

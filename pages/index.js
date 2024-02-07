@@ -1,9 +1,9 @@
+import Container from "@/components/ui/Container"
+
 const Home = () => {
-    return (
-        <div>
-            <p>This is Home</p>
-        </div>
-    )
+    return (<Container>
+        <p>This is Home</p>
+    </Container>)
 }
 
 export default Home

@@ -7,6 +7,7 @@ import { userActions } from '@/store/user-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 const profile = () => {
     const router = useRouter();
     const { id } = router.query;
