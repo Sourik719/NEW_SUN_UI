@@ -2,7 +2,7 @@ import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 const Contact = () => {
     return (
-        <div className="w-full flex flex-col bg-red-500 text-white px-5 shadow-gray-600 shadow-sm rounded-sm">
+        <div className="w-full flex flex-col bg-yellow-800 text-white px-5 shadow-gray-600 shadow-sm rounded-sm">
             <span className="px-2 py-2 text-2xl">
                 Contact Us
             </span>
