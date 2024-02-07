@@ -1,7 +1,9 @@
 import Field from "@/components/registration/Field";
 import ImageField from "@/components/registration/ImageField";
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
+import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
+import { notificationActions } from "@/store/notification-slice";
 import formValidation from "@/validation/formValidation";
 import { Roboto } from "next/font/google";
 import Head from "next/head";
@@ -9,11 +11,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
 const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const JoinUs = () => {
     const dispatch = useDispatch();
+    const catchAsync = useAsync();
     const [atFirst, setAtfirst] = useState(true);
     const [httpRequest, isLoading] = useHttp();
     const [validationErrors, setValidationErrors] = useState({
@@ -42,36 +44,31 @@ const JoinUs = () => {
     });
 
     const handleSignup = async () => {
-        try {
-            console.log(formData);
-            const responseData = await httpRequest('/signup', 'POST', formData);
-            return responseData;
-        } catch (error) {
-            console.error('Error during signup:', error.message);
-            throw error;
-        }
+        console.log(formData);
+        const responseData = await httpRequest('/signup', 'POST', formData);
+        return responseData;
     };
-
+    
     const handleSubmit = async () => {
-
         const errors = formValidation(formData);
         setValidationErrors(errors);
         if (Object.keys(errors).length === 0) {
-            try {
-                const isConfirmed = window.confirm("Are you sure you want to join as a member?");
-                if (isConfirmed) {
-                    const responseData = await handleSignup();
-                    const { token } = responseData;
-                    dispatch(userActions.setToken(token));
-                    console.log("Membership Taken", responseData);
-                } else {
-                    console.log("Action Cancelled");
-                }
-            } catch (error) {
-                console.log(error.message);
-                const errorMsg = JSON.stringify(error.message, null, 2);
-                window.alert(`Signup failed.${errorMsg}`);
+            const responseData = await catchAsync(handleSignup)();
+            if (responseData) {
+                const { token } = responseData;
+                dispatch(notificationActions.setNotification({
+                    type: 'success',
+                    message: 'Membership taken successfully!',
+                }));
+                dispatch(userActions.setToken(token));
+                console.log("Membership Taken", responseData);
             }
+        }
+        else {
+            dispatch(notificationActions.setNotification({
+                type: 'error',
+                message: 'Check the Marked Fields.',
+            }));
         }
     };
 
@@ -98,7 +95,9 @@ const JoinUs = () => {
         <Head>
             <title>Join Us</title>
         </Head>
+
         <div className="relative w-[500px] xs:w-full flex flex-col bg-white items-center rounded-xl shadow-sm shadow-gray-600">
+
             <div className="absolute w-full h-7/8 pointer-events-none">
                 <Image
                     src={"/registration.svg"}
@@ -108,16 +107,22 @@ const JoinUs = () => {
                     className="rounded-xl w-full h-4/5 object-cover"
                 />
             </div>
+
             <div className={`${roboto.className} relative flex flex-col justify-center items-center z-10 p-3`}>
                 <ImageField onChange={(value) => handleFieldChange("profileImage", value)} />
                 <div className="flex flex-col items-center my-2 w-full">
+
                     <div className="flex flex-col sm:flex-row justify-end w-full">
+
                         <Field label="First Name" dataType="Text" onChange={(value) => handleFieldChange('firstname', value)} validationError={validationErrors.firstname} />
                         <Field label="Last Name" dataType="Text" onChange={(value) => handleFieldChange('lastname', value)} validationError={validationErrors.lastname} />
+
                     </div>
+
                     <Field label="Email" dataType="Email" onChange={(value) => handleFieldChange('email', value)} validationError={validationErrors.email} />
                     <Field label="Password" dataType="password" onChange={(value) => handleFieldChange('password', value)} validationError={validationErrors.password} />
                     <Field label="Address" dataType="textarea" onChange={(value) => handleFieldChange('address', value)} validationError={validationErrors.address} />
+
                     <div className="flex flex-col sm:flex-row justify-end w-full">
                         <Field label="Mobile Number" dataType="Text" onChange={(value) => handleFieldChange('phone', value)} validationError={validationErrors.phone} />
                         <Field label="Date of Birth" dataType="date" onChange={(value) => handleFieldChange('dob', value)} validationError={validationErrors.dob} />
@@ -140,6 +145,7 @@ const JoinUs = () => {
                 </div>
             </div>
         </div>
+
     </div>)
 }
 

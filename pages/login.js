@@ -1,22 +1,24 @@
-import { useRef, useState } from "react";
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { Roboto } from "next/font/google";
+import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
+import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import decodeToken from '@/utilities/decodeToken';
+import getConfig from 'next/config';
+import { Roboto } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import decodeToken from '@/utilities/decodeToken';
-import getConfig from 'next/config';
+import { useRouter } from 'next/router';
+import { useRef, useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
 
 const roboto = Roboto({ subsets: ['latin'], weight: '300' })
 
 const Login = () => {
     const router = useRouter();
     const dispatch = useDispatch();
+    const catchAsync = useAsync();
     const { publicRuntimeConfig } = getConfig();
     const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
@@ -34,15 +36,11 @@ const Login = () => {
         }));
     };
     const handleSignin = async () => {
-        try {
-            const responseData = await httpRequest('/signin', 'POST', loginData);
-            return responseData;
-        } catch (error) {
-            console.error('Error during signin:', error.message);
-            window.alert(error.message);
-            throw error;
-        }
+        const responseData = await httpRequest('/signin', 'POST', loginData);
+        console.log(responseData);
+        return responseData;
     };
+
     const handleSubmit = async () => {
         const errors = {};
         if (!loginData.email.trim()) {
@@ -52,20 +50,26 @@ const Login = () => {
             errors.password = "Please enter your password.";
         }
         if (Object.keys(errors).length === 0) {
-            try {
-                const responseData = await handleSignin();
+            const responseData = await catchAsync(handleSignin)();
+            if (responseData) {
                 const { token } = responseData;
                 dispatch(userActions.setToken(token));
+                dispatch(notificationActions.setNotification({
+                    type: 'success',
+                    message: "Successfully Logged In"
+                }));
                 localStorage.setItem('token', token);
                 const userId = decodeToken(token, token_secret);
                 const id = userId._id;
                 router.push(`/users/${id}`);
-            } catch (error) {
-                console.error('Error during sign-in:', error.message);
             }
-        } else {
+        }
+        else {
             const errorsMessage = JSON.stringify(errors.email || errors.password, null, 2);
-            window.alert(errorsMessage);
+            dispatch(notificationActions.setNotification({
+                type: 'error',
+                message: errorsMessage
+            }));
         }
     };
 

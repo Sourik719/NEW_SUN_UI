@@ -1,6 +1,9 @@
+import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
+import { notificationActions } from "@/store/notification-slice";
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import RequireError from "../../validation/requireError";
 
 const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldName }) => {
@@ -13,6 +16,8 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     const [isBlank, setIsBlank] = useState(value === null);
     const [errors, setErrors] = useState(null);
     const [httpRequest] = useHttp();
+    const dispatch = useDispatch();
+    const catchAsync = useAsync();
 
     const handleEdit = (e) => {
         setFieldType(dataType);
@@ -20,33 +25,30 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
         inputRef.current.focus();
     };
 
-    const handleUpdate = async (updateData) => {
-        try {
+    const handleUpdate = async () => {
+        const updateData = { "update": { [fieldName]: fieldvalue } };
+        const confirmation = window.confirm(`Are you sure you want to update ${label}?`);
+        if (confirmation) {
             const responseData = await httpRequest(`/users/${id}`, 'PUT', updateData);
-            const confirmation = window.confirm(`Are you sure you want to update ${label}?`);
-            if (confirmation) {
-                window.alert(`${label} updated`);
-                setFinalValue(fieldvalue);
-                return responseData;
-            } else {
-                setfieldValue(finalvalue);
-            }
-        } catch (error) {
-            console.error("Error while updating data.");
+            setFinalValue(fieldvalue);
+            return responseData;
+        } else {
             setfieldValue(finalvalue);
-            window.alert("Error while updating data");
+            return null;
         }
     }
 
     const handleSave = async (e) => {
-        const updateData = { "update": { [fieldName]: fieldvalue } };
-        try {
-            const updateResponse = await handleUpdate(updateData);
-            setFieldType('text');
-            setEditMode(false);
-        } catch (error) {
-            console.error("Error while saving data.", error);
+        const updateResponse = await catchAsync(handleUpdate)();
+        if (updateResponse != null) {
+            dispatch(notificationActions.setNotification({
+                type: 'success',
+                message: `${label} updated`
+            }));
         }
+        setfieldValue(finalvalue);
+        setFieldType('text');
+        setEditMode(false);
     };
 
 

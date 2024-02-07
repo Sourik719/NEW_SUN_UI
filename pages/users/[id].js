@@ -2,6 +2,7 @@ import ProfileFields from '@/components/profile/Fields';
 import ProfileImage from '@/components/profile/profileImage';
 import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useHttp } from '@/hooks/use-http';
+import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -27,6 +28,10 @@ const profile = () => {
                 }
             } catch (error) {
                 console.error('Error fetching user details:', error.message);
+                dispatch(notificationActions.setNotification({
+                    type: 'error',
+                    message: error.message
+                }));
             }
         };
         fetchData();
