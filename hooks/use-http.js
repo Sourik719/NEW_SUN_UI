@@ -8,6 +8,7 @@ export const useHttp = () => {
     const { token } = useSelector(state => state.user)
     const httpRequest = async (url, method = 'GET', body = null) => {
         setIsLoading(true)
+        console.log(JSON.stringify(body));
         const res = await fetch(`${domain}${url}`, {
             method, body: body ? JSON.stringify(body) : null,
             headers: {
@@ -18,7 +19,7 @@ export const useHttp = () => {
         const { success, message, data } = await res.json()
         setIsLoading(false)
         if (!success) throw new Error(message)
-        return data
+        return { data, message }
     }
     return [httpRequest, isLoading]
 }

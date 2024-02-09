@@ -6,7 +6,6 @@ import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
 import decodeToken from '@/utilities/decodeToken';
 import getConfig from 'next/config';
-import { Island_Moments } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
+
 const Login = () => {
     const router = useRouter();
     const dispatch = useDispatch();
@@ -28,6 +28,7 @@ const Login = () => {
         password: ''
     })
     const token_secret = publicRuntimeConfig.TOKEN_SECRET;
+
     const handleFieldChange = (fieldName, value) => {
         setLoginData((prevData) => ({
             ...prevData,
@@ -51,16 +52,16 @@ const Login = () => {
         if (Object.keys(errors).length === 0) {
             const responseData = await catchAsync(handleSignin)();
             if (responseData) {
-                const { token } = responseData;
+                const { token } = responseData.data;
                 dispatch(userActions.setToken(token));
                 dispatch(notificationActions.setNotification({
                     type: 'success',
-                    message: "Successfully Logged In"
+                    message: responseData.message
                 }));
                 localStorage.setItem('token', token);
                 const userId = decodeToken(token, token_secret);
                 const id = userId._id;
-                router.push(`/users/${id}`);
+                router.push(`/members/${id}`);
             }
         }
         else {
@@ -124,7 +125,7 @@ const Login = () => {
                 </div>
                 <div className="w-full sm:w-2/3 p-3 mt-5">
                     <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 text-white transition-colors duration-300" onClick={handleSubmit}>
-                        {isLoading ? <Loader isLoading={isLoading}/> : "Login as Member"}
+                        {isLoading ? <Loader isLoading={isLoading} /> : "Login as Member"}
                     </button>
                 </div>
                 <div className="text-sm flex justify-center items-center mb-5">

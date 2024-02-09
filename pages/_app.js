@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 
 import Footer from '@/components/footer/footer'
 import Navbar from '@/components/navbar/Navbar'
+import Feedbackbtn from '@/components/ui/Feedback'
 import Notification from '@/components/ui/Notification'
 import { wrapper } from '@/store'
 import { Roboto } from "next/font/google"
@@ -17,6 +18,7 @@ const App = ({ Component, ...rest }) => {
       <Navbar />
       <Notification />
       <Component {...pageProps} />
+      <Feedbackbtn />
       <hr className='border-red-200 w-full' />
       <Footer />
     </div>

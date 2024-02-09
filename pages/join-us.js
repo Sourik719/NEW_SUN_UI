@@ -55,10 +55,10 @@ const JoinUs = () => {
         if (Object.keys(errors).length === 0) {
             const responseData = await catchAsync(handleSignup)();
             if (responseData) {
-                const { token } = responseData;
+                const { token } = responseData.data;
                 dispatch(notificationActions.setNotification({
                     type: 'success',
-                    message: 'Membership taken successfully!',
+                    message: responseData.message,
                 }));
                 dispatch(userActions.setToken(token));
                 console.log("Membership Taken", responseData);

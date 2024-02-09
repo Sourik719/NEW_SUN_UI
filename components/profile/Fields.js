@@ -29,7 +29,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
         const updateData = { "update": { [fieldName]: fieldvalue } };
         const confirmation = window.confirm(`Are you sure you want to update ${label}?`);
         if (confirmation) {
-            const responseData = await httpRequest(`/users/${id}`, 'PUT', updateData);
+            const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
             setFinalValue(fieldvalue);
             return responseData;
         } else {

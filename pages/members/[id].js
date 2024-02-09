@@ -27,8 +27,8 @@ const profile = () => {
                 }
                 dispatch(userActions.setToken(token));
                 if (id != undefined) {
-                    const userDetails = await httpRequest(`/users/${id}`, 'GET', null);
-                    setUser(userDetails.user);
+                    const userDetails = await httpRequest(`/members/${id}`, 'GET', null);
+                    setUser(userDetails.data.member);
                 }
             } catch (error) {
                 console.error('Error fetching user details:', error.message);
@@ -46,7 +46,7 @@ const profile = () => {
     }
     if (user) {
         return (
-            <Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center" >
+            <Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center pb-5" >
                 <Head>
                     <title>Profile</title>
                 </Head>
