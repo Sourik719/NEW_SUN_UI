@@ -3,6 +3,7 @@ import ProfileImage from '@/components/profile/profileImage';
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
 import { bloodGroupOptions, genderOptions } from '@/data/registration';
+import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
@@ -10,38 +11,40 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 const profile = () => {
     const router = useRouter();
     const { id } = router.query;
     const [user, setUser] = useState(null);
     const [httpRequest, isLoading] = useHttp();
     const dispatch = useDispatch();
+    const catchAsync = useAsync();
+
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    router.push('/login');
-                    return;
-                }
-                dispatch(userActions.setToken(token));
-                if (id != undefined) {
-                    const userDetails = await httpRequest(`/members/${id}`, 'GET', null);
-                    setUser(userDetails.data.member);
-                }
-            } catch (error) {
-                console.error('Error fetching user details:', error.message);
-                dispatch(notificationActions.setNotification({
-                    type: 'error',
-                    message: error.message
-                }));
+            const token = localStorage.getItem('token');
+            if (!token) {
+                router.push('/login');
+                return;
             }
-        };
-        fetchData();
+            dispatch(userActions.setToken(token));
+            if (id != undefined) {
+                const userDetails = await httpRequest(`/members/${id}`, 'GET', null);
+                setUser(userDetails.data.member);
+            }
+        }
+        catchAsync(fetchData)();
     }, [id]);
-
-    if (!user || isLoading) {
+    
+    const handleLogout = () => {
+        dispatch(userActions.setToken(null));
+        localStorage.removeItem('token');
+        router.push('/login');
+        dispatch(notificationActions.setNotification({
+            type: 'success',
+            message: 'You are successfully Loogged Out.'
+        }));
+    }
+    if (isLoading) {
         return <Loader />;
     }
     if (user) {
@@ -70,9 +73,12 @@ const profile = () => {
                         <ProfileFields value="7" label="Due" dataType="Number" editAble={false} id={id} fieldName="due" />
                         <ProfileFields value={user.status} label="Membership Status" dataType="Text" editAble={false} id={id} fieldName="status" />
                     </div>
+
+                    <button className='p-2 bg-red-500 text-white rounded-md hover:scale-105 m-2' onClick={handleLogout}>Log Out</button>
                 </div>
 
-            </Container>
+
+            </Container >
         )
     }
 }

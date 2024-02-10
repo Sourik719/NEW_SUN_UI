@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
-
-const decodeToken = (token, token_secret) => {
+import getConfig from "next/config";
+const decodeToken = (token) => {
+    const { publicRuntimeConfig } = getConfig();
+    const token_secret = publicRuntimeConfig.TOKEN_SECRET;
     try {
         const id = jwt.verify(token, token_secret);
         return id;

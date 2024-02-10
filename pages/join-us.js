@@ -1,22 +1,21 @@
 import Field from "@/components/registration/Field";
 import ImageField from "@/components/registration/ImageField";
+import Verifyemail from "@/components/registration/Verification";
 import Container from "@/components/ui/Container";
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
-import { userActions } from "@/store/user-slice";
 import formValidation from "@/validation/formValidation";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
 const JoinUs = () => {
     const dispatch = useDispatch();
     const catchAsync = useAsync();
-    const [atFirst, setAtfirst] = useState(true);
+    const [verifyMode, setVerifymode] = useState(false);
     const [httpRequest, isLoading] = useHttp();
     const [validationErrors, setValidationErrors] = useState({
         firstname: null,
@@ -55,13 +54,7 @@ const JoinUs = () => {
         if (Object.keys(errors).length === 0) {
             const responseData = await catchAsync(handleSignup)();
             if (responseData) {
-                const { token } = responseData.data;
-                dispatch(notificationActions.setNotification({
-                    type: 'success',
-                    message: responseData.message,
-                }));
-                dispatch(userActions.setToken(token));
-                console.log("Membership Taken", responseData);
+                setVerifymode(true);
             }
         }
         else {
@@ -86,12 +79,13 @@ const JoinUs = () => {
         }));
     };
 
-
-
-
-
-
     return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center py-2" >
+
+        {verifyMode &&
+            <div className="fixed top-40 left-50 z-20">
+                <Verifyemail email={formData.email} onClick={() => setVerifymode(false)} />
+            </div>}
+
         <Head>
             <title>Join Us</title>
         </Head>

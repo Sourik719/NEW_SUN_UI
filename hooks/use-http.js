@@ -8,7 +8,6 @@ export const useHttp = () => {
     const { token } = useSelector(state => state.user)
     const httpRequest = async (url, method = 'GET', body = null) => {
         setIsLoading(true)
-        console.log(JSON.stringify(body));
         const res = await fetch(`${domain}${url}`, {
             method, body: body ? JSON.stringify(body) : null,
             headers: {

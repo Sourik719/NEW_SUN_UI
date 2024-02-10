@@ -5,7 +5,6 @@ import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import { userActions } from '@/store/user-slice';
 import decodeToken from '@/utilities/decodeToken';
-import getConfig from 'next/config';
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,11 +13,11 @@ import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 
+
 const Login = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const catchAsync = useAsync();
-    const { publicRuntimeConfig } = getConfig();
     const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -27,7 +26,7 @@ const Login = () => {
         email: '',
         password: ''
     })
-    const token_secret = publicRuntimeConfig.TOKEN_SECRET;
+
 
     const handleFieldChange = (fieldName, value) => {
         setLoginData((prevData) => ({
@@ -59,7 +58,7 @@ const Login = () => {
                     message: responseData.message
                 }));
                 localStorage.setItem('token', token);
-                const userId = decodeToken(token, token_secret);
+                const userId = decodeToken(token);
                 const id = userId._id;
                 router.push(`/members/${id}`);
             }
