@@ -34,7 +34,7 @@ const profile = () => {
         }
         catchAsync(fetchData)();
     }, [id]);
-    
+
     const handleLogout = () => {
         dispatch(userActions.setToken(null));
         localStorage.removeItem('token');
@@ -44,8 +44,8 @@ const profile = () => {
             message: 'You are successfully Loogged Out.'
         }));
     }
-    if (isLoading) {
-        return <Loader />;
+    if (!user || isLoading) {
+        return (<Loader isLoading={!user ||isLoading}/>);
     }
     if (user) {
         return (

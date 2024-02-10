@@ -5,14 +5,15 @@ import { userActions } from "@/store/user-slice";
 import { useCallback, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-const Verifyemail = ({ email, onClick }) => {
+import Timer from "./Timer";
+const Verifyemail = ({ onClick, data }) => {
     const otpRef = useRef();
     const catchAsync = useAsync();
     const [httpRequest] = useHttp();
     const dispatch = useDispatch();
 
     const [verifyData, setVerifyData] = useState({
-        email: email,
+        email: data.email,
         otp: ''
     });
     const handleVerification = async () => {
@@ -62,16 +63,17 @@ const Verifyemail = ({ email, onClick }) => {
                     <FaXmark />
                 </button>
             </div>
-            <div className="px-2 py-2 text-md">
+            <div className="px-2 py-2 text-md my-1">
                 <p className="my-1 mb-2">A 6-digit verification otp has been sent to your registered email id.</p>
                 <input
                     ref={otpRef}
                     placeholder="Enter 6-Digit Verification Code"
-                    className="w-full border-2 px-2 py-1"
+                    className="w-full border-2 px-2 py-1 mt-1"
                     onChange={handleChange}
                 />
+                <Timer data={data} />
             </div>
-            <button className="px-2 py-1 bg-blue-800 hover:scale-105 m-1 text-white rounded-md" onClick={handleSubmit}>
+            <button className="px-2 py-2 bg-blue-800 hover:scale-105 my-1 text-white rounded-md" onClick={handleSubmit}>
                 Verify
             </button>
         </div>

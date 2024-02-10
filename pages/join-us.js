@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
 const JoinUs = () => {
     const dispatch = useDispatch();
     const catchAsync = useAsync();
@@ -54,7 +55,12 @@ const JoinUs = () => {
         if (Object.keys(errors).length === 0) {
             const responseData = await catchAsync(handleSignup)();
             if (responseData) {
+                dispatch(notificationActions.setNotification({
+                    type: 'success',
+                    message: responseData.message,
+                }));
                 setVerifymode(true);
+
             }
         }
         else {
@@ -83,14 +89,14 @@ const JoinUs = () => {
 
         {verifyMode &&
             <div className="fixed top-40 left-50 z-20">
-                <Verifyemail email={formData.email} onClick={() => setVerifymode(false)} />
+                <Verifyemail onClick={() => setVerifymode(false)} data={formData} />
             </div>}
 
         <Head>
             <title>Join Us</title>
         </Head>
 
-        <div className="relative w-[500px] xs:w-full flex flex-col bg-white items-center rounded-xl shadow-sm shadow-gray-600">
+        <div className={`relative w-[500px] xs:w-full flex flex-col bg-white items-center rounded-xl shadow-sm shadow-gray-600 ${verifyMode ? 'opacity-70 blur-sm' : 'opacity-100'}`}>
 
             <div className="absolute w-full h-7/8 pointer-events-none">
                 <Image
