@@ -4,16 +4,17 @@ import NavLink from "./NavLink";
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-    const userId = token ? decodeToken(token) : null;
-    const id = userId ? userId._id : null;
-
-    const scrollHandler = () => {
-        if (window.scrollY > 100) setIsScrolled(true);
-        else setIsScrolled(false);
-    };
-
+    const [id, setId] = useState(null);
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userId = token ? decodeToken(token) : null;
+        if (userId)
+            setId(userId._id)
+        const scrollHandler = () => {
+            if (window.scrollY > 50) setIsScrolled(true);
+            else setIsScrolled(false);
+        };
+
         window.addEventListener('scroll', scrollHandler);
         return () => window.removeEventListener('scroll', scrollHandler);
     }, []);

@@ -1,11 +1,11 @@
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { FaPen, FaSave } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import RequireError from "../../validation/requireError";
-
 const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldName }) => {
     const [fieldType, setFieldType] = useState('text');
     const inputRef = useRef(null);
@@ -18,7 +18,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     const [httpRequest] = useHttp();
     const dispatch = useDispatch();
     const catchAsync = useAsync();
-
+    const router = useRouter();
     const handleEdit = (e) => {
         setFieldType(dataType);
         setEditMode(true);
@@ -45,6 +45,8 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                 type: 'success',
                 message: `${label} updated`
             }));
+            router.reload();
+
         }
         setfieldValue(finalvalue);
         setFieldType('text');
