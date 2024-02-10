@@ -1,37 +1,42 @@
-import decodeToken from "@/utilities/decodeToken";
-import { useEffect, useState } from "react";
-import NavLink from "./NavLink";
+import { useState, useEffect } from "react"
+import { useAuth } from "@/hooks/use-auth"
+
+import Link from "next/link"
+import NavLink from "./NavLink"
+import Account from "./Account"
+import Loader from "../ui/Loader"
 
 const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [id, setId] = useState(null);
+    const [isAuthenticated, isAuthLoading] = useAuth()
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    const scrollHandler = () => {
+        if (window.scrollY > 50) setIsScrolled(true)
+        else setIsScrolled(false)
+    }
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        const userId = token ? decodeToken(token) : null;
-        if (userId)
-            setId(userId._id)
-        const scrollHandler = () => {
-            if (window.scrollY > 50) setIsScrolled(true);
-            else setIsScrolled(false);
-        };
+        window.addEventListener('scroll', scrollHandler)
+    }, [])
 
-        window.addEventListener('scroll', scrollHandler);
-        return () => window.removeEventListener('scroll', scrollHandler);
-    }, []);
-
-    return (
-        <div className={`fixed top-0 z-20 w-full flex flex-row justify-between ${isScrolled && 'bg-red-400 bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
-            <span className="p-2 mx-3 my-1">Navbar</span>
-            <div className="flex flex-row w-5/6">
+    return (<div className={`fixed top-0 z-20 w-full flex justify-between ${isScrolled && 'bg-slate-200 bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
+        <section className="flex justify-between items-center">
+            <Link href={'/'} className="hover:font-bold p-2 mx-3 my-1">Navbrand</Link>
+            <div className="flex flex-row ml-20">
                 <NavLink label={'Home'} href={'/'} />
                 <NavLink label={'About'} href={'/about'} />
+                <NavLink label={'Culture'} href={'/culture'} />
+                <NavLink label={'Tasks'} href={'/tasks'} />
                 <NavLink label={'Join Us'} href={'/join-us'} />
-                {id === null ? <NavLink label={'Login'} href={'/login'} /> :
-                    <NavLink label={'Profile'} href={`/members/${id}`} />}
             </div>
-            <span className="p-2 mx-3 my-1">Profile</span>
-        </div>
-    );
-};
+        </section>
+        <span className="p-2 mx-3 my-1">
+            {isAuthLoading ? <Loader /> : isAuthenticated
+                ? <Account />
+                : <Link href={'/login'} className="hover:bg-slate-100 rounded px-4 py-2 mx-3 my-1">Login</Link>
+            }
+        </span>
+    </div>)
+}
 
-export default Navbar;
+export default Navbar

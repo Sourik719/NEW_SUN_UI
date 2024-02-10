@@ -1,7 +1,7 @@
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
-import { userActions } from "@/store/user-slice";
+import { userActions } from "@/store/member-slice";
 import { useCallback, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { useDispatch } from "react-redux";

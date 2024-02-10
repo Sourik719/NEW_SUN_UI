@@ -12,9 +12,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
 const JoinUs = () => {
     const dispatch = useDispatch();
-    const catchAsync = useAsync();
+    const { catchAsync } = useAsync();
     const [verifyMode, setVerifymode] = useState(false);
     const [httpRequest, isLoading] = useHttp();
     const [validationErrors, setValidationErrors] = useState({
@@ -42,29 +43,12 @@ const JoinUs = () => {
         profileImage: null
     });
 
-    const handleSignup = async () => {
-        console.log(formData);
-        const responseData = await httpRequest('/signup', 'POST', formData);
-        return responseData;
-    };
-
-    const handleSubmit = async () => {
+    const handleSubmit = catchAsync(async () => {
         const errors = formValidation(formData);
         setValidationErrors(errors);
-        if (Object.keys(errors).length === 0) {
-            const responseData = await catchAsync(handleSignup)();
-            if (responseData) {
-                setVerifymode(true);
-            }
-        }
-        else {
-            dispatch(notificationActions.setNotification({
-                type: 'error',
-                message: 'Check the Marked Fields.',
-            }));
-        }
-    };
-
+        const responseData = await httpRequest('/signup', 'POST', formData);
+        setVerifymode(!!responseData);
+    });
 
     const handleFieldChange = (fieldName, value) => {
 

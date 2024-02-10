@@ -6,7 +6,7 @@ import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
-import { userActions } from '@/store/user-slice';
+import { userActions } from '@/store/member-slice';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -34,7 +34,7 @@ const profile = () => {
         }
         catchAsync(fetchData)();
     }, [id]);
-    
+
     const handleLogout = () => {
         dispatch(userActions.setToken(null));
         localStorage.removeItem('token');

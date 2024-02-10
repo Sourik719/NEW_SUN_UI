@@ -19,7 +19,6 @@ const App = ({ Component, ...rest }) => {
       <Notification />
       <Component {...pageProps} />
       <Feedbackbtn />
-      <hr className='border-red-200 w-full' />
       <Footer />
     </div>
   </Provider>)
