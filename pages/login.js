@@ -3,8 +3,6 @@ import Loader from "@/components/ui/Loader";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
-import { userActions } from '@/store/user-slice';
-import decodeToken from '@/utilities/decodeToken';
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,12 +10,11 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
-
-
 const Login = () => {
+    
     const router = useRouter();
     const dispatch = useDispatch();
-    const catchAsync = useAsync();
+    const { catchAsync } = useAsync();
     const [httpRequest, isLoading] = useHttp();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -27,20 +24,14 @@ const Login = () => {
         password: ''
     })
 
-
     const handleFieldChange = (fieldName, value) => {
         setLoginData((prevData) => ({
             ...prevData,
             [fieldName]: value,
         }));
     };
-    const handleSignin = async () => {
-        const responseData = await httpRequest('/signin', 'POST', loginData);
-        console.log(responseData);
-        return responseData;
-    };
 
-    const handleSubmit = async () => {
+    const handleSubmit = catchAsync(async () => {
         const errors = {};
         if (!loginData.email.trim()) {
             errors.email = "Please enter your email.";
@@ -48,29 +39,15 @@ const Login = () => {
         if (!loginData.password.trim()) {
             errors.password = "Please enter your password.";
         }
-        if (Object.keys(errors).length === 0) {
-            const responseData = await catchAsync(handleSignin)();
-            if (responseData) {
-                const { token } = responseData.data;
-                dispatch(userActions.setToken(token));
-                dispatch(notificationActions.setNotification({
-                    type: 'success',
-                    message: responseData.message
-                }));
-                localStorage.setItem('token', token);
-                const userId = decodeToken(token);
-                const id = userId._id;
-                router.push(`/members/${id}`);
-            }
-        }
-        else {
-            const errorsMessage = JSON.stringify(errors.email || errors.password, null, 2);
-            dispatch(notificationActions.setNotification({
-                type: 'error',
-                message: errorsMessage
-            }));
-        }
-    };
+        const responseData = await httpRequest('/signin', 'POST', loginData);
+        const { token } = responseData.data;
+        dispatch(notificationActions.setNotification({
+            type: 'success',
+            message: responseData.message
+        }));
+        localStorage.setItem('jwt-token', token);
+        router.push('/');
+    });
 
     return (<Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center">
         <Head>

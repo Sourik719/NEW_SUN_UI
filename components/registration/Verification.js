@@ -1,14 +1,13 @@
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
-import { userActions } from "@/store/user-slice";
 import { useCallback, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import Timer from "./Timer";
 const Verifyemail = ({ onClick, data }) => {
     const otpRef = useRef();
-    const catchAsync = useAsync();
+    const { catchAsync } = useAsync();
     const [httpRequest] = useHttp();
     const dispatch = useDispatch();
 
@@ -36,15 +35,13 @@ const Verifyemail = ({ onClick, data }) => {
             const responseData = await catchAsync(handleVerification)();
             if (responseData) {
                 const { token } = responseData.data;
-                dispatch(userActions.setToken(token));
                 dispatch(notificationActions.setNotification({
                     type: 'success',
                     message: responseData.message
                 }));
-                localStorage.setItem('token', token);
-                const userId = decodeToken(token);
-                const id = userId._id;
-                router.push(`/members/${id}`);
+                localStorage.removeItem('jwt-token');
+                localStorage.setItem('jwt-token', token);
+
             }
         }
         else {

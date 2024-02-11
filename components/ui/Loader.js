@@ -1,9 +1,12 @@
-const Loader = ({ isLoading }) => {
-    return isLoading ? (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-100 z-80">
-            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24 animate-spin"></div>
+// FancyLoader.js
+const Loader = () => {
+    return (<div className="flex justify-center items-center h-10">
+        <div className="flex space-x-2">
+            <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce"></div>
+            <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-100"></div>
+            <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-200"></div>
         </div>
-    ) : null;
-};
+    </div>)
+}
 
-export default Loader;
+export default Loader

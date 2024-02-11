@@ -17,7 +17,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     const [errors, setErrors] = useState(null);
     const [httpRequest] = useHttp();
     const dispatch = useDispatch();
-    const catchAsync = useAsync();
+    const { catchAsync } = useAsync();
     const router = useRouter();
     const handleEdit = (e) => {
         setFieldType(dataType);
@@ -46,7 +46,6 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                 message: `${label} updated`
             }));
             router.reload();
-
         }
         setfieldValue(finalvalue);
         setFieldType('text');
@@ -70,7 +69,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     }, [fieldvalue, label, dataType]);
 
     return (
-        <div className={`relative w-4/5 mx-2 border border-2  ${editMode ? 'border-blue-400' : 'border-gray-200'} my-1 rounded-lg  ${editAble ? 'bg-white' : 'bg-gray-300'}`}>
+        <div className={`relative w-4/5 mx-2 border  ${editMode ? 'border-blue-400' : 'border-gray-200'} my-1 rounded-lg  ${editAble ? 'bg-white' : 'bg-gray-300'}`}>
             <label className="absolute bg-transparent text-black text-sm top-1 left-3 px-1 transition-all duration-300 z-10 flex flex-row">
                 {!isBlank && (<div>
                     {label}:
