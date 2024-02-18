@@ -14,7 +14,7 @@ const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { pageProps } = props
   return (<Provider store={store}>
-    <div className={roboto.className}>
+    <div className={`${roboto.className} bg-violet-800`}>
       <Navbar />
       <Notification />
       <Component {...pageProps} />

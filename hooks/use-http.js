@@ -6,6 +6,7 @@ export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const httpRequest = async (url, method = 'GET', body = null) => {
         const token = localStorage.getItem('jwt-token')
+        console.log(token);
         setIsLoading(true)
         const res = await fetch(`${domain}${url}`, {
             method, body: body ? JSON.stringify(body) : null,

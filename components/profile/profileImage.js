@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import { FaCamera } from "react-icons/fa";
 import blank from "../../public/blank.png";
 import female_blank from "../../public/female_blank.jpg";
 import male_blank from "../../public/male_blank.jpg";
@@ -21,13 +22,13 @@ const ProfileImage = ({ label, value, gender }) => {
             <div className="relative group w-40 h-40 rounded-full overflow-hidden border-2 border-black cursor-pointer"
                 onMouseEnter={() => setUploadState(true)}
                 onMouseLeave={() => setUploadState(false)}>
-                {uploadState && <label className="absolute w-full h-full bg-black bg-opacity-60 flex items-center justify-center text-gray-200 z-50">
-                    Edit
+                {uploadState && <label className="absolute w-full h-1/3 bg-black bg-opacity-80 flex items-center justify-center text-gray-200 z-50 bottom-0 text-xl">
+                    <FaCamera />
                     <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
-                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-100"
+                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-1/3 z-100"
                         id="image-upload"
                     />
                 </label>}

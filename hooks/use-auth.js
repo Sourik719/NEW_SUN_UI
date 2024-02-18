@@ -14,7 +14,6 @@ export const useAuth = () => {
     const persistAuthentication = catchAsync(async () => {
         if (!localStorage.getItem('jwt-token')) return
         const responseData = await httpRequest('/authenticate')
-        console.log(responseData.data.member);
         dispatch(memberActions.setMember(responseData.data.member))
         setIsAuthenticated(true)
     })
