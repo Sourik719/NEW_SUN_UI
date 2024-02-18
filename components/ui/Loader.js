@@ -1,4 +1,3 @@
-// FancyLoader.js
 const Loader = () => {
     return (<div className="flex justify-center items-center h-10">
         <div className="flex space-x-2">

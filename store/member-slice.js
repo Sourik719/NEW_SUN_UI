@@ -4,11 +4,21 @@ import { HYDRATE } from "next-redux-wrapper"
 const memberSlice = createSlice({
     name: 'member',
     initialState: {
-        member: null
+        token: null,
+        member: {}
     },
     reducers: {
+        setToken(state, action) {
+            state.token = action.payload
+        },
+        clearToken(state) {
+            state.token = null
+        },
         setMember(state, action) {
             state.member = action.payload
+        },
+        clearMember(state) {
+            state.member = {}
         }
     },
     extraReducers: (builder) => {
