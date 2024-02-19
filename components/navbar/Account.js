@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useRouter } from "next/router"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { memberActions } from "@/store/member-slice"
@@ -10,7 +9,6 @@ import Link from "next/link"
 
 const Account = () => {
     const dispatch = useDispatch()
-    const router = useRouter()
     const { member } = useSelector(state => state.member)
     const [isOpened, setIsOpened] = useState(false)
     const toggleHandler = () => setIsOpened(isOpened => !isOpened)
@@ -20,7 +18,6 @@ const Account = () => {
         dispatch(memberActions.clearToken())
         dispatch(notificationActions.setNotification({ message: 'You are successfully logged out.' }))
         setIsOpened(false)
-        router.replace('/')
     }
 
     return (<div className="relative cursor-pointer">

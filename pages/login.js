@@ -33,8 +33,8 @@ const Login = () => {
         const { token } = data;
         localStorage.setItem('jwt-token', token);
         dispatch(memberActions.setToken(token));
-        dispatch(notificationActions.setNotification({ message }));
         router.replace('/');
+        dispatch(notificationActions.setNotification({ message }));
     })
 
     return (<Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center">
@@ -59,7 +59,7 @@ const Login = () => {
                     />
                     <div className="w-full sm:w-2/3 p-3 mt-5">
                         <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 focus:bg-blue-700 text-white transition-colors duration-300" onClick={loginHandler}>
-                            {isLoading ? <Loader isLoading={isLoading} /> : "Login as Member"}
+                            {isLoading ? <Loader /> : "Login as Member"}
                         </button>
                     </div>
                     <div className="text-sm flex justify-center items-center mb-5">
