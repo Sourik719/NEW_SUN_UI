@@ -1,18 +1,25 @@
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaHeart } from "react-icons/fa"
 
 const Footer = () => {
-    return (
-        <div className="w-full items-center py-2 pb-10 px-5 flex flex-row justify-between bottom-10">
-            <p className="w-2/3 text-black pr-10 pl-5">
-                All Rights Reserved. Team NEW SUN 2024.
+    return (<footer className="flex flex-col sm:flex-row sm:justify-between items-center bg-slate-900 text-white text-sm p-4 sm:p-10">
+        <section className="text-center sm:text-left mb-7 sm:mb-0">
+            <p>&copy; {new Date().getFullYear()} Team New Sun NGO. All rights reserved.</p>
+            <p className="flex justify-center sm:justify-start mt-2">
+                <span>Made with</span>
+                <span className="text-red-500 px-1 mt-1"><FaHeart /></span>
+                <span>by our volunteers</span>
             </p>
-            <div className="flex flex-row">
-                <a className="text-xl p-2" href="https://www.facebook.com/helpingsociety2019/"><FaFacebook/></a>
-                <a className="text-xl p-2" href="https://www.instagram.com/newsun2019/"><FaInstagram /></a>
-                <a className="text-xl p-2" href="https://www.youtube.com/@TeamNEWSUN2019"><FaYoutube /></a>
-                <a className="text-xl p-2" href="https://twitter.com/newsunngo2019"><FaTwitter /></a>
+        </section>
+        <section className="flex flex-col items-center">
+            <p>Follow us on</p>
+            <div className="flex mt-2">
+                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://www.facebook.com/helpingsociety2019/" target="_blank"><FaFacebook /></a>
+                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://www.instagram.com/newsun2019/" target="_blank"><FaInstagram /></a>
+                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://www.youtube.com/@TeamNEWSUN2019" target="_blank"><FaYoutube /></a>
+                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://twitter.com/newsunngo2019" target="_blank"><FaTwitter /></a>
             </div>
-        </div>
-    )
+        </section>
+    </footer>)
 }
-export default Footer;
+
+export default Footer

@@ -13,13 +13,15 @@ const Container = ({ children, className }) => {
     const router = useRouter()
     const { message } = useSelector(state => state.notification)
 
-    return (<div className={`${roboto.className} pt-20 ${className}`}>
-        <Navbar />
-        {message && <Notification />}
-        {children}
-        {router.pathname !== '/join-us' && router.pathname !== '/login' &&
-            <Feedbackbtn />
-        }
+    return (<div className="flex flex-col justify-between">
+        <div className={`${roboto.className} min-h-screen pt-20 ${className}`}>
+            <Navbar />
+            {message && <Notification />}
+            {children}
+            {router.pathname !== '/join-us' && router.pathname !== '/login' &&
+                <Feedbackbtn />
+            }
+        </div>
         <Footer />
     </div>)
 }

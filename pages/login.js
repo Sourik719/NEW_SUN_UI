@@ -37,7 +37,7 @@ const Login = () => {
         dispatch(notificationActions.setNotification({ message }));
     })
 
-    return (<Container className="bg-slate-200 min-h-screen w-full flex flex-col justify-center items-center">
+    return (<Container className="bg-slate-200 w-full flex flex-col justify-center items-center">
         <Head>
             <title>Login</title>
         </Head>
