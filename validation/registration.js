@@ -4,7 +4,7 @@ export const regex = {
     phone: /^\d{10}$/
 }
 
-export const isUntouched = (obj) => {
+export const hasUntouched = (obj) => {
     for (const key in obj) {
         if (obj[key] === null) return true
     }

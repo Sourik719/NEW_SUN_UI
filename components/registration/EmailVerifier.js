@@ -1,13 +1,13 @@
+import { useCallback, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
-import { useCallback, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
 
 import Timer from "./Timer";
 
-const EmailVerifier = ({ onClick, data }) => {
+const EmailVerifier = ({ data, onCancel }) => {
     const otpRef = useRef();
     const { catchAsync } = useAsync();
     const [httpRequest] = useHttp();
@@ -17,7 +17,7 @@ const EmailVerifier = ({ onClick, data }) => {
         email: data.email,
         otp: ''
     });
-    
+
     const handleVerification = async () => {
         const responseData = await httpRequest('/signup-verify', 'POST', verifyData);
         console.log(responseData);
@@ -55,11 +55,11 @@ const EmailVerifier = ({ onClick, data }) => {
             }));
         }
     };
-    return (
-        <div className="w-full flex flex-col justify-center items-center shadow-md rounded-md bg-white border-2">
+    return (<div className="w-full h-full absolute z-10 flex justify-center items-start">
+        <div className="flex flex-col justify-center items-center shadow-md bg-white border-2">
             <div className="w-full bg-blue-600 px-2 py-2 text-md text-white flex flex-row justify-between">
                 <h4 className="px-3">Verify your email</h4>
-                <button className='hover:bg-red-500 text-black text-xl' onClick={onClick}>
+                <button className='hover:bg-red-500 text-black text-xl' onClick={onCancel}>
                     <FaXmark />
                 </button>
             </div>
@@ -77,7 +77,7 @@ const EmailVerifier = ({ onClick, data }) => {
                 Verify
             </button>
         </div>
-    )
+    </div>)
 }
 
 export default EmailVerifier

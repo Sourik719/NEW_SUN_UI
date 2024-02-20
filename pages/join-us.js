@@ -4,7 +4,7 @@ import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
 import { registrationActions } from "@/store/registration-slice"
 import { notificationActions } from "@/store/notification-slice"
-import { isUntouched } from "@/validation/registration"
+import { hasUntouched } from "@/validation/registration"
 
 import Head from "next/head"
 import Link from "next/link"
@@ -23,7 +23,7 @@ const JoinUs = () => {
     const [isVerifying, setIsVerifying] = useState(false)
 
     const signupHandler = catchAsync(async () => {
-        if (isUntouched(errors)) throw new Error('Please fill all your details to be a member.')
+        if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
         const { message } = await httpRequest('/signup', 'POST', fields)
         setIsVerifying(true)
         dispatch(notificationActions.setNotification({ message }))
@@ -33,12 +33,8 @@ const JoinUs = () => {
         <Head>
             <title>Join Us</title>
         </Head>
-        {isVerifying &&
-            <div className="fixed top-40 left-50 z-20">
-                <EmailVerifier onClick={() => setIsVerifying(false)} data={fields} />
-            </div>
-        }
-        <div className={`w-full sm:w-2/5 p-2 mb-10 ${isVerifying && 'blur-sm'}`}>
+        {isVerifying && <EmailVerifier data={fields} onCancel={() => setIsVerifying(false)} />}
+        <div className={`w-full sm:w-2/5 p-2 mb-10 ${isVerifying && 'blur-lg'}`}>
             <div className="relative rounded-xl shadow-sm">
                 <Background />
                 <div className="relative flex flex-col justify-center items-center z-10 p-3">
