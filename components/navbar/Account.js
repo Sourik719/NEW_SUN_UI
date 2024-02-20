@@ -1,27 +1,23 @@
-import { notificationActions } from "@/store/notification-slice"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/router"
 import { useState } from "react"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
+import { memberActions } from "@/store/member-slice"
+import { notificationActions } from "@/store/notification-slice"
+
+import Image from "next/image"
+import Link from "next/link"
 
 const Account = () => {
+    const dispatch = useDispatch()
     const { member } = useSelector(state => state.member)
-    const dispatch = useDispatch();
     const [isOpened, setIsOpened] = useState(false)
-    const toggleHandler = () => setIsOpened(isOpened => !isOpened);
-    const router = useRouter();
+    const toggleHandler = () => setIsOpened(isOpened => !isOpened)
 
-    const handleLogout = () => {
-        localStorage.removeItem('jwt-token');
-        router.push('/');
-        dispatch(notificationActions.setNotification({
-            type: 'success',
-            message: 'You are successfully Logged Out.'
-        }));
-
-        setIsOpened(false);
+    const logoutHandler = () => {
+        localStorage.removeItem('jwt-token')
+        dispatch(memberActions.clearToken())
+        dispatch(notificationActions.setNotification({ message: 'You are successfully logged out.' }))
+        setIsOpened(false)
     }
 
     return (<div className="relative cursor-pointer">
@@ -29,6 +25,7 @@ const Account = () => {
             <div className="bg-slate-100 rounded-full">
                 <Image
                     src={member.image || '/blank.png'}
+                    alt={'Profile'}
                     width={30}
                     height={30}
                     className="rounded-full"
@@ -40,8 +37,8 @@ const Account = () => {
         </section>
         {isOpened &&
             <section className="absolute top-10 right-0 flex flex-col bg-slate-300 w-32 text-sm p-1 rounded">
-                <Link href={`/members/${member._id}`} onClick={() => setIsOpened(false)} className="hover:bg-slate-100 p-3 rounded">My Profile</Link>
-                <Link href={'/'} onClick={handleLogout} className="hover:bg-slate-100 p-3 rounded">Logout</Link>
+                <Link href={`/members/${member._id}`} onClick={toggleHandler} className="hover:bg-slate-100 p-3 rounded">My Profile</Link>
+                <Link href={'/'} onClick={logoutHandler} className="hover:bg-slate-100 p-3 rounded">Logout</Link>
             </section>
         }
     </div>)

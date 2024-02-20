@@ -1,7 +1,6 @@
 import Contribution from '@/components/profile/Contribution';
 import ProfileFields from '@/components/profile/Fields';
 import ProfileImage from '@/components/profile/profileImage';
-import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
 import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useAsync } from '@/hooks/use-async';
@@ -32,7 +31,7 @@ const profile = () => {
     }
     if (user) {
         return (
-            <Container className="relative bg-slate-200 min-h-screen flex md:flex-row flex-col justify-center items-center py-5">
+            <div className="relative bg-slate-200 min-h-screen flex md:flex-row flex-col justify-center items-center py-5">
                 <Head>
                     <title>Profile</title>
                 </Head>
@@ -78,7 +77,7 @@ const profile = () => {
                 <div className='mx-2 sm:w-1/4'>
                     <Contribution />
                 </div>
-            </Container>
+            </div>
         )
     }
 }

@@ -1,11 +1,9 @@
 import Field from "@/components/registration/Field";
 import ImageField from "@/components/registration/ImageField";
 import Verifyemail from "@/components/registration/Verification";
-import Container from "@/components/ui/Container";
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
-import { notificationActions } from "@/store/notification-slice";
 import formValidation from "@/validation/formValidation";
 import Head from "next/head";
 import Image from "next/image";
@@ -64,7 +62,7 @@ const JoinUs = () => {
         }));
     };
 
-    return (<Container className="bg-slate-200 min-h-screen w-full flex justify-center items-center py-2" >
+    return (<div className="bg-slate-200 min-h-screen w-full flex justify-center items-center py-2" >
 
         {verifyMode &&
             <div className="fixed top-40 left-50 z-20">
@@ -119,7 +117,7 @@ const JoinUs = () => {
                 </div>
             </div>
         </div>
-    </Container>)
+    </div>)
 }
 
 export default JoinUs;

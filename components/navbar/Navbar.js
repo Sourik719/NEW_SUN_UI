@@ -16,10 +16,9 @@ const Navbar = () => {
 
     useEffect(() => {
         window.addEventListener('scroll', scrollHandler)
-
     }, [])
 
-    return (<div className={`fixed top-0 z-20 w-full flex justify-between ${isScrolled && 'bg-black bg-opacity-80 text-black'} text-white transition-all duration-500 py-2 px-2`}>
+    return (<div className={`fixed top-0 z-20 w-full flex justify-between ${isScrolled && 'bg-black bg-opacity-80 text-black'} text-white  transition-all duration-500 py-2 px-2`}>
         <section className="flex justify-between items-center">
             <Link href={'/'} className="hover:font-bold p-2 mx-3 my-1">Navbrand</Link>
             <div className="flex flex-row ml-20">
@@ -27,13 +26,15 @@ const Navbar = () => {
                 <NavLink label={'About'} href={'/about'} />
                 <NavLink label={'Culture'} href={'/culture'} />
                 <NavLink label={'Tasks'} href={'/tasks'} />
-                <NavLink label={'Join Us'} href={'/join-us'} />
             </div>
         </section>
         <span className="p-2 mx-3 my-1">
-            {isAuthLoading ? <Loader /> : (isAuthenticated
+            {isAuthLoading ? <Loader /> : isAuthenticated
                 ? <Account />
-                : <Link href={'/login'} className="hover:bg-slate-100 rounded px-4 py-2 mx-3 my-1">Login</Link>)
+                : <div className="space-x-2">
+                    <Link href={'/join-us'} className="hover:bg-slate-100 rounded p-2 my-1">Join us</Link>
+                    <Link href={'/login'} className="hover:bg-slate-100 rounded p-2 my-1">Login</Link>
+                </div>
             }
         </span>
     </div>)
