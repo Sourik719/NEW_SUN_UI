@@ -12,11 +12,19 @@ const Footer = () => {
         </section>
         <section className="flex flex-col items-center">
             <p>Follow us on</p>
-            <div className="flex mt-2">
-                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://www.facebook.com/helpingsociety2019/" target="_blank"><FaFacebook /></a>
-                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://www.instagram.com/newsun2019/" target="_blank"><FaInstagram /></a>
-                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://www.youtube.com/@TeamNEWSUN2019" target="_blank"><FaYoutube /></a>
-                <a className="text-xl p-2 mr-0.5 cursor-pointer" href="https://twitter.com/newsunngo2019" target="_blank"><FaTwitter /></a>
+            <div className="text-xl space-x-0.5 flex mt-2">
+                <a className="p-2 cursor-pointer" aria-label="facebook" href="https://www.facebook.com/helpingsociety2019/" target="_blank">
+                    <FaFacebook />
+                </a>
+                <a className="p-2 cursor-pointer" aria-label="instagram" href="https://www.instagram.com/newsun2019/" target="_blank">
+                    <FaInstagram />
+                </a>
+                <a className="p-2 cursor-pointer" aria-label="youtube" href="https://www.youtube.com/@TeamNEWSUN2019" target="_blank">
+                    <FaYoutube />
+                </a>
+                <a className="p-2 cursor-pointer" aria-label="twitter" href="https://twitter.com/newsunngo2019" target="_blank">
+                    <FaTwitter />
+                </a>
             </div>
         </section>
     </footer>)

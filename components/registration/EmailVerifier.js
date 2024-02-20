@@ -4,8 +4,10 @@ import { notificationActions } from "@/store/notification-slice";
 import { useCallback, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
+
 import Timer from "./Timer";
-const Verifyemail = ({ onClick, data }) => {
+
+const EmailVerifier = ({ onClick, data }) => {
     const otpRef = useRef();
     const { catchAsync } = useAsync();
     const [httpRequest] = useHttp();
@@ -15,6 +17,7 @@ const Verifyemail = ({ onClick, data }) => {
         email: data.email,
         otp: ''
     });
+    
     const handleVerification = async () => {
         const responseData = await httpRequest('/signup-verify', 'POST', verifyData);
         console.log(responseData);
@@ -77,4 +80,4 @@ const Verifyemail = ({ onClick, data }) => {
     )
 }
 
-export default Verifyemail;
+export default EmailVerifier

@@ -1,129 +1,72 @@
-import { useEffect, useRef, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState, useRef } from "react"
+import { useDispatch } from "react-redux"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
-import { Roboto } from "next/font/google";
+const Field = ({ label, type = 'text', value, actionCreator, error, options = [] }) => {
+    const dispatch = useDispatch()
+    const fieldRef = useRef()
+    const [isShowed, setShowed] = useState(false)
+    const toggleHandler = () => setShowed(isShowed => !isShowed)
 
-const roboto = Roboto({ subsets: ['latin'], weight: '300' });
-const Field = ({ label, dataType = 'text', options = [], onChange = () => { }, validationError }) => {
+    const fieldChangeHandler = e => {
+        const value = e.target.value + (type === 'date' ? 'T23:59:59.999Z' : '')
+        dispatch(actionCreator(value))
+    }
 
-    const [isBlank, setIsBlank] = useState(true);
-    const [selectedOption, setSelectedOption] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const handlePassword = () => setShowPassword(!showPassword);
-    const inputRef = useRef(null);
-    const errorMsg = JSON.stringify(validationError, null, 2);
-    const handleFocus = () => {
-        if (inputRef.current) {
-            inputRef.current.type = "date"
-            const today = new Date()
-            inputRef.current.defaultValue = `${today.toISOString().substring(0, 10)}`
-            setIsBlank(false)
-        }
-    };
-    const handleBlur = () => {
-        if (inputRef.current) {
-            inputRef.current.type = "text";
-        }
-    };
-
-    const handleChange = (e) => {
-        const inputValue = e.target.value.trim();
-        if (dataType === "select") {
-            setSelectedOption(e.target.value);
-            onChange(e.target.value)
-        } else {
-            setIsBlank(inputValue === '');
-            onChange(inputValue)
-        }
-    };
-
-    useEffect(() => {
-        if (dataType === "select") {
-            setIsBlank(selectedOption === '')
-        }
-    }, [selectedOption, dataType])
+    const fieldFocusHandler = () => {
+        if (type !== 'date' || !fieldRef.current) return
+        fieldRef.current.type = 'date'
+        const today = new Date().toISOString()
+        fieldRef.current.defaultValue = `${today.substring(0, 10)}`
+    }
 
     const textAreaField = <textarea
+        name={label}
         placeholder={label}
-        onChange={handleChange}
+        onChange={fieldChangeHandler}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
-        title={validationError ? errorMsg : ''}
+        className={`w-full px-3 py-2 my-1 border rounded-md  ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     />
 
     const selectField = <select
-        value={selectedOption}
-        onChange={handleChange}
+        name={label}
+        value={value}
+        onChange={fieldChangeHandler}
         required
-        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md ${selectedOption == "" ? 'text-gray-400' : 'text-black'} ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
-        title={validationError ? errorMsg : ''}
+        className={`w-full px-3 py-2 my-1 border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     >
-        <option value="" selected disabled>{label}</option>
-        {options.map((option) => (
-            <option key={option.value} value={option.value} className="text-black">
-                {option.label}
-            </option>
-        ))}
+        <option value='' disabled>{label}</option>
+        {options.map((option, i) =>
+            <option key={i} value={option.value}>{option.label}</option>
+        )}
     </select>
 
-    const dateField = <div className="flex flex-col">
+    const complexField = <div className="w-full relative flex items-center">
         <input
-            ref={inputRef}
-            type='text'
+            ref={fieldRef}
+            type={type === 'password' && !isShowed ? 'password' : 'text'}
+            name={label}
             placeholder={label}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+            onChange={fieldChangeHandler}
+            onFocus={fieldFocusHandler}
+            className={`w-full px-3 py-2 my-1 border rounded-md  ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
             required
-            className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
-            title={validationError ? errorMsg : ''}
         />
+        {type === 'password' &&
+            <div className="text-slate-300 absolute right-2 z-10" onClick={toggleHandler}>
+                {isShowed ? <FaEye /> : <FaEyeSlash />}
+            </div>
+        }
     </div>
 
-    const passwordField = <div className="relative z-0">
-        <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder={label}
-            onChange={handleChange}
-            required
-            className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
-            title={validationError ? errorMsg : ''}
-        />
-        <div className="absolute top-4 right-2">
-            <button
-                type="button"
-                className="text-gray-400"
-                onClick={handlePassword}
-            >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </button>
-        </div>
-    </div>
-
-    const textField = <input
-        type={'text'}
-        placeholder={label}
-        onChange={handleChange}
-        required
-        className={`${roboto.className} w-full px-3 py-2 my-1 border rounded-md  ${validationError ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
-        title={validationError ? errorMsg : ''}
-    />
-
-    return (
-        <div className="relative w-full px-5">
-            {!isBlank &&
-                <label className={`${roboto.className} text-xs absolute -top-px left-8 bg-white rounded-full px-1 z-10`}>
-                    {label}
-                </label>
-            }
-            {dataType === "textarea" ? textAreaField
-                : dataType === "select" ? selectField
-                    : dataType === "date" ? dateField
-                        : dataType === "password" ? passwordField : textField
-            }
-
-        </div >
-    );
+    return (<div className="relative w-full px-5">
+        {value &&
+            <label className="text-xs absolute -top-1 left-8 bg-white rounded-full px-0.5 z-10">
+                {label}
+            </label>
+        }
+        {type === 'textarea' ? textAreaField : type === 'select' ? selectField : complexField}
+    </div >)
 }
 
-export default Field;
+export default Field

@@ -3,6 +3,7 @@ import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 const Timer = ({ data }) => {
     const [seconds, setSeconds] = useState(10);
     const [httpRequest] = useHttp();
