@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 const Footer = () => {
     return (
         <div className="w-full items-center py-2 pb-10 px-5 flex flex-row justify-between bottom-10 items-center">
-            <p className="w-2/3 text-black pr-10 pl-5">
+            <p className="w-2/3 pr-10 pl-5">
                 All Rights Reserved. Team NEW SUN.
             </p>
             <div className="flex flex-row">

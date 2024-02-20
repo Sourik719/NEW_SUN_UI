@@ -13,7 +13,6 @@ export const useAsync = () => {
                     type: 'error',
                     message: error.message
                 }));
-                throw error;
             }
         };
     };
