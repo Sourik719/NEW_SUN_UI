@@ -2,7 +2,10 @@ import Image from "next/image"
 const Purpose = () => {
     return (
         <div className="w-full flex flex-col bg-black px-2 items-center py-5">
-            <p className="flex flex-row text-white text-3xl py-10"><h2>WHAT IS</h2><h2 className="text-orange-400 ml-1">TEAM NEW SUN?</h2></p>
+            <div className="flex text-white text-3xl py-10">
+                <h2>WHAT IS</h2>
+                <h2 className="text-orange-400 ml-1">TEAM NEW SUN?</h2>
+            </div>
 
 
             <div className="flex flex-col sm:flex-row justify-center text-justify text-white text-md px-5 w-full">
