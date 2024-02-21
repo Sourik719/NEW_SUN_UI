@@ -1,12 +1,11 @@
+import Contribution from '@/components/profile/Contribution';
 import ProfileFields from '@/components/profile/Fields';
 import ProfileImage from '@/components/profile/profileImage';
-import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
 import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 const profile = () => {
@@ -32,23 +31,11 @@ const profile = () => {
     }
     if (user) {
         return (
-            <Container className="bg-slate-200 min-h-screen flex flex-col justify-center items-center py-5">
+            <div className="relative bg-slate-200 min-h-screen flex md:flex-row flex-col justify-center items-center py-5">
                 <Head>
                     <title>Profile</title>
                 </Head>
-
-                <div className="relative w-[500px] bg-white rounded-md shadow-md ">
-                    <div className="absolute w-full h-full pointer-events-none">
-                        <Image
-                            src={"/profile_background.svg"}
-                            alt="Background"
-                            width={1920}
-                            height={1080}
-                            objectFit="cover"
-                            className="rounded-xl"
-                        />
-                    </div>
-
+                <div className="w-full md:w-1/2 bg-white rounded-md shadow-md">
                     <div className='px-8 py-6'>
                         <ProfileImage value={user.image} fieldName="image" gender={user.sex} />
                         <div className="flex flex-wrap">
@@ -87,7 +74,10 @@ const profile = () => {
                         </div>
                     </div>
                 </div>
-            </Container>
+                <div className='mx-2 sm:w-1/4'>
+                    <Contribution />
+                </div>
+            </div>
         )
     }
 }

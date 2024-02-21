@@ -18,7 +18,7 @@ const Navbar = () => {
         window.addEventListener('scroll', scrollHandler)
     }, [])
 
-    return (<div className={`fixed top-0 z-20 w-full flex justify-between ${isScrolled && 'bg-slate-200 bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
+    return (<div className={`fixed top-0 z-20 w-full flex justify-between ${isScrolled && 'bg-black bg-opacity-80 text-black'} text-white  transition-all duration-500 py-2 px-2`}>
         <section className="flex justify-between items-center">
             <Link href={'/'} className="hover:font-bold p-2 mx-3 my-1">Navbrand</Link>
             <div className="flex flex-row ml-20">

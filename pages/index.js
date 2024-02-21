@@ -1,18 +1,18 @@
-import Head from "next/head"
 import Carousel from "@/components/home/carousel"
 import Contact from "@/components/home/contact"
+import FeedbackCont from "@/components/home/feedbackView"
 import Purpose from "@/components/home/purpose"
-import Container from "@/components/ui/Container"
-
+import Head from "next/head"
 const Home = () => {
-    return (<Container className="bg-yellow-100">
+    return (<div className="bg-black">
         <Head>
             <title>Home</title>
         </Head>
         <Carousel />
         <Purpose />
+        <FeedbackCont />
         <Contact />
-    </Container>)
+    </div>)
 }
 
 export default Home
