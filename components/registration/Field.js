@@ -25,7 +25,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
         placeholder={label}
         onChange={fieldChangeHandler}
         required
-        className={`w-full px-3 py-2 my-1 border rounded-md  ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+        className={`w-full px-3 py-2 mb-2 border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     />
 
     const selectField = <select
@@ -33,7 +33,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
         value={value}
         onChange={fieldChangeHandler}
         required
-        className={`w-full px-3 py-2 my-1 border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+        className={`w-full px-3 py-2 mb-2 border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
     >
         <option value='' disabled>{label}</option>
         {options.map((option, i) =>
@@ -41,7 +41,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
         )}
     </select>
 
-    const complexField = <div className="w-full relative flex items-center">
+    const complexField = <div className="w-full relative flex items-center mb-3">
         <input
             ref={fieldRef}
             type={type === 'password' && !isShowed ? 'password' : 'text'}
@@ -49,7 +49,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
             placeholder={label}
             onChange={fieldChangeHandler}
             onFocus={fieldFocusHandler}
-            className={`w-full px-3 py-2 my-1 border rounded-md  ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+            className={`w-full px-3 py-2 border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
             required
         />
         {type === 'password' &&
@@ -61,7 +61,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
 
     return (<div className="relative w-full px-5">
         {value &&
-            <label className="text-xs absolute -top-1 left-8 bg-white rounded-full px-0.5 z-10">
+            <label className="text-xs absolute -top-2 left-8 bg-white rounded px-1 z-10">
                 {label}
             </label>
         }

@@ -1,92 +1,70 @@
-import { useAsync } from "@/hooks/use-async";
-import { useHttp } from "@/hooks/use-http";
-import { notificationActions } from "@/store/notification-slice";
-import { useCallback, useRef, useState } from "react";
-import { FaXmark } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
-import Loader from "../ui/Loader";
-import Timer from "./Timer";
+import { useState, useRef } from "react"
+import { useRouter } from "next/router"
+import { useDispatch } from "react-redux"
+import { useAsync } from "@/hooks/use-async"
+import { useHttp } from "@/hooks/use-http"
+import { notificationActions } from "@/store/notification-slice"
+import { FaXmark } from "react-icons/fa6"
 
-const EmailVerifier = ({ data, onCancel }) => {
-    const otpRefs = useRef([...Array(6)].map(() => useRef(null)));
-    const { catchAsync } = useAsync();
-    const [httpRequest, isLoading] = useHttp();
-    const dispatch = useDispatch();
+import Loader from "../ui/Loader"
+import Timer from "./Timer"
 
-    const [verifyData, setVerifyData] = useState({
-        email: data.email,
-        otp: ''
-    });
+const arrayOfSix = [...Array(6)]
 
-    const handleVerification = async () => {
-        const responseData = await httpRequest('/signup-verify', 'POST', verifyData);
-        console.log(responseData);
-        return responseData;
-    };
+const EmailVerifier = ({ fields, onCancel }) => {
+    const dispatch = useDispatch()
+    const router = useRouter()
+    const [otp, setOtp] = useState('')
+    const otpRefs = useRef(arrayOfSix.map(() => useRef(null)))
+    const { catchAsync } = useAsync()
+    const [httpRequest, isLoading] = useHttp()
 
-    const handleChange = useCallback((event, index) => {
-        const newOtp = event.target.value;
-        setVerifyData(prevData => ({
-            ...prevData,
-            otp: prevData.otp.substr(0, index) + newOtp + prevData.otp.substr(index + 1)
-        }));
-        if (newOtp && index < 5) {
-            otpRefs.current[index + 1].current.focus();
-        }
-        (index == 5 && { handleSubmit })
-    }, []);
+    const otpChangeHandler = (event, index) => {
+        const digit = event.target.value
+        setOtp(otp => otp.substring(0, index) + digit)
+        if (digit && index < 5) otpRefs.current[index + 1].current.focus()
+    }
 
-    const handleSubmit = async () => {
-        const errors = {};
-        if (!verifyData.otp.trim()) {
-            errors.otp = "Please enter your otp.";
-        } else if (verifyData.otp.length < 6) {
-            errors.otp = "OTP should have dix digits"
-        }
+    const emailVerificationHandler = catchAsync(async () => {
+        if (!otp.trim()) throw new Error('Please enter your OTP.')
+        if (otp.length < 6) throw new Error('OTP should be 6-digit long.')
+        const { data, message } = await httpRequest('/signup-verify', 'POST', { email: fields.email, otp })
+        const { token } = data
+        localStorage.setItem('jwt-token', token)
+        router.replace('/')
+        dispatch(notificationActions.setNotification({ message }))
+    })
 
-        if (Object.keys(errors).length === 0) {
-            const responseData = await catchAsync(handleVerification)();
-            if (responseData) {
-                const { token } = responseData.data;
-                dispatch(notificationActions.setNotification({ message: responseData.message }));
-                localStorage.removeItem('jwt-token');
-                localStorage.setItem('jwt-token', token);
-            }
-        }
-        else {
-            const errorsMessage = JSON.stringify(errors.otp, null, 2);
-            dispatch(notificationActions.setNotification({
-                type: 'error',
-                message: errorsMessage
-            }));
-        }
-    };
-
-    return (<div className="sm:w-[500px] w-full h-full absolute z-10 flex justify-center items-center ">
-        <div className="relative flex flex-col justify-center items-center shadow-md bg-white rounded-md p-4">
-            <button className="text-black text-xl absolute right-5 top-5" onClick={onCancel}>
+    return (<div className="w-full sm:w-2/5 fixed z-10 top-20 sm:top-1/4 p-2">
+        <div className="relative bg-white text-center flex flex-col justify-center items-center shadow rounded-md p-5">
+            <button className="absolute right-4 top-4" onClick={onCancel}>
                 <FaXmark />
             </button>
-            <h4 className="px-3 text-2xl font-bold py-1 ">Verify your email</h4>
-            <p className="my-1 mb-2 text-md break-words text-center">A 6-digit verification otp has been sent to your registered email id.<span className="text-blue-600 mr-1">{verifyData.email} </span></p>
-            <div className="px-2 py-2 text-md my-1 mx-1">
-                {[...Array(6)].map((_, index) => (
-                    <input
-                        type="text"
-                        key={index}
-                        className="w-12 h-12 text-2xl text-center border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-1"
-                        maxlength="1"
-                        value={verifyData.otp[index] || ''}
-                        onChange={(event) => handleChange(event, index)}
-                        ref={otpRefs.current[index]}
-                    />
-                ))}
-                <Timer data={data} />
+            <h4 className="text-3xl p-3 my-5">Please verify your email</h4>
+            <p className="text-sm mb-5">A 6-digit verification code has been sent to<span className="font-bold px-1">{fields.email} </span></p>
+            <div className="mb-1">
+                <section className="mb-10">
+                    {arrayOfSix.map((_, index) => (
+                        <input
+                            ref={otpRefs.current[index]}
+                            key={index}
+                            value={otp[index] || ''}
+                            onChange={(event) => otpChangeHandler(event, index)}
+                            maxLength="1"
+                            autoComplete="off"
+                            className="w-9 sm:w-12 h-9 sm:h-12 text-2xl text-center border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-1"
+                        />
+                    ))}
+                </section>
+                <Timer fields={fields} />
             </div>
-            <button className="px-2 py-2 bg-blue-800 hover:scale-105 text-white rounded-md" onClick={handleSubmit}>
-                {isLoading ? <Loader /> : "Verify"}
-            </button>
-
+            <div className="w-full sm:w-1/3 p-3">
+                <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 focus:bg-blue-700 text-white transition-colors duration-300"
+                    onClick={emailVerificationHandler}
+                >
+                    {isLoading ? <Loader /> : 'Verify'}
+                </button>
+            </div>
         </div>
     </div >)
 }

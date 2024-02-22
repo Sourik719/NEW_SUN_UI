@@ -2,7 +2,7 @@ import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
 import { notificationActions } from "@/store/notification-slice"
 import { registrationActions } from "@/store/registration-slice"
-import { hasUntouched } from "@/validation/registration"
+import { hasUntouched, hasErrors } from "@/validation/registration"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -24,6 +24,7 @@ const JoinUs = () => {
 
     const signupHandler = catchAsync(async () => {
         if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
+        if (hasErrors(errors)) throw new Error('Please do correct the red-marked details.')
         const { message } = await httpRequest('/signup', 'POST', fields)
         setIsVerifying(true)
         dispatch(notificationActions.setNotification({ message }))
@@ -33,7 +34,7 @@ const JoinUs = () => {
         <Head>
             <title>Join Us</title>
         </Head>
-        {isVerifying && <EmailVerifier data={fields} onCancel={() => setIsVerifying(false)} />}
+        {isVerifying && <EmailVerifier fields={fields} onCancel={() => setIsVerifying(false)} />}
         <div className={`w-full sm:w-2/5 p-2 mb-10 ${isVerifying && 'blur-lg'}`}>
             <div className="relative rounded-xl shadow-sm">
                 <Background />

@@ -10,3 +10,10 @@ export const hasUntouched = (obj) => {
     }
     return false
 }
+
+export const hasErrors = (obj) => {
+    for (const key in obj) {
+        if (obj[key]) return true
+    }
+    return false
+}

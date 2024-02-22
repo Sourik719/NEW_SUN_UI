@@ -1,47 +1,48 @@
-import { useAsync } from '@/hooks/use-async';
-import { useHttp } from '@/hooks/use-http';
-import { notificationActions } from '@/store/notification-slice';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { useAsync } from "@/hooks/use-async"
+import { useHttp } from "@/hooks/use-http"
+import { notificationActions } from "@/store/notification-slice"
 
-const Timer = ({ data }) => {
-    const [seconds, setSeconds] = useState(300);
-    const [httpRequest] = useHttp();
-    const { catchAsync } = useAsync();
-    const dispatch = useDispatch();
+import Loader from "../ui/Loader"
+
+const Timer = ({ fields }) => {
+    const dispatch = useDispatch()
+    const [seconds, setSeconds] = useState(300)
+    const [isResent, setIsResent] = useState(false)
+    const { catchAsync } = useAsync()
+    const [httpRequest, isLoading] = useHttp()
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setSeconds(prevSeconds => prevSeconds - 1);
-        }, 1000);
+            setSeconds(prevSeconds => prevSeconds - 1)
+        }, 1000)
+        return () => clearInterval(intervalId)
+    }, [])
 
-        return () => clearInterval(intervalId);
-    }, []);
+    const resendOtpHandler = catchAsync(async () => {
+        const { message } = await httpRequest('/signup', 'POST', fields)
+        dispatch(notificationActions.setNotification({ message }))
+        setIsResent(true)
+        setTimeout(() => setIsResent(false), 5000)
+        setSeconds(300)
+    })
 
-    const handleSignup = async () => {
-        console.log(data);
-        const responseData = await httpRequest('/signup', 'POST', data);
-        return responseData;
-    };
-    const onClick = async () => {
-        const responseData = await catchAsync(handleSignup)();
-        if (responseData) {
-            dispatch(notificationActions.setNotification({ message: responseData.message, }));
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const remainingSeconds = seconds % 60
+
+    return (<div className="w-full flex justify-between text-sm text-center mb-5">
+        {seconds >= 0 ?
+            <section className="flex">
+                <p>Your OTP will expire in</p>
+                <p className="font-bold float-right px-1">{minutes < 10 ? '0' + minutes : minutes}:{remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}</p>
+            </section> :
+            <p>Your OTP has expired</p>
         }
-        setSeconds(300);
-    }
+        {isLoading ? <Loader /> :
+            <button className="text-blue-600 hover:underline" onClick={resendOtpHandler}>{isResent ? 'OTP Resent' : 'Resend'}</button>
+        }
+    </div >)
+}
 
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-
-    return (
-        <div>
-            {seconds >= 0 ?
-                < p className='text-sm float-right px-2 py-2'>{minutes < 10 ? '0' + minutes : minutes}:{remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}</p>
-                : <p className='text-sm text-sm text-center px-2 py-2'>Your otp has expired.<a className=' hover:underline text-blue-400 ' href="#" onClick={onClick}>Resend OTP</a></p>
-            }
-        </div >
-    );
-};
-
-export default Timer;
+export default Timer
