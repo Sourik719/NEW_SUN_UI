@@ -19,7 +19,7 @@ const FeedbackCont = () => {
     }, [useHttp])
 
     return (
-        <div className="w-full px-2 py-2 flex flex-col justify-center items-center my-1">
+        <div className="w-full px-2 py-3 flex flex-col justify-center items-center  bg-black">
             <h1 className="flex flex-row text-3xl">
                 <span className="text-white">What people are saying</span>
                 <span className="text-orange-400 ml-1">about Us?</span>

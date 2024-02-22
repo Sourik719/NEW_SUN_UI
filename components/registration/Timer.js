@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const Timer = ({ data }) => {
-    const [seconds, setSeconds] = useState(10);
+    const [seconds, setSeconds] = useState(300);
     const [httpRequest] = useHttp();
-    const catchAsync = useAsync();
+    const { catchAsync } = useAsync();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,12 +26,9 @@ const Timer = ({ data }) => {
     const onClick = async () => {
         const responseData = await catchAsync(handleSignup)();
         if (responseData) {
-            dispatch(notificationActions.setNotification({
-                type: 'success',
-                message: responseData.message,
-            }));
+            dispatch(notificationActions.setNotification({ message: responseData.message, }));
         }
-        setSeconds(10);
+        setSeconds(300);
     }
 
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -41,7 +38,7 @@ const Timer = ({ data }) => {
         <div>
             {seconds >= 0 ?
                 < p className='text-sm float-right px-2 py-2'>{minutes < 10 ? '0' + minutes : minutes}:{remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}</p>
-                : <a className='text-sm float-right px-2 py-2 hover:underline text-blue-400 ' href="#" onClick={onClick}>Resend OTP</a>
+                : <p className='text-sm text-sm text-center px-2 py-2'>Your otp has expired.<a className=' hover:underline text-blue-400 ' href="#" onClick={onClick}>Resend OTP</a></p>
             }
         </div >
     );

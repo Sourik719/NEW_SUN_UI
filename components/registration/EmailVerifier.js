@@ -1,16 +1,16 @@
-import { useCallback, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useAsync } from "@/hooks/use-async";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
+import { useCallback, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
-
+import { useDispatch } from "react-redux";
+import Loader from "../ui/Loader";
 import Timer from "./Timer";
 
 const EmailVerifier = ({ data, onCancel }) => {
-    const otpRef = useRef();
+    const otpRefs = useRef([...Array(6)].map(() => useRef(null)));
     const { catchAsync } = useAsync();
-    const [httpRequest] = useHttp();
+    const [httpRequest, isLoading] = useHttp();
     const dispatch = useDispatch();
 
     const [verifyData, setVerifyData] = useState({
@@ -23,28 +23,34 @@ const EmailVerifier = ({ data, onCancel }) => {
         console.log(responseData);
         return responseData;
     };
-    const handleChange = useCallback((event) => {
-        setVerifyData((prevData) => ({
+
+    const handleChange = useCallback((event, index) => {
+        const newOtp = event.target.value;
+        setVerifyData(prevData => ({
             ...prevData,
-            otp: event.target.value,
+            otp: prevData.otp.substr(0, index) + newOtp + prevData.otp.substr(index + 1)
         }));
+        if (newOtp && index < 5) {
+            otpRefs.current[index + 1].current.focus();
+        }
+        (index == 5 && { handleSubmit })
     }, []);
+
     const handleSubmit = async () => {
         const errors = {};
         if (!verifyData.otp.trim()) {
             errors.otp = "Please enter your otp.";
+        } else if (verifyData.otp.length < 6) {
+            errors.otp = "OTP should have dix digits"
         }
+
         if (Object.keys(errors).length === 0) {
             const responseData = await catchAsync(handleVerification)();
             if (responseData) {
                 const { token } = responseData.data;
-                dispatch(notificationActions.setNotification({
-                    type: 'success',
-                    message: responseData.message
-                }));
+                dispatch(notificationActions.setNotification({ message: responseData.message }));
                 localStorage.removeItem('jwt-token');
                 localStorage.setItem('jwt-token', token);
-
             }
         }
         else {
@@ -55,29 +61,34 @@ const EmailVerifier = ({ data, onCancel }) => {
             }));
         }
     };
-    return (<div className="w-full h-full absolute z-10 flex justify-center items-start">
-        <div className="flex flex-col justify-center items-center shadow-md bg-white border-2">
-            <div className="w-full bg-blue-600 px-2 py-2 text-md text-white flex flex-row justify-between">
-                <h4 className="px-3">Verify your email</h4>
-                <button className='hover:bg-red-500 text-black text-xl' onClick={onCancel}>
-                    <FaXmark />
-                </button>
-            </div>
-            <div className="px-2 py-2 text-md my-1">
-                <p className="my-1 mb-2">A 6-digit verification otp has been sent to your registered email id.</p>
-                <input
-                    ref={otpRef}
-                    placeholder="Enter 6-Digit Verification Code"
-                    className="w-full border-2 px-2 py-1 mt-1"
-                    onChange={handleChange}
-                />
+
+    return (<div className="sm:w-[500px] w-full h-full absolute z-10 flex justify-center items-center ">
+        <div className="relative flex flex-col justify-center items-center shadow-md bg-white rounded-md p-4">
+            <button className="text-black text-xl absolute right-5 top-5" onClick={onCancel}>
+                <FaXmark />
+            </button>
+            <h4 className="px-3 text-2xl font-bold py-1 ">Verify your email</h4>
+            <p className="my-1 mb-2 text-md break-words text-center">A 6-digit verification otp has been sent to your registered email id.<span className="text-blue-600 mr-1">{verifyData.email} </span></p>
+            <div className="px-2 py-2 text-md my-1 mx-1">
+                {[...Array(6)].map((_, index) => (
+                    <input
+                        type="text"
+                        key={index}
+                        className="w-12 h-12 text-2xl text-center border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-1"
+                        maxlength="1"
+                        value={verifyData.otp[index] || ''}
+                        onChange={(event) => handleChange(event, index)}
+                        ref={otpRefs.current[index]}
+                    />
+                ))}
                 <Timer data={data} />
             </div>
-            <button className="px-2 py-2 bg-blue-800 hover:scale-105 my-1 text-white rounded-md" onClick={handleSubmit}>
-                Verify
+            <button className="px-2 py-2 bg-blue-800 hover:scale-105 text-white rounded-md" onClick={handleSubmit}>
+                {isLoading ? <Loader /> : "Verify"}
             </button>
+
         </div>
-    </div>)
+    </div >)
 }
 
 export default EmailVerifier

@@ -1,19 +1,19 @@
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
-import { registrationActions } from "@/store/registration-slice"
 import { notificationActions } from "@/store/notification-slice"
+import { registrationActions } from "@/store/registration-slice"
 import { hasUntouched } from "@/validation/registration"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
-import Head from "next/head"
-import Link from "next/link"
-import Container from "@/components/ui/Container"
-import Loader from "@/components/ui/Loader"
 import Background from "@/components/registration/Background"
+import EmailVerifier from "@/components/registration/EmailVerifier"
 import ImageField from "@/components/registration/ImageField"
 import Inputs from "@/components/registration/Inputs"
-import EmailVerifier from "@/components/registration/EmailVerifier"
+import Container from "@/components/ui/Container"
+import Loader from "@/components/ui/Loader"
+import Head from "next/head"
+import Link from "next/link"
 
 const JoinUs = () => {
     const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const JoinUs = () => {
         dispatch(notificationActions.setNotification({ message }))
     })
 
-    return (<Container className="bg-slate-200 w-full flex justify-center items-center" >
+    return (<Container className="relative bg-slate-200 w-full flex justify-center items-center" >
         <Head>
             <title>Join Us</title>
         </Head>
@@ -51,7 +51,7 @@ const JoinUs = () => {
                         </button>
                     </div>
                     <div className="text-sm flex justify-center items-center mb-5">
-                        <span>Are you a member already?</span>
+                        <span>Are you a member already </span>
                         <Link href="/login" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Login</Link>
                     </div>
                 </div>
