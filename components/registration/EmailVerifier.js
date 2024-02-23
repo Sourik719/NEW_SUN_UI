@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { useDispatch } from "react-redux"
 import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
+import { memberActions } from "@/store/member-slice"
 import { notificationActions } from "@/store/notification-slice"
 import { FaXmark } from "react-icons/fa6"
 
@@ -31,6 +32,7 @@ const EmailVerifier = ({ fields, onCancel }) => {
         const { data, message } = await httpRequest('/signup-verify', 'POST', { email: fields.email, otp })
         const { token } = data
         localStorage.setItem('jwt-token', token)
+        dispatch(memberActions.setToken(token))
         router.replace('/')
         dispatch(notificationActions.setNotification({ message }))
     })

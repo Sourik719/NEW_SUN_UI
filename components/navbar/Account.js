@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { memberActions } from "@/store/member-slice"
 import { notificationActions } from "@/store/notification-slice"
+import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 
 import Image from "next/image"
 import Link from "next/link"

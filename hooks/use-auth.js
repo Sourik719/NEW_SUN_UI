@@ -1,8 +1,8 @@
-import { memberActions } from "@/store/member-slice"
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useAsync } from "./use-async"
 import { useHttp } from "./use-http"
+import { memberActions } from "@/store/member-slice"
 
 export const useAuth = () => {
     const dispatch = useDispatch()
@@ -12,8 +12,10 @@ export const useAuth = () => {
     const { catchAsync } = useAsync()
 
     const persistAuthentication = catchAsync(async () => {
-        if (localStorage.getItem('jwt-token')) {
+        const savedToken = localStorage.getItem('jwt-token')
+        if (savedToken) {
             const { data } = await httpRequest('/authenticate')
+            dispatch(memberActions.setToken(savedToken))
             dispatch(memberActions.setMember(data.member))
             setIsAuthenticated(true)
         } else {
