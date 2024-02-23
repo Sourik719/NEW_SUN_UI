@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google"
 import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
+import { AnimatePresence } from "framer-motion"
 
 import Notification from "@/components/ui/Notification"
 import Feedbackbtn from "@/components/ui/Feedbackbtn"
@@ -14,7 +15,9 @@ const Container = ({ children, className }) => {
 
     return (<div className="flex flex-col justify-between">
         <div className={`${roboto.className} min-h-screen pt-20 ${className}`}>
-            {message && <Notification />}
+            <AnimatePresence>
+                {message && <Notification />}
+            </AnimatePresence>
             {children}
             {router.pathname !== '/join-us' && router.pathname !== '/login' &&
                 <Feedbackbtn />
