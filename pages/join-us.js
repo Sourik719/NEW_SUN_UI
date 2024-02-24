@@ -2,7 +2,7 @@ import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
 import { notificationActions } from "@/store/notification-slice"
 import { registrationActions } from "@/store/registration-slice"
-import { hasUntouched, hasErrors } from "@/validation/registration"
+import { hasErrors, hasUntouched } from "@/validation/registration"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -52,7 +52,7 @@ const JoinUs = () => {
                         </button>
                     </div>
                     <div className="text-sm flex justify-center items-center mb-5">
-                        <span>Are you a member already </span>
+                        <span>Are you a member already ? </span>
                         <Link href="/login" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Login</Link>
                     </div>
                 </div>

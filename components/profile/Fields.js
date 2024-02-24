@@ -46,25 +46,24 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
         if (confirmation) {
             const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
             setFinalValue(fieldValue);
-            console.log(responseData);
-            return responseData;
+            console.log(responseData.message);
+            if (responseData) {
+                router.reload();
+                dispatch(notificationActions.setNotification({
+                    message: responseData.message
+                }));
+            }
         } else {
             setFieldValue(finalValue);
-            setFieldType('text');
-            setEditMode(false);
             return null;
         }
     };
 
+
     const handleSave = async () => {
         const updateResponse = await catchAsync(handleUpdate)();
-        if (updateResponse) {
-            dispatch(notificationActions.setNotification({
-                type: 'success',
-                message: `${label} updated`
-            }));
-            router.reload();
-        }
+        setFieldType('text');
+        setEditMode(false);
     };
 
     const handleChange = (e) => {

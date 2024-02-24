@@ -49,7 +49,11 @@ const FeedBack = ({ onclick }) => {
 
     const handleFeedBack = async () => {
         const responseData = await httpRequest('/feedbacks', 'POST', feedback);
-        console.log(responseData);
+        if (responseData) {
+            dispatch(notificationActions.setNotification({
+                message: responseData.message
+            }));
+        }
         return responseData;
     };
 
@@ -58,12 +62,6 @@ const FeedBack = ({ onclick }) => {
         setValidationError(errors);
         if (Object.keys(errors).length === 0) {
             const responseData = await catchAsync(handleFeedBack)();
-            if (responseData) {
-                dispatch(notificationActions.setNotification({
-                    type: 'success',
-                    message: responseData.message
-                }));
-            }
         }
         else {
             const errorsMessage = JSON.stringify(errors.email || errors.name || errors.rating || errors.content, null, 2);
