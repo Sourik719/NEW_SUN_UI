@@ -11,7 +11,7 @@ const CarouselItem = ({ src, label, className = "" }) => (
 
 const Carousel = () => (
     <div className="flex sm:flex-row flex-col bg-transparent items-center justify-between mx-2 shadow-md my-1">
-        <CarouselItem src={`https://res.cloudinary.com/dcikuo4sk/image/upload/f_auto,q_auto/v1/samples/New-Sun-Projects/kfnvegj8o6khmfcsnbal`} label="Sharing Joy" className="sm:mb-10" />
+        <CarouselItem src={`https://res.cloudinary.com/dcikuo4sk/image/upload/v1708784658/samples/New-Sun-Projects/IMG_3882_nzgp4a.jpg`} label="Sharing Joy" className="sm:mb-10" />
         <CarouselItem src={'https://res.cloudinary.com/dcikuo4sk/image/upload/v1708758155/samples/New-Sun-Projects/IMG-20230604-WA0094_ntrmrp.jpg'} label="Creating Awareness" className="sm:mt-10" />
         <CarouselItem src={"https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759372/samples/New-Sun-Projects/IMG-20220507-WA1012_d9o1ls.jpg"} label="Protecting Environment" className="sm:mb-10" />
     </div>

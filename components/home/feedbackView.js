@@ -29,10 +29,10 @@ const FeedbackCont = () => {
                 {feedBack &&
                     feedBack.map((feedback, index) => (
                         <div key={index} className="lg:w-1/3 md:w-1/2 w-full px-4 py-2">
-                            <div className="w-full h-[200px] bg-white rounded-lg shadow-md px-4 py-2 flex flex-col justify-center items-center text-black">
-                                <StarRating totalStars={5} givenStars={feedback.rating} editAble={false} />
-                                <p className="break-words my-1 text-justify">{feedback.content}</p>
-                                <p className="font-semibold py-5 text-blue-400">{feedback.name}</p>
+                            <div className="w-full h-[200px] bg-white rounded-lg shadow-md px-4 py-4 flex flex-col justify-center items-center text-black">
+                                <div className="mt-2"><StarRating totalStars={5} givenStars={feedback.rating} editAble={false} /></div>
+                                <p className="break-words my-1 text-justify h-[100px] py-2">{feedback.content}</p>
+                                <p className="font-semibold py-2 text-blue-400 ">{feedback.name}</p>
                             </div>
                         </div>
                     ))}
