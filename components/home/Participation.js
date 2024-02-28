@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const EngageBtn = ({ label, href }) => {
     return (
-        <Link className="sm:w-1/3 hover:bg-yellow-500 hover:text-violet-600 duration-300 w-full px-2 text-xl hover:text-2xl py-10 bg-green-500 text-white font-bold text-xl mx-2 justify-center text-center rounded-lg my-2 shadow-xl" href={href}>
+        <Link className="sm:w-1/3 w-full text-xl px-2 py-10 mx-2 my-2 bg-green-500 text-white font-bold hover:bg-yellow-500 hover:text-violet-600 hover:scale-105 focus:bg-blue-500 focus:text-red-200 focus:scale-95 duration-300 mx-2 justify-center text-center rounded-lg shadow-xl" href={href}>
             {label}
         </Link>
     );

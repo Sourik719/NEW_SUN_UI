@@ -4,9 +4,12 @@ import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import 'react-datepicker/dist/react-datepicker.css';
 import { FaPen, FaSave } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import RequireError from "../../validation/requireError";
+
 
 const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldName }) => {
     const [isAuthenticated, isLoading] = useAuth();
@@ -23,11 +26,27 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     const { catchAsync } = useAsync();
     const router = useRouter();
 
+    const EditModebtn = () => {
+        return (
+            <div className="absolute top-5 right-2">
+                <button onClick={handleSave}>
+                    <FaSave className="text-black text-sm mx-1" />
+                </button>
+                <button onClick={handleCancel} >
+                    <FaXmark className="text-black text-sm mx-1" />
+                </button>
+            </div>
+        )
+    }
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-GB');
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     };
+
 
     useEffect(() => {
         const errorMsg = RequireError({ label: label, fieldValue: fieldValue, type: dataType });
@@ -41,30 +60,31 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     };
 
     const handleUpdate = async () => {
-        const updateData = { "update": { [fieldName]: fieldValue } };
-        const confirmation = window.confirm(`Are you sure you want to update ${label}?`);
-        if (confirmation) {
-            const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
-            setFinalValue(fieldValue);
-            console.log(responseData.message);
-            if (responseData) {
-                router.reload();
-                dispatch(notificationActions.setNotification({
-                    message: responseData.message
-                }));
-            }
-        } else {
-            setFieldValue(finalValue);
-            return null;
-        }
-    };
 
+        const updateData = { "update": { [fieldName]: fieldValue } };
+        console.log(updateData)
+        const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
+        setFinalValue(fieldValue);
+        console.log(responseData.message);
+        if (responseData) {
+            router.reload();
+            dispatch(notificationActions.setNotification({
+                message: responseData.message
+            }));
+        }
+    }
 
     const handleSave = async () => {
         const updateResponse = await catchAsync(handleUpdate)();
         setFieldType('text');
         setEditMode(false);
     };
+
+    const handleCancel = () => {
+        setFieldType('text');
+        setEditMode(false);
+        setFieldValue(finalValue);
+    }
 
     const handleChange = (e) => {
         if (dataType === 'Select') {
@@ -99,35 +119,34 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                         ))}
                     </select>
                     {editAble && editMode && !errors && (
-                        <button onClick={handleSave} className="absolute top-6 right-2">
-                            <FaSave className="text-black text-sm" />
-                        </button>
+                        <EditModebtn />
                     )}
                 </div>
-            ) : (
-                <div className="relative mx-2">
-                    <input
-                        className={`w-full px-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl`}
-                        readOnly={!editAble || !editMode}
-                        value={!editMode ? (dataType === 'Date' ? formatDate(finalValue) : finalValue) : fieldValue}
-                        type={!editMode ? 'text' : dataType}
-                        placeholder={label}
-                        onChange={handleChange}
-                        ref={inputRef}
-                    />
-                    {editAble && !editMode && (
-                        <button onClick={handleEdit} className="absolute top-6 right-2">
-                            <FaPen className="text-black text-sm" />
-                        </button>
-                    )}
-                    {editAble && editMode && !errors && (
-                        <button onClick={handleSave} className="absolute top-6 right-2">
-                            <FaSave className="text-black text-sm" />
-                        </button>
-                    )}
-                </div>
-            )}
-        </div>
+            ) :
+                (
+                    <div className="relative mx-2">
+                        <input
+                            className={`w-full px-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl`}
+                            readOnly={!editAble || !editMode}
+                            value={!editMode ? (dataType === 'Date' ? formatDate(finalValue) : finalValue) : fieldValue}
+                            type={!editMode ? 'text' : dataType}
+                            placeholder={label}
+                            onChange={handleChange}
+                            ref={inputRef}
+                        />
+
+                        {editAble && !editMode && (
+                            <button onClick={handleEdit} className="absolute top-6 right-2">
+                                <FaPen className="text-black text-sm" />
+                            </button>
+                        )}
+                        {editAble && editMode && !errors && (
+                            <EditModebtn />
+                        )}
+                    </div>
+                )
+            }
+        </div >
     );
 };
 

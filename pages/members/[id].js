@@ -54,7 +54,7 @@ const profile = () => {
                                 <ProfileFields value={user.phone} label="Phone No." dataType="text" editAble={true} id={id} fieldName="phone" />
                             </div>
                             <div className="w-full sm:w-1/2">
-                                <ProfileFields value={user.dob} label="D.O.B" dataType="Date" editAble={true} id={id} fieldName="dob" />
+                                <ProfileFields value={user.dob} label="D.O.B" dataType="Date" editAble={false} id={id} fieldName="dob" />
                             </div>
                         </div>
                         <div className="flex flex-wrap">
