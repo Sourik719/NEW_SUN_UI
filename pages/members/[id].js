@@ -32,11 +32,11 @@ const profile = () => {
     }
     if (user) {
         return (
-            <Container className="relative bg-slate-200 min-h-screen flex md:flex-row flex-col justify-center items-center py-5">
+            <Container className="relative bg-slate-200 min-h-screen flex lg:flex-row flex-col justify-center items-center py-5">
                 <Head>
                     <title>Profile</title>
                 </Head>
-                <div className="w-full md:w-1/2 bg-white rounded-md shadow-md">
+                <div className="sm:w-2/3 lg:w-1/2 bg-white rounded-md shadow-md my-2 mx-5">
                     <div className='px-8 py-6'>
                         <ProfileImage value={user.image} fieldName="image" gender={user.sex} />
                         <div className="flex flex-wrap">
@@ -75,9 +75,9 @@ const profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className='mx-2 sm:w-1/4'>
-                    <Contribution />
-                </div>
+
+                <Contribution />
+
             </Container>
         )
     }
