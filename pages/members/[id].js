@@ -1,18 +1,19 @@
 import Contribution from '@/components/profile/Contribution';
-import ProfileFields from '@/components/profile/Fields';
-import ProfileImage from '@/components/profile/profileImage';
+import Profile from '@/components/profile/Profile';
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
-import { bloodGroupOptions, genderOptions } from '@/data/registration';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
 const profile = () => {
     const router = useRouter();
     const { id } = router.query;
     const [user, setUser] = useState(null);
+    const [due, setDue] = useState(null);
+    const [contriData, setContriData] = useState(null);
     const [httpRequest, isLoading] = useHttp();
     const { catchAsync } = useAsync();
 
@@ -26,6 +27,23 @@ const profile = () => {
         catchAsync(fetchData)();
     }, [id]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const MembercontriDetails = await httpRequest(`/contributions`, 'GET', null);
+            console.log(MembercontriDetails);
+            setContriData(MembercontriDetails.data);
+        }
+        catchAsync(fetchData)();
+    }, []);
+
+    useEffect(() => {
+        if (contriData) {
+            setDue(contriData.due.length);
+        } else {
+            setDue(null);
+        }
+    }, [contriData]);
+
 
     if (!user || isLoading) {
         return (<Loader />);
@@ -36,47 +54,9 @@ const profile = () => {
                 <Head>
                     <title>Profile</title>
                 </Head>
-                <div className="sm:w-2/3 lg:w-1/2 bg-white rounded-md shadow-md my-2 mx-5">
-                    <div className='px-8 py-6'>
-                        <ProfileImage value={user.image} fieldName="image" gender={user.sex} />
-                        <div className="flex flex-wrap">
-                            <div className="w-full sm:w-1/2">
-                                <ProfileFields value={user.firstname} label="First Name" dataType="Text" editAble={true} id={id} fieldName="firstname" />
-                            </div>
-                            <div className="w-full sm:w-1/2">
-                                <ProfileFields value={user.lastname} label="Last Name" dataType="Text" editAble={true} id={id} fieldName="lastname" />
-                            </div>
-                        </div>
-                        <ProfileFields value={user.email} label="Email" dataType="Text" editAble={false} id={id} fieldName="email" />
-                        <ProfileFields value={user.address} label="Address" dataType="Text" editAble={true} id={id} fieldName="address" />
-                        <div className="flex flex-wrap">
-                            <div className="w-full sm:w-1/2 ">
-                                <ProfileFields value={user.phone} label="Phone No." dataType="text" editAble={true} id={id} fieldName="phone" />
-                            </div>
-                            <div className="w-full sm:w-1/2">
-                                <ProfileFields value={user.dob} label="D.O.B" dataType="Date" editAble={false} id={id} fieldName="dob" />
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap">
-                            <div className="w-full sm:w-1/2 ">
-                                <ProfileFields value={user.sex} label="Gender" dataType="Select" editAble={true} options={genderOptions} id={id} fieldName="sex" />
-                            </div>
-                            <div className="w-full sm:w-1/2">
-                                <ProfileFields value={user.bloodGroup} label="Blood Group" dataType="Select" editAble={true} options={bloodGroupOptions} id={id} fieldName="bloodGroup" />
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap">
-                            <div className="w-full sm:w-1/2">
-                                <ProfileFields value="7" label="Due" dataType="Number" editAble={false} id={id} fieldName="due" />
-                            </div>
-                            <div className="w-full sm:w-1/2">
-                                <ProfileFields value={user.status} label="Membership Status" dataType="Text" editAble={false} id={id} fieldName="status" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Profile user={user} id={id} due={due} />
 
-                <Contribution />
+                <Contribution data={contriData ? contriData : null} />
 
             </Container>
         )

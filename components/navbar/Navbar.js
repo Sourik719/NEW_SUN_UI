@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react"
 import { useAuth } from "@/hooks/use-auth"
-import { FaBars, FaTimes } from "react-icons/fa"
 import { AnimatePresence, motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { FaBars, FaTimes } from "react-icons/fa"
 
 import Link from "next/link"
 import Loader from "../ui/Loader"
 import Account from "./Account"
+import NavDropdown from "./NavButton"
 import NavLink from "./NavLink"
 
 const Navbar = () => {
@@ -27,6 +28,14 @@ const Navbar = () => {
         window.addEventListener('resize', resizeHandler)
         if (window.innerWidth < 640) setIsMobile(true)
     }, [])
+    const services = [
+        { label: 'Special Day Celebration', href: '/projects/specialdaycelebration' },
+        { label: 'Agomonir Ahobane', href: '/projects/agomonirahobane' },
+        { label: "Winter's Smile", href: '/projects/winterssmile' },
+        { label: 'Sunshine', href: '/projects/sunshine' },
+        { label: 'Sampreeti', href: '/projects/sampreeti' },
+        { label: 'Sobujer Sondhane', href: '/projects/sobujersondhane' },
+    ];
 
     return (<div className={`fixed top-0 z-20 w-full flex flex-col sm:flex-row justify-between ${isScrolled && 'bg-slate-200 sm:bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
         <div className="flex justify-between items-center sm:mr-20 mb-5 sm:mb-0">
@@ -42,12 +51,16 @@ const Navbar = () => {
                     exit={{ opacity: 0 }}
                     onClick={toggleHandler}
                 >
-                    <section className="w-full sm:w-auto flex flex-col sm:flex-row">
-                        <NavLink label={'Home'} href={'/'} />
-                        <NavLink label={'About'} href={'/about'} />
-                        <NavLink label={'Culture'} href={'/culture'} />
-                        <NavLink label={'Tasks'} href={'/tasks'} />
-                    </section>
+                    <div className="sm:w-auto w-full">
+                        <div className="container mx-auto w-full sm:w-auto">
+                            <section className="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-between mx-auto">
+                                <NavLink label={'Home'} href={'/'} />
+                                <NavLink label={'About'} href={'/about'} />
+                                <NavDropdown label={'Projects'} items={services} />
+                                <NavLink label={'Tasks'} href={'/tasks'} />
+                            </section>
+                        </div>
+                    </div>
                     <section className="p-2 mx-3 my-1">
                         {isAuthLoading ? <Loader /> : isAuthenticated
                             ? <Account />
