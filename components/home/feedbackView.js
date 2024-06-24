@@ -28,7 +28,7 @@ const FeedbackCont = () => {
             <div className="mt-4 flex flex-wrap justify-center">
                 {feedBack &&
                     feedBack.map((feedback, index) => (
-                        <div key={index} className="lg:w-1/3 md:w-1/2 w-full px-4 py-2" ref={inView && containerRef}>
+                        <div key={index} className="w-[400px] px-4 py-2" ref={inView && containerRef}>
                             <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}

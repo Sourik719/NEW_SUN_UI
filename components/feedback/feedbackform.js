@@ -3,6 +3,7 @@ import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import FeedbackError from '@/validation/feedbackerror';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
@@ -14,6 +15,7 @@ const FeedBack = ({ onclick }) => {
     const [httpRequest] = useHttp();
     const { catchAsync } = useAsync();
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const [validationError, setValidationError] = useState({
         name: '',
@@ -53,6 +55,7 @@ const FeedBack = ({ onclick }) => {
             dispatch(notificationActions.setNotification({
                 message: responseData.message
             }));
+            router.reload();
         }
         return responseData;
     };
