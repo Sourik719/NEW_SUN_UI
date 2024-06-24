@@ -1,7 +1,9 @@
 import ImageCarousel from "@/components/projects/Imagechain";
+import ProjectComponent from "@/components/projects/TextSection";
 import Container from "@/components/ui/Container";
 import { projectDetails } from "@/data/projects";
 import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 const projectPage = () => {
     const router = useRouter();
     const { id } = router.query;
@@ -9,27 +11,25 @@ const projectPage = () => {
         return <Container>Project not found</Container>;
     }
     const project = projectDetails[id];
+    const [selectedSection, setSelectedSection] = useState(null);
+
+    const sectionRefs = useRef([]);
+    const sidebarRefs = useRef([]);
+    const handleSectionClick = (index) => {
+        setSelectedSection(index);
+        sectionRefs.current[index].scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <Container>
-            <div className="text-5xl font-bold mx-10 p-2 shadow-lg">{project.label}
+            <div className="text-5xl font-bold mx-10 p-2 text-orange-500">{project.label}
                 <hr className="my-2 border-2 " />
             </div>
 
             <ImageCarousel images={project.image} />
 
-            <div className="p-2 mx-10 text-black text-xl text-justify">
-                {Array.isArray(project.content) ? (
-                    project.content.map((section, index) => (
-                        <div className="my-3" key={index}>
-                            <h1 className="font-bold text-2xl my-2">{section.section}</h1>
-                            <p className="mx-6">{section.text}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>{project.content}</p>
-                )}
-            </div>
+            <ProjectComponent project={project} />
+
 
 
         </Container>
