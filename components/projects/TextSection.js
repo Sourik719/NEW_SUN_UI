@@ -62,7 +62,7 @@ const ProjectComponent = ({ project }) => {
     };
 
     return (
-        <div className="md:mx-20 my-5 text-black text-xl text-justify rounded-md relative bg-gray-200">
+        <div className="md:mx-20 my-5 text-black text-xl text-justify rounded-md relative bg-orange-200">
             <div className="absolute left-0 md:w-1/4 w-1/2 h-full border-r border-gray-300 overflow-y-auto">
                 <ul className="list-none">
                     {project.content.map((section, index) => (

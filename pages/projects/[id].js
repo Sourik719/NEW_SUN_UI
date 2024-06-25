@@ -21,14 +21,19 @@ const projectPage = () => {
     };
 
     return (
-        <Container>
-            <div className="text-5xl font-bold mx-10 p-2 text-orange-500">{project.label}
-                <hr className="my-2 border-2 " />
+        <Container className={"bg-lime-200"}>
+            <div className="text-5xl font-bold mx-20 p-2 text-yellow-500">{project.label}
+                <hr className="my-2 border-2 border-blue-400" />
             </div>
 
             <ImageCarousel images={project.image} />
 
             <ProjectComponent project={project} />
+            <div className="flex md:flex-row flex-col justify-center">
+                <img src={project.image[2]} className="h-[300px] w-[400px] border-2 m-2 rounded-md" />
+                <img src={project.image[1]} className="h-[300px] w-[400px] border-2 m-2 rounded-md" />
+                <img src={project.image[0]} className="h-[300px] w-[400px] border-2 m-2 rounded-md" />
+            </div>
 
 
 
