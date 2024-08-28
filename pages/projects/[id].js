@@ -3,7 +3,6 @@ import ProjectComponent from "@/components/projects/TextSection";
 import Container from "@/components/ui/Container";
 import { projectDetails } from "@/data/projects";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
 const projectPage = () => {
     const router = useRouter();
     const { id } = router.query;
@@ -11,19 +10,11 @@ const projectPage = () => {
         return <Container>Project not found</Container>;
     }
     const project = projectDetails[id];
-    const [selectedSection, setSelectedSection] = useState(null);
-
-    const sectionRefs = useRef([]);
-    const sidebarRefs = useRef([]);
-    const handleSectionClick = (index) => {
-        setSelectedSection(index);
-        sectionRefs.current[index].scrollIntoView({ behavior: 'smooth' });
-    };
 
     return (
         <Container className={"bg-lime-200"}>
             <div className="text-5xl font-bold mx-20 p-2 text-yellow-500">{project.label}
-                <hr className="my-2 border-2 border-blue-400" />
+                <hr className="my-2 border-2 border-blue-400 rounded-xl" />
             </div>
 
             <ImageCarousel images={project.image} />

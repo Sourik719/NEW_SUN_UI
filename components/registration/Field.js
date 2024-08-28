@@ -1,6 +1,6 @@
-import { useState, useRef } from "react"
-import { useDispatch } from "react-redux"
+import { useRef, useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
+import { useDispatch } from "react-redux"
 
 const Field = ({ label, type = 'text', value, actionCreator, error, options = [] }) => {
     const dispatch = useDispatch()
@@ -59,7 +59,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
         }
     </div>
 
-    return (<div className="relative w-full px-5">
+    return (<div className="relative w-full px-5 my-1">
         {value &&
             <label className="text-xs absolute -top-2 left-8 bg-white rounded px-1 z-10">
                 {label}

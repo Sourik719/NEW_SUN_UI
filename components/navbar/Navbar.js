@@ -28,7 +28,7 @@ const Navbar = () => {
         window.addEventListener('resize', resizeHandler)
         if (window.innerWidth < 640) setIsMobile(true)
     }, [])
-    const services = [
+    const projects = [
         { label: 'Special Day Celebration', href: '/projects/specialdaycelebration' },
         { label: 'Agomonir Ahobane', href: '/projects/agomonirahobane' },
         { label: "Winter's Smile", href: '/projects/winterssmile' },
@@ -36,6 +36,12 @@ const Navbar = () => {
         { label: 'Sampreeti', href: '/projects/sampreeti' },
         { label: 'Sobujer Sondhane', href: '/projects/sobujersondhane' },
     ];
+    const services = [
+        { label: 'Sponsor an Event', href: '/donate/sponsor' },
+        { label: 'Donate for a cause', href: '/donate/cause' },
+        ...isAuthenticated ? [{ label: 'Member Contribution', href: '/donate/member_contribution' }] : []
+    ];
+
 
     return (<div className={`fixed top-0 z-20 w-full flex flex-col sm:flex-row justify-between ${isScrolled && 'bg-slate-200 sm:bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
         <div className="flex justify-between items-center sm:mr-20 mb-5 sm:mb-0">
@@ -56,7 +62,8 @@ const Navbar = () => {
                             <section className="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-between mx-auto">
                                 <NavLink label={'Home'} href={'/'} />
                                 <NavLink label={'About'} href={'/about'} />
-                                <NavDropdown label={'Projects'} items={services} />
+                                <NavDropdown label={'Projects'} items={projects} />
+                                <NavDropdown label={'Donate'} items={services} />
                                 <NavLink label={'Tasks'} href={'/tasks'} />
                             </section>
                         </div>
