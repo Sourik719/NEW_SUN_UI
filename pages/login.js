@@ -45,7 +45,7 @@ const Login = () => {
             <div className="relative rounded-xl">
                 <Background />
                 <div className="relative flex flex-col justify-center items-center z-10 p-3">
-                    <p className="text-xl p-3 m-2 mb-5 pointer-events-none">Team New Sun</p>
+                    <p className="text-xl p-3 m-2 mb-5 pointer-events-none">TEAM NEW SUN FOUNDATION</p>
                     <Input
                         label={'Email'}
                         ref={emailRef}
