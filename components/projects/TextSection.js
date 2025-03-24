@@ -28,15 +28,11 @@ const ProjectComponent = ({ project }) => {
 
         }
 
-
-        // Update the selected section in the sidebar if different
         if (selectedSection !== index) {
             setSelectedSection(index);
         }
     };
 
-
-    // Effect to add scroll event listener and clean up on unmount
     useEffect(() => {
         const contentContainer = document.getElementById('contentContainer');
         if (contentContainer) {
@@ -50,7 +46,6 @@ const ProjectComponent = ({ project }) => {
         };
     }, []);
 
-    // Function to handle clicking on sidebar section
     const handleSectionClick = (index) => {
         if (contentRefs.current[index]) {
             contentRefs.current[index].scrollIntoView({
@@ -63,13 +58,13 @@ const ProjectComponent = ({ project }) => {
 
     return (
         <div className="md:mx-20 my-5 text-black text-xl text-justify rounded-md relative bg-orange-200">
-            <div className="absolute left-0 md:w-1/4 w-1/2 h-full border-r border-gray-300 overflow-y-auto">
+            <div className="absolute left-0 md:w-1/4 w-1/3 h-full border-r border-gray-300 overflow-y-auto">
                 <ul className="list-none">
                     {project.content.map((section, index) => (
                         <motion.li
                             key={index}
                             ref={(el) => (sidebarRefs.current[index] = el)}
-                            className={`cursor-pointer p-4 ${selectedSection === index ? 'bg-blue-800 font-bold text-white rounded-md' : 'font-semibold'}`}
+                            className={`cursor-pointer p-5 ${selectedSection === index ? 'bg-blue-800 font-bold text-white rounded-md' : 'font-semibold'}`}
                             onClick={() => handleSectionClick(index)}
                             animate={{ fontSize: selectedSection === index ? '1.4rem' : '1.2rem' }}
                             transition={{ duration: 0.5 }}
@@ -80,7 +75,7 @@ const ProjectComponent = ({ project }) => {
                 </ul>
             </div>
 
-            <div id="contentContainer" className="relative md:left-1/4 left-1/2 md:w-3/4 w-1/2 h-[300px] overflow-y-auto md:p-4 pt-2 pb-20 webkit-scrollbar-track">
+            <div id="contentContainer" className="relative md:left-1/4 left-1/3 md:w-3/4 w-2/3 h-[350px] overflow-y-auto md:p-4 pt-2 pb-20 webkit-scrollbar-track">
                 <div className="mx-1 my-3">
                     {project.content.map((section, index) => (
                         <div
@@ -88,10 +83,11 @@ const ProjectComponent = ({ project }) => {
                             ref={(el) => (contentRefs.current[index] = el)}
                             className="my-3 cursor-pointer"
                         >
-                            <h1 className="font-bold text-2xl my-2">{section.section}</h1>
-                            <p className="md:mx-6 mx-2 text-md ">
+                            <h1 className="font-bold text-2xl my-2 text-blue-800">{section.section}</h1>
+                            <p className="md:mx-6 mx-2 text-md my-2">
                                 {section.text}
                             </p>
+
                         </div>
                     ))}
                 </div>

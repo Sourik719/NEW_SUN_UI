@@ -1,16 +1,27 @@
 export const projectDetails = {
     'specialdaycelebration': {
-        image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905550/SpecialDay%20Celebration/IMG-20231217-WA0057_xdkc1x.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718819696/SpecialDay%20Celebration/20221231_104436_n8rodm.jpg",
+        image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905546/SpecialDay%20Celebration/IMG-20230909-WA0034_nvahmy.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718819690/SpecialDay%20Celebration/20221227_180956_yxbki8.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718819696/SpecialDay%20Celebration/20221231_104436_n8rodm.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718819686/SpecialDay%20Celebration/SmartSelect_20230717_130858_Facebook_gkjmlg.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905551/SpecialDay%20Celebration/IMG-20240104-WA0030_thsv8r.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905546/SpecialDay%20Celebration/IMG-20230909-WA0034_nvahmy.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905549/SpecialDay%20Celebration/IMG-20231007-WA0036_fvsbya.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905549/SpecialDay%20Celebration/IMG-20231007-WA0039_eaejfx.jpg"
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905549/SpecialDay%20Celebration/IMG-20231007-WA0039_eaejfx.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905550/SpecialDay%20Celebration/IMG-20231217-WA0057_xdkc1x.jpg",
         ],
         label: "Celebration of Special Days",
-        content: "To celebrate your birthday, anniversary or any other special days by sharing love and joy with those little souls.",
+        headLine: "To celebrate your special days in a more special way",
+        content: [{
+            section: "Introduction",
+            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
+        }, {
+            section: "How it started",
+            text: "As we started our journey many people approached us, who wanted to celebrate their special days by doing something for the needy people, but were unable to do so as arranging such things is hard at an individual level. Then we came up with the idea of launching this project."
+        }, {
+            section: "How we do it",
+            text: "Firstly, we go to different under-previeleged areas to survey about children of that area. "
+        }
+        ],
         href: "specialdaycelebration"
     },
     'agomonirahobane': {
@@ -21,14 +32,24 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg"
         ],
         label: "Agomonir Ahobane",
-        content: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas.",
+        headLine: "To spread the joy of Bengali's greatest festival Durgapuja",
+        content: [{
+            section: "Introduction",
+            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
+        }
+        ],
         href: "agomonirahobane"
     },
 
     'sunshine': {
         image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg"],
         label: "SUNSHINE",
-        content: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas.",
+        headLine: "To help families with no active income source by providing them monthly aid.",
+        content: [{
+            section: "Introduction",
+            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
+        }
+        ],
         href: "sunshine"
     },
     'sampreeti': {
@@ -41,6 +62,7 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898114/SAMPREETI/IMG-20230807-WA0004_1_royvr0.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898115/SAMPREETI/IMG-20230807-WA0006_r245i0.jpg"],
         label: "SAMPREETI",
+        headLine: "To celebrate the Indepnedence Day of India through various cultural activities.",
         content: [
             {
                 section: "Introduction",
@@ -76,9 +98,8 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888060/Sobujer%20Sondhane/IMG20230604090209_tdwcq1.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888047/Sobujer%20Sondhane/IMG-20230604-WA0065_pskopn.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888052/Sobujer%20Sondhane/IMG20230604080253_cfn7yu.jpg"],
-        headLine: "Our initiative to celebrate World Evironment Day and to aware people about protecting nature.",
+        headLine: "To celebrate World Evironment Day and to spread awareness about protecting nature.",
         label: "Sobujer Sondhane",
-
         content: [
             {
                 "section": "Introduction",
@@ -119,7 +140,12 @@ export const projectDetails = {
 
         ],
         label: "Winter's Smile",
-        content: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas.",
+        headLine: "To spread the blessings of Christmas among people in need",
+        content: [{
+            section: "Introduction",
+            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
+        }
+        ],
         href: "winterssmile"
     }
 }

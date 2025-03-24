@@ -1,9 +1,9 @@
-import Carousel from "@/components/home/carousel"
-import Contact from "@/components/home/contact"
+import Carousel from "@/components/home/Carousel"
+import Contact from "@/components/home/Contact"
 import FeedbackCont from "@/components/home/feedbackView"
 import Participation from "@/components/home/Participation"
-import Projects from "@/components/home/projects"
-import Purpose from "@/components/home/purpose"
+import Projects from "@/components/home/Projects"
+import Purpose from "@/components/home/Purpose"
 import Container from "@/components/ui/Container"
 import Head from "next/head"
 
