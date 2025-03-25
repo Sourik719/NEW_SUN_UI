@@ -1,6 +1,7 @@
+import Link from "next/link";
 import Loader from "../ui/Loader";
 const Contribution = ({ data }) => {
-    
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -18,10 +19,9 @@ const Contribution = ({ data }) => {
         const monthName = monthNames[monthIndex];
         return `${monthName},${year}`;
     }
-
     return (
 
-        <div className="sm:w-[500px] w-full px-3 py-3 flex flex-col border bg-slate-500 rounded-md items-center justify-center mx-2 text-blue-200">
+        <div className="sm:w-[500px] w-full px-3 py-3 flex flex-col border bg-slate-900 rounded-md items-center justify-center mx-2 text-blue-200">
             <span className="py-2 text-xl text-brown-400">Recent Contributions</span>
             {!data && <Loader />}
             {data && <div className="w-full flex flex-col justify-center items-center border rounded-md overflow-hidden ">
@@ -39,7 +39,11 @@ const Contribution = ({ data }) => {
                         <div className="px-2 w-1/4"> {contribution.amount}</div>
                     </div>
                 ))}
-                < h2 className="text-lg bg-green-600 w-full flex flex-row justify-between py-2 px-4 text-gray-700">Total Contribution:<span className="text-xl px-5">{data.totalAmount}</span></h2></div>}
+                {data.contributions.length == 0 && <div className="p-2 text-lg text-center w-full">No contributions to show at the moment.</div>}
+                < h2 className="text-lg bg-green-600 w-full flex flex-row justify-between py-2 px-4 text-gray-700">Total Contribution:<span className="text-xl px-5">{data.totalAmount}</span></h2>
+                <Link className="text-xl w-1/2 p-2 bg-red-800 text-white text-center rounded-md m-2 shadow-xl" href="../donate/contribution">Donate now </Link>
+            </div>}
+
 
         </div >
     )
