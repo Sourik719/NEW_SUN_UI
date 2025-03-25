@@ -2,9 +2,7 @@ import Script from 'next/script';
 
 import { useState } from 'react';
 const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFailure }) => {
-
     const [loading, setLoading] = useState(false);
-
     const handlePayment = async () => {
         setLoading(true);
         if (!window.Razorpay) {
@@ -23,12 +21,10 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
                 image: image || '/your_logo.png',
                 order_id: orderData.id,
                 handler: async function (response) {
-                    console.log(response);
                     if (onSuccess) {
                         onSuccess(response);
                     } else {
                         alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
-                        // You might want to redirect the user or update the UI here
                         console.log('Razorpay Success Response:', response);
                     }
                 },
