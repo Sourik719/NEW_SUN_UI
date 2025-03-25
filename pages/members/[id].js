@@ -1,4 +1,4 @@
-import Contribution from '@/components/profile/Contribution';
+import Contribution from '@/components/profile/Contridetails';
 import Profile from '@/components/profile/Profile';
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
