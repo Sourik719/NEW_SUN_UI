@@ -1,6 +1,6 @@
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
-import PaymentGateway from '@/components/ui/Payment';
+import PaymentGateway from '@/components/donation/Payment';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
