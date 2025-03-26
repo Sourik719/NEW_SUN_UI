@@ -41,7 +41,7 @@ const Contribution = ({ data }) => {
                 ))}
                 {data.contributions.length == 0 && <div className="p-2 text-lg text-center w-full">No contributions to show at the moment.</div>}
                 < h2 className="text-lg bg-green-600 w-full flex flex-row justify-between py-2 px-4 text-gray-700">Total Contribution:<span className="text-xl px-5">{data.totalAmount}</span></h2>
-                <Link className="text-xl w-1/2 p-2 bg-red-800 text-white text-center rounded-md m-2 shadow-xl" href="../donate/contribution">Donate now </Link>
+                <Link className="text-xl w-1/2 p-2 bg-red-800 text-white text-center rounded-md m-2 shadow-xl" href="../donate/member_contribution">Donate now </Link>
             </div>}
 
 
