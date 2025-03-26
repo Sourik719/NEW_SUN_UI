@@ -1,6 +1,6 @@
+import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
-import PaymentGateway from '@/components/donation/Payment';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
@@ -108,7 +108,7 @@ const contributionPage = () => {
     }
     if (member) {
         return (
-            <Container className="relative bg-slate-200 flex flex-col justify-center items-center py-5">
+            <Container className="relative bg-blue-200 flex flex-col justify-center items-center py-5">
                 <Head>
                     <title>Contribution</title>
                 </Head>
