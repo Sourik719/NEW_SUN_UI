@@ -15,9 +15,9 @@ const Participation = () => {
         <div className="flex flex-col items-center justify-center bg-black text-white">
             <p className="text-3xl">Want to be a part of <span className="mr-1 text-orange-400">our journey?</span></p>
             <div className="w-full flex sm:flex-row flex-col p-5 justify-center items-center">
-                <EngageBtn label="Sponsor a Event" href={"/"} />
+                <EngageBtn label="Sponsor a Event" href={"/donate/sponsor"} />
                 {!isAuthenticated && <EngageBtn label="Become a Member" href={"/join-us"} />}
-                {isAuthenticated && <EngageBtn label="Monthly Contribution" href={"/"} />}
+                {isAuthenticated && <EngageBtn label="Monthly Contribution" href={"/donate/member_contribution"} />}
                 <EngageBtn label="Donate for a Cause" href={"/"} />
             </div>
         </div>

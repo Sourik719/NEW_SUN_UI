@@ -12,8 +12,8 @@ const projectPage = () => {
     const project = projectDetails[id];
 
     return (
-        <Container className={"bg-lime-200"}>
-            <div className="text-5xl font-bold mx-20 p-2 text-yellow-500">{project.label}
+        <Container className={"bg-lime-800"}>
+            <div className="text-5xl font-bold mx-20 p-2 text-orange-500">{project.label}
                 <hr className="my-2 border-2 border-blue-400 rounded-xl" />
             </div>
 

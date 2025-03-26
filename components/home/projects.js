@@ -7,7 +7,7 @@ const Projects = () => {
         <div className="w-full py-2 flex flex-col justify-center items-center bg-black">
             <p className="flex flex-row text-3xl">
                 <span className="text-white">WHAT DOES</span>
-                <span className="text-orange-400 ml-1">TEAM NEW SUN</span>
+                <span className="text-orange-400 ml-1">TEAM NEW SUN FOUNDATION</span>
                 <span className="text-white ml-1">DO ?</span>
             </p>
 

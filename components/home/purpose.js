@@ -6,7 +6,7 @@ const Purpose = () => {
         <div className="w-full flex flex-col bg-black px-2 items-center py-5">
             <div className="flex text-white text-3xl py-10">
                 <h2>WHAT IS</h2>
-                <h2 className="text-orange-400 ml-1">TEAM NEW SUN?</h2>
+                <h2 className="text-orange-400 ml-1">TEAM NEW SUN FOUNDATION?</h2>
             </div>
             <motion.div
                 initial={{ opacity: 0, x: -100 }} // Initial animation state
