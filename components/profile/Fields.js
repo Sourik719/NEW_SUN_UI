@@ -4,7 +4,7 @@ import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import 'react-datepicker/dist/react-datepicker.css';
+
 import { FaPen, FaSave } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
