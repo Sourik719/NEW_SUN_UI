@@ -40,7 +40,7 @@ const profile = () => {
         if (contriData) {
             setDue(contriData.due.length);
         } else {
-            setDue(null);
+            setDue(0);
         }
     }, [contriData]);
 
