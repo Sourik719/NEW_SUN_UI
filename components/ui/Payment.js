@@ -1,8 +1,9 @@
+import { useRouter } from 'next/router';
 import Script from 'next/script';
-
 import { useState } from 'react';
 const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFailure }) => {
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
     const handlePayment = async () => {
         setLoading(true);
         if (!window.Razorpay) {
@@ -61,12 +62,18 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
             }
         }
     };
+    const handlePaymentCancel = () => {
+        router.reload();
+    }
 
     return (
-        <div>
+        <div className='flex flex-row items-center justify-center'>
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-            <button className="w-2/5 bg-green-500 p-3 m-1 text-center rounded-lg hover:bg-green-700 focus:bg-green-800 text-white transition-colors duration-300" id="rzp-button1" onClick={handlePayment} >
+            <button className="w-2/5 bg-green-500 p-3 m-1 text-center rounded-lg hover:bg-green-700 focus:bg-green-800 text-white transition-colors duration-300 border-2" id="rzp-button1" onClick={handlePayment} >
                 {loading ? 'Processing Payment...' : 'Pay with Razorpay'}
+            </button>
+            <button className="w-2/5 bg-red-400 p-3 m-1 text-center rounded-lg hover:bg-red-500 focus:bg-red-800 text-white transition-colors duration-300 border-2" id="rzp-button1" onClick={handlePaymentCancel} >
+                Cancel Payment
             </button>
         </div>
     );
