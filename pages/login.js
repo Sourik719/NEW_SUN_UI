@@ -1,17 +1,17 @@
-import { useState, useRef } from "react"
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import { useAsync } from "@/hooks/use-async"
 import { useHttp } from '@/hooks/use-http'
 import { memberActions } from "@/store/member-slice"
 import { notificationActions } from '@/store/notification-slice'
+import { useRouter } from 'next/router'
+import { useRef, useState } from "react"
+import { useDispatch } from 'react-redux'
 
-import Head from "next/head"
-import Link from "next/link"
-import Container from "@/components/ui/Container"
-import Loader from "@/components/ui/Loader"
 import Background from "@/components/login/Background"
 import Input from "@/components/login/Input"
+import Container from "@/components/ui/Container"
+import Loader from "@/components/ui/Loader"
+import Head from "next/head"
+import Link from "next/link"
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' })
@@ -37,7 +37,7 @@ const Login = () => {
         dispatch(notificationActions.setNotification({ message }))
     })
 
-    return (<Container className="bg-slate-200 w-full flex justify-center items-center">
+    return (<Container className="bg-orange-300 w-full flex justify-center items-center">
         <Head>
             <title>Login</title>
         </Head>
