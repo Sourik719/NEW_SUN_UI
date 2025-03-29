@@ -43,8 +43,8 @@ const contributionPage = () => {
     const paymentSuccess = catchAsync(async (successData) => {
         const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
 
-        if (verificationData?.data._id) {
-            const updatedContriData = { ...contriData, paymentId: verificationData.data._id };
+        if (verificationData?.payment._id) {
+            const updatedContriData = { ...contriData, paymentId: verificationData.payment._id };
             console.log("contriData before /contributions:", updatedContriData);
             const { message: successMessage } = await httpRequest('/contributions', 'POST', updatedContriData);
             window.alert(successMessage);
