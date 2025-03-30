@@ -6,7 +6,7 @@ const Profile = ({ user, id, due }) => {
     return (
         <div className="sm:w-2/3 lg:w-1/2 bg-white rounded-md shadow-md my-2 mx-5">
             <div className='px-8 py-6'>
-                <ProfileImage value={user.image} fieldName="image" gender={user.sex} />
+                <ProfileImage value={user.image} fieldName="image" gender={user.sex} id={id} />
                 <div className="flex flex-wrap">
                     <div className="w-full sm:w-1/2">
                         <ProfileFields value={user.firstname} label="First Name" dataType="Text" editAble={true} id={id} fieldName="firstname" />

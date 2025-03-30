@@ -47,9 +47,9 @@ const DonatePage = () => {
 
     const paymentSuccess = catchAsync(async (successData) => {
         const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
-
-        if (verificationData?.data._id) {
-            const updatedContriData = { ...donateData, paymentId: verificationData.data._id };
+        console.log(verificationData);
+        if (verificationData?.payment._id) {
+            const updatedContriData = { ...donateData, paymentId: verificationData.payment._id };
             console.log("contriData before /contributions:", updatedContriData);
             const { message: successMessage } = await httpRequest('/donate', 'POST', updatedContriData);
             window.alert(successMessage);

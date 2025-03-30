@@ -1,11 +1,11 @@
+import { regex } from "@/validation/registration"
 import { createSlice } from "@reduxjs/toolkit"
 import { HYDRATE } from "next-redux-wrapper"
-import { regex } from "@/validation/registration"
 
 const registrationSlice = createSlice({
     name: 'registration',
     initialState: {
-        fields: { email: '', password: '', firstname: '', lastname: '', dob: '', phone: '', image: '', address: '', sex: '', bloodGroup: '' },
+        fields: { email: '', password: '', firstname: '', lastname: '', dob: '', phone: '', address: '', sex: '', bloodGroup: '' },
         errors: { email: null, password: null, firstname: null, lastname: null, dob: null, phone: null, sex: null, bloodGroup: null }
     },
     reducers: {
@@ -75,10 +75,10 @@ const registrationSlice = createSlice({
                 state.errors.phone = ''
             }
         },
-        imageChangeHandler(state, action) {
-            const value = action.payload.trim()
-            state.fields.image = value
-        },
+        /* imageChangeHandler(state, action) {
+             const file = action.payload
+             state.fields.image = file
+         },*/
         addressChangeHandler(state, action) {
             const value = action.payload.trim()
             state.fields.address = value

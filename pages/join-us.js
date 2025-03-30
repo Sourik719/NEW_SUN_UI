@@ -1,7 +1,6 @@
 import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
 import { notificationActions } from "@/store/notification-slice"
-import { registrationActions } from "@/store/registration-slice"
 import { hasErrors, hasUntouched } from "@/validation/registration"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -21,15 +20,19 @@ const JoinUs = () => {
     const { catchAsync } = useAsync()
     const [httpRequest, isLoading] = useHttp()
     const [isVerifying, setIsVerifying] = useState(false)
-
+    const [imageFile, setImageFile] = useState(null);
     const signupHandler = catchAsync(async () => {
         if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
         if (hasErrors(errors)) throw new Error('Please do correct the red-marked details.')
-        const { message } = await httpRequest('/signup', 'POST', fields)
+        const formData = { ...fields, image: imageFile }
+        console.log(formData);
+        const { message } = await httpRequest('/signup', 'POST', formData)
         setIsVerifying(true)
         dispatch(notificationActions.setNotification({ message }))
     })
-
+    const handleImageSelected = (file) => {
+        setImageFile(file);
+    };
     return (<Container className="relative bg-slate-200 w-full flex justify-center items-center" >
         <Head>
             <title>Join Us</title>
@@ -40,8 +43,7 @@ const JoinUs = () => {
                 <Background />
                 <div className="relative flex flex-col justify-center items-center z-10 p-3">
                     <ImageField
-                        value={fields.image}
-                        actionCreator={registrationActions.imageChangeHandler}
+                        actionCreator={handleImageSelected}
                     />
                     <Inputs />
                     <div className="w-full sm:w-2/3 p-3">

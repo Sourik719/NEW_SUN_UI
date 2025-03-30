@@ -50,7 +50,7 @@ const profile = () => {
     }
     if (user) {
         return (
-            <Container className="relative bg-slate-200 min-h-screen flex lg:flex-row flex-col justify-center items-center py-5">
+            <Container className="relative bg-blue-200 min-h-screen flex lg:flex-row flex-col justify-center items-center py-5 ">
                 <Head>
                     <title>Profile</title>
                 </Head>

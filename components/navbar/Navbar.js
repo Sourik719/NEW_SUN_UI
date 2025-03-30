@@ -1,9 +1,9 @@
 import { useAuth } from "@/hooks/use-auth"
 import { AnimatePresence, motion } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { FaBars, FaTimes } from "react-icons/fa"
-
-import Link from "next/link"
 import Loader from "../ui/Loader"
 import Account from "./Account"
 import NavDropdown from "./NavButton"
@@ -44,8 +44,18 @@ const Navbar = () => {
 
 
     return (<div className={`fixed top-0 z-20 w-full flex flex-col sm:flex-row justify-between ${isScrolled && 'bg-slate-200 sm:bg-opacity-95'} transition-all duration-500 py-2 px-2`}>
-        <div className="flex justify-between items-center sm:mr-20 mb-5 sm:mb-0">
-            <Link href={'/'} className="hover:scale-110 transition-transform duration-200 p-2 mx-3 my-1">Navbrand</Link>
+        <div className="flex justify-between items-center sm:mr-5 my-2 sm:mb-0">
+            <Link href="/" aria-label="Go to homepage" className="block">
+                <div className="w-12 h-12 relative rounded-xl overflow-hidden">
+                    <Image
+                        src={"/logo.png"}
+                        alt="TEAM NEW SUN FOUNDATION Logo"
+                        layout="fill"
+                        objectFit="cover"
+                        priority
+                    />
+                </div>
+            </Link>
             {isMobile && <span className="text-2xl p-3" onClick={toggleHandler}>{isHidden ? <FaBars /> : <FaTimes />}</span>}
         </div>
         <AnimatePresence>
@@ -64,7 +74,7 @@ const Navbar = () => {
                                 <NavLink label={'About'} href={'/about'} />
                                 <NavDropdown label={'Projects'} items={projects} />
                                 <NavDropdown label={'Donate'} items={services} />
-                                <NavLink label={'Tasks'} href={'/tasks'} />
+                                <NavLink label={'Gallery'} href={'/gallery'} />
                             </section>
                         </div>
                     </div>

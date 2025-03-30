@@ -1,16 +1,16 @@
 
 const Journey = () => {
     return (
-        <div className="w-full bg-gray-100 py-12 flex flex-col items-center text-gray-800">
+        <div className="w-full bg-slate-900 py-12 flex flex-col items-center text-gray-800">
             <div className="container md:px-16 px-6">
                 <div className="mb-8 text-center">
-                    <h2 className="md:text-5xl text-3xl font-bold text-orange-600 mb-3">
-                        JOURNEY of TEAM NEW SUN FOUNDATION
+                    <h2 className="md:text-4xl text-xl font-bold text-white mb-3">
+                        A Story of Impact: The Journey of <span className="text-orange-400">TEAM NEW SUN FOUNDATION</span>
                     </h2>
                     <hr className="border-b-4 border-orange-600 w-1/4 mx-auto" />
                 </div>
 
-                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden">
+                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
                         className="w-64 h-auto object-cover rounded-lg shadow-md float-right ml-8 mb-4 md:mb-0"
                         src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1708784658/samples/New-Sun-Projects/IMG_3882_nzgp4a.jpg"
@@ -24,7 +24,7 @@ const Journey = () => {
                     </p>
                 </section>
 
-                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden">
+                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
                         className="w-64 h-auto object-cover rounded-lg shadow-md float-left mr-8 mb-4 md:mb-0"
                         src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1708784658/samples/New-Sun-Projects/IMG_3882_nzgp4a.jpg"
@@ -38,10 +38,10 @@ const Journey = () => {
                     </p>
                 </section>
 
-                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden">
+                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
                         className="w-64 h-auto object-cover rounded-lg shadow-md float-right ml-8 mb-4 md:mb-0"
-                        src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1708784658/samples/New-Sun-Projects/IMG_3882_nzgp4a.jpg"
+                        src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236667/Agomonir%20Ahobane/ro3n1l2gcncpsgsztjfb.jpg"
                         alt="Team New Sun Foundation - Outreach"
                     />
                     <p className="mb-4">
@@ -55,10 +55,10 @@ const Journey = () => {
                     </p>
                 </section>
 
-                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden">
+                <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
                         className="w-80 h-auto object-cover rounded-lg shadow-md float-left mr-8 mb-4 md:mb-0"
-                        src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1708784658/samples/New-Sun-Projects/IMG_3882_nzgp4a.jpg"
+                        src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888126/Sobujer%20Sondhane/IMG-20230604-WA0123_c4dbgf.jpg"
                         alt="Team New Sun Foundation - Environment & Culture"
                     />
                     <p className="mb-4">
@@ -72,7 +72,7 @@ const Journey = () => {
                     </p>
                 </section>
 
-                <section className="mb-10 text-lg leading-relaxed text-justify">
+                <section className="mb-10 text-lg leading-relaxed text-justify text-white">
                     <p className="mb-4">
                         Each initiative we undertake is driven by a core mission: to provide essential support and raise awareness about critical social issues. Whether it's through distributing educational materials to underprivileged students, organizing health camps, planting trees, or conducting workshops on mental health, we have consistently worked towards creating a better, more inclusive world. As we continue to grow, our commitment to our founding principles remains strong. The journey that began with a simple act of pooling our pocket money has evolved into a powerful movement for positive change. Our story is a testament to the impact that a group of dedicated individuals can have when they come together with a common purpose.
                     </p>

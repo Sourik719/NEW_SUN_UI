@@ -5,9 +5,9 @@ import Container from "@/components/ui/Container";
 
 const aboutUs = () => {
     return (
-        <Container className="bg-gray-300">
+        <Container className="bg-orange-300">
             <Journey />
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col ">
                 <Goals />
                 <Team />
             </div>

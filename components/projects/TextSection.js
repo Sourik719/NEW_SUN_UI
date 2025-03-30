@@ -6,13 +6,13 @@ const ProjectComponent = ({ project }) => {
     const sidebarRefs = useRef([]);
     const contentRefs = useRef([]);
 
-    // Function to handle scrolling and update selected section in sidebar
+    
     const handleScroll = () => {
         const contentContainer = document.getElementById('contentContainer');
         if (!contentContainer) return;
 
-        // Find the index of the section that is in view based on scroll position
-        const scrollPosition = contentContainer.scrollTop + contentContainer.clientHeight / 2; // Adjusted for center alignment
+        
+        const scrollPosition = contentContainer.scrollTop + contentContainer.clientHeight / 2; 
         let index = 0;
 
         for (let i = 0; i < contentRefs.current.length; i++) {

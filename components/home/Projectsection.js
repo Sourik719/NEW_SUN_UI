@@ -5,7 +5,7 @@ import Link from "next/link"
 const Projects = () => {
     return (
         <div className="w-full py-2 flex flex-col justify-center items-center bg-black">
-            <p className="flex flex-row text-3xl">
+            <p className="flex flex-row text-xl sm:text-3xl">
                 <span className="text-white">WHAT DOES</span>
                 <span className="text-orange-400 ml-1">TEAM NEW SUN FOUNDATION</span>
                 <span className="text-white ml-1">DO ?</span>

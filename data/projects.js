@@ -25,17 +25,38 @@ export const projectDetails = {
         href: "specialdaycelebration"
     },
     'agomonirahobane': {
-        image: [
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg"
+        image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236667/Agomonir%20Ahobane/ro3n1l2gcncpsgsztjfb.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236674/Agomonir%20Ahobane/jhsgogtuzznawpfxhib3.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236694/Agomonir%20Ahobane/behdjtlcj0nljui40fzi.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236664/Agomonir%20Ahobane/ipqouxs3grzizg3j3cqq.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236665/Agomonir%20Ahobane/ychbcskl9y99hhzvjofy.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236667/Agomonir%20Ahobane/ro3n1l2gcncpsgsztjfb.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236686/Agomonir%20Ahobane/s6y2nui4656kyzfjawsg.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236694/Agomonir%20Ahobane/behdjtlcj0nljui40fzi.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236634/Agomonir%20Ahobane/owk90gbdecj6u6cfo5pv.jpg"
         ],
         label: "Agomonir Ahobane",
         headLine: "To spread the joy of Bengali's greatest festival Durgapuja",
         content: [{
             section: "Introduction",
-            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
+            text: "For us Bengalis, the vibrant celebration of Durga Puja marks the year's grandest festival. Yet, we recognize that the simple joy of wearing new clothes, a cherished tradition during this time, remains out of reach for many. It was this realization that sparked the vision for our most significant annual endeavor: Agomonir Ahobane. Through this heartfelt project, we extend the festive spirit by distributing new garments to children and the elderly residing in various underprivileged communities throughout West Bengal, aiming to share the joy of new beginnings with those who need it most."
+        },
+        {
+            section: "Beginning",
+            text: "The seeds of this project were sown in 2021, a time when the shadow of the COVID-19 pandemic still loomed large. Communities were grappling with food insecurity, making the simple pleasure of new garments feel like an unattainable luxury for many. It was against this backdrop that we initiated a grassroots survey in our hometown of Belgharia. Our efforts identified nearly 250 children for whom the joy of new clothes before Durga Puja seemed a distant dream. Fueled by a shared sense of purpose, we reached out to our community, and the response was overwhelming. With the generous support of compassionate individuals, we were able to bring smiles to those young faces, providing them with brand new dresses just before the much-awaited Durga Puja celebrations."
+        },
+        {
+            section: "Purulia",
+            text: "Following the resounding success of our inaugural effort, a belief took root: we could extend our reach to those residing in underserved rural communities across West Bengal. Driven by this conviction, we meticulously planned the second edition of Agomonir Ahobane in Punura, an underprivileged village nestled in the Purulia District. Collaborating closely with the Punura Ramakrishna Seva Sangha, whose local insights proved invaluable, we identified 300 eager young children. With the continued and generous support of our cherished well-wishers, we were once again able to bring the joy of new garments to these children before the auspicious occasion of Durga Puja."
+        },
+        {
+            section: "Jhargram",
+            text: "Having witnessed the positive impact of Agomonir Ahobane in Purulia, our attention turned to the numerous villages within the Jhargram District. There, we learned of the profound struggles faced by various tribal communities, where the lack of consistent employment and the inability to cultivate their land often led to severe food insecurity. Deeply moved by their plight, we extended the reach of our flagship project, conducting Agomonir Ahobane in Gopiballavpur in 2023 and Belpahari in 2024, both within the Jhargram District. In these subsequent years, our initiative broadened its scope, and alongside the children, we began providing new garments to elderly individuals as well. Thanks to the continued generosity and heartfelt donations from our dedicated well-wishers, we were able to bring the joy of new clothing to approximately 1500 people across these two years, offering a small measure of comfort and dignity during the festive season."
+        },
+        {
+            section: "Pujo Porikroma",
+            text: "Beyond the distribution of new garments to children and the elderly, 2023 marked the inception of another cherished initiative under the umbrella of our Agomonir Ahobane project: Pujo Porikroma (Durga Puja Excursion). This special program aims to offer the enchanting experience of pandal hopping to those young hearts who rarely have the opportunity to partake in this beloved cultural tradition. Our Pujo Porikroma initiative filled their days with wonder and their hearts with pure joy, their radiant smiles serving as the most precious gifts in return."
         }
         ],
         href: "agomonirahobane"
@@ -54,6 +75,7 @@ export const projectDetails = {
     },
     'sampreeti': {
         image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1708754010/samples/New-Sun-Projects/kfnvegj8o6khmfcsnbal.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743276319/SAMPREETI/orwnuku2atd4z6t1lfxs.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898127/SAMPREETI/IMG_2452_iv6ziw.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898124/SAMPREETI/IMG_20230813_212738_k5gcgt.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898116/SAMPREETI/IMG-20230807-WA0008_dhlvdw.jpg",
@@ -110,8 +132,8 @@ export const projectDetails = {
                 "text": "Our commitment to tree planting began even before our main events, with members planting trees in their homes and premises as early as 2020. These efforts were shared on our social media platforms, encouraging others to participate. This practice has continued, fostering a culture of tree planting within our community. Over the past few years, we've received positive feedback and increased participation from members, their relatives, and friends."
             },
             {
-                "section": "Sobujer Sondhane",
-                "text": "Our first major event, Sobujer Sondhane, took place in 2022 at a playground in Ghola, Agarpara. We collaborated with Team URBI, whose volunteers were instrumental in planting trees and setting up protective fences. We also involved children from a nearby slum, allowing each child to plant a tree with the help of our members. Through the collective efforts of both teams, we successfully planted nearly 30 trees around the playground."
+                "section": "First Edition",
+                "text": "First edition of our major event, Sobujer Sondhane, took place in 2022 at a playground in Ghola, Agarpara. We collaborated with Team URBI, whose volunteers were instrumental in planting trees and setting up protective fences. We also involved children from a nearby slum, allowing each child to plant a tree with the help of our members. Through the collective efforts of both teams, we successfully planted nearly 30 trees around the playground."
             },
             {
                 "section": "Continued Efforts",
@@ -120,32 +142,44 @@ export const projectDetails = {
             {
                 "section": "Expanding Our Reach",
                 "text": "This year, in 2024, we selected a large ground in Sodepur for our tree plantation drive. Many of the trees planted had been nurtured by our members for an extended period. We installed fences to protect the saplings, ensuring their growth and survival. Notably, we planted larger trees, such as mango trees, which will provide long-term benefits to the local community."
+            },
+            {
+                "section": "Drawing Competition",
+                "text": "In 2024, we realized that, beside planting trees it is also our responsibility to let our younger generation "
+
             }
         ]
         ,
         href: "sobujersondhane"
     },
     'winterssmile': {
-        image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1708757689/samples/New-Sun-Projects/IMG_5461_cptojl.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708757891/samples/New-Sun-Projects/IMG_5399_rito8b.jpg",
+        image: [" https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241761/Winter%27s%20Smile/qtpxuvyd3xgkxbxkomfl.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783344/Winter%27s%20Smile/IMG-20221225-WA0184_eviihn.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708757689/samples/New-Sun-Projects/IMG_5461_cptojl.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1708757891/samples/New-Sun-Projects/IMG_5399_rito8b.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783346/Winter%27s%20Smile/20211225_122013_p9ivtc.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783347/Winter%27s%20Smile/20211225_121514_uvv8sl.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783358/Winter%27s%20Smile/20211225_120315_xufddh.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783369/Winter%27s%20Smile/IMG_5753_bakeeg.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783346/Winter%27s%20Smile/20211225_122013_p9ivtc.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783370/Winter%27s%20Smile/IMG_5801_owsqur.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0144_vdlvwr.jpg",
-            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0165_sp3ssf.jpg"
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0165_sp3ssf.jpg",
 
-
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241763/Winter%27s%20Smile/msrbtufzl7fo2fk33r9q.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241767/Winter%27s%20Smile/dnvkcyoyvijfhe0tkok9.jpg",
+            "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241766/Winter%27s%20Smile/m8bakxtlbv4k8skxz04m.jpg"
         ],
         label: "Winter's Smile",
         headLine: "To spread the blessings of Christmas among people in need",
         content: [{
             section: "Introduction",
-            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
-        }
-        ],
+            text: "As TEAM NEW SUN FOUNDATION expanded its reach and impact, a poignant reality came into sharper focus: the stark vulnerability of many who lack the basic necessities to ward off the winter's chill. For countless individuals, the simple comfort of warm clothing and blankets remains an elusive dream. It was this profound awareness that ignited the inception of our project, Winter's Smile. With a dual purpose at its heart, Winter's Smile aims to provide warmth and protection to those in need through the distribution of blankets and sweaters, while also embracing the spirit of generosity and togetherness inherent in the joyous celebration of Christmas."
+    },{
+             section: "Introduction",
+            text: "As TEAM NEW SUN FOUNDATION expanded its reach and impact, a poignant reality came into sharper focus: the stark vulnerability of many who lack the basic necessities to ward off the winter's chill. For countless individuals, the simple comfort of warm clothing and blankets remains an elusive dream. It was this profound awareness that ignited the inception of our project, Winter's Smile. With a dual purpose at its heart, Winter's Smile aims to provide warmth and protection to those in need through the distribution of blankets and sweaters, while also embracing the spirit of generosity and togetherness inherent in the joyous celebration of Christmas."
+    }
+],
         href: "winterssmile"
     }
 }
