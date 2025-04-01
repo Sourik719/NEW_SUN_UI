@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { memberActions } from "@/store/member-slice"
 import { notificationActions } from "@/store/notification-slice"
+import { useState } from "react"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa"
+import { useDispatch, useSelector } from "react-redux"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -24,7 +24,7 @@ const Account = () => {
         <section className="flex justify-between items-center rounded" onClick={toggleHandler}>
             <div className="bg-slate-100 rounded-full">
                 <Image
-                    src={member.image || '/blank.png'}
+                    src={member.image.url || '/blank.png'}
                     alt={'Profile'}
                     width={30}
                     height={30}
