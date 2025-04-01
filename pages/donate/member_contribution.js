@@ -26,29 +26,38 @@ const contributionPage = () => {
     const amountRef = useRef();
 
     const paymentHandler = catchAsync(async () => {
-        if (!numberOfMonths.trim() || numberOfMonths == 0) throw new Error("Number of months can not be Blank or Zero");
-        if (!amountPerMonth.trim()) throw new Error("Please enter amount to donate");
-        if (amountPerMonth < 30) throw new Error("Minimum contribution per month is Rs.30");
-        if (numberOfMonths > 12) throw new Error("You can donate for Maximum 12 months at a time.")
+        const numberOfMonthsValue = numberOfMonths.trim();
+        const amountPerMonthValue = amountPerMonth.trim();
+        if (!numberOfMonthsValue || isNaN(Number(numberOfMonthsValue)) || Number(numberOfMonthsValue) === 0) {
+            throw new Error("Number of months must be a numeric value greater than zero.");
+        }
+        const numberOfMonthsNumeric = Number(numberOfMonthsValue);
+        if (!amountPerMonthValue || isNaN(Number(amountPerMonthValue))) {
+            throw new Error("Please enter a numeric value for the amount to donate per month.");
+        }
+        const amountPerMonthNumeric = Number(amountPerMonthValue);
+
+        if (amountPerMonthNumeric < 30) {
+            throw new Error("Minimum contribution per month is Rs.30.");
+        }
+        if (numberOfMonthsNumeric > 12) {
+            throw new Error("You can donate for a maximum of 12 months at a time.");
+        }
+
         const updatedPaymentdata = { amount: totalAmount };
-        setContridata(contriData => ({ ...contriData, amount: totalAmount, endDate: endDate }))
+        setContridata(contriData => ({ ...contriData, amount: totalAmount, endDate: endDate }));
         const { data, message } = await httpRequest('/payments/order', 'POST', updatedPaymentdata);
-        console.log(data.order);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
-        console.log(order);
-    })
+    });
 
     const paymentSuccess = catchAsync(async (successData) => {
         const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
-
         if (verificationData?.payment._id) {
             const updatedContriData = { ...contriData, paymentId: verificationData.payment._id };
-            console.log("contriData before /contributions:", updatedContriData);
             const { message: successMessage } = await httpRequest('/contributions', 'POST', updatedContriData);
-            window.alert(successMessage);
-            dispatch(notificationActions.setNotification({ successMessage }));
+            dispatch(notificationActions.setNotification({ message: successMessage }));
             router.reload();
         }
     });
@@ -136,7 +145,7 @@ const contributionPage = () => {
                             orderData={order}
                             name="TEAM NEW SUN FOUNDATION"
                             description={`Monthly Contribution for ${getMonth(startDate)} to ${getMonth(endDate)}`}
-                            image="/blank.png"
+                            image="/logo.png"
                             onSuccess={paymentSuccess}
                             onFailure={paymentFailure}
                         />

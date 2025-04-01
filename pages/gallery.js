@@ -4,8 +4,8 @@ const ImageGallery = () => {
 
 
     return (
-        <Container >
-            <div className="bg-slate-700 p-10">
+        <Container className="bg-violet-200">
+            <div className=" p-10">
                 <div className=" flex flex-col justify-center items-center text-center">
                     <h2 className="text-center text-4xl font-bold text-white p-4">A Glimpse of <span className="text-orange-500">TEAM NEW SUN FOUNDATION</span></h2>
                     <hr className="border border-2 rounded-lg mb-5 border-orange-400 w-1/4"></hr>

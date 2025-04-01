@@ -30,30 +30,34 @@ const DonatePage = () => {
     ];
 
     const paymentHandler = catchAsync(async () => {
-        if (!name.trim()) throw new Error("Please fill your name");
-        if (!amount.trim()) throw new Error("Please enter amount to donate");
-        if (amount < 30) throw new Error("Minimum donation acceptable is Rs.30");
-        if (!phone.trim()) throw new Error("Phone Number is mandatory");
+        if (!name.trim()) throw new Error("Please fill your name")
+        if (name.trim().length < 3) throw new Error("Name must be at least 3 characters long.")
 
-        const updatedPaymentdata = { amount: amount };
-        setDonateData(donateData => ({ ...donateData, name: name, email: email, amount: amount, cause: cause, phone: phone }))
-        const { data, message } = await httpRequest('/payments/order', 'POST', updatedPaymentdata);
+        const amountValue = amount.trim()
+        if (!amountValue) throw new Error("Please enter amount to donate")
+        const amountNumber = Number(amountValue)
+        if (isNaN(amountNumber)) throw new Error("Please enter a valid numeric amount to donate.")
+        if (amountNumber < 30) throw new Error("Minimum donation acceptable is Rs.30")
+
+        const phoneValue = phone.trim()
+        if (!phoneValue) throw new Error("Phone Number is mandatory")
+        const phoneRegex = /^[6-9]\d{9}$/
+        if (!phoneRegex.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.")
+
+        const updatedPaymentdata = { amount: amountNumber }
+        setDonateData(donateData => ({ ...donateData, name: name, email: email, amount: amountNumber, cause: cause, phone: phoneValue }))
+        const { data, message } = await httpRequest('/payments/order', 'POST', updatedPaymentdata)
 
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
-        console.log(order);
-    })
-
+    });
     const paymentSuccess = catchAsync(async (successData) => {
         const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
-        console.log(verificationData);
         if (verificationData?.payment._id) {
             const updatedContriData = { ...donateData, paymentId: verificationData.payment._id };
-            console.log("contriData before /contributions:", updatedContriData);
             const { message: successMessage } = await httpRequest('/donate', 'POST', updatedContriData);
-            window.alert(successMessage);
-            dispatch(notificationActions.setNotification({ successMessage }));
+            dispatch(notificationActions.setNotification({ message: successMessage }));
             router.reload();
         }
     });
@@ -159,6 +163,7 @@ const DonatePage = () => {
                             {order && <PaymentGateway
                                 orderData={order}
                                 name="TEAM NEW SUN FOUNDATION"
+                                image="./logo.png"
                                 description={cause}
                                 onSuccess={paymentSuccess}
                                 onFailure={paymentFailure} />

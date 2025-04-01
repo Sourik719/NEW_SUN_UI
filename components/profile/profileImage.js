@@ -25,6 +25,15 @@ const ProfileImage = ({ label, value, gender, id }) => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            const maxSizeKB = 5000;
+            const maxSizeBytes = maxSizeKB * 1024;
+            if (file.size > maxSizeBytes) {
+                dispatch(notificationActions.setNotification(
+                    { message: "File size more than limit. Please upload a smaller file." }
+                ));
+                return;
+
+            }
             setSelectedFile(file);
             setPreviewURL(URL.createObjectURL(file));
             setIsEditing(true);
