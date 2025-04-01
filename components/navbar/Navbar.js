@@ -32,7 +32,6 @@ const Navbar = () => {
         { label: 'Special Day Celebration', href: '/projects/specialdaycelebration' },
         { label: 'Agomonir Ahobane', href: '/projects/agomonirahobane' },
         { label: "Winter's Smile", href: '/projects/winterssmile' },
-        { label: 'Sunshine', href: '/projects/sunshine' },
         { label: 'Sampreeti', href: '/projects/sampreeti' },
         { label: 'Sobujer Sondhane', href: '/projects/sobujersondhane' },
     ];

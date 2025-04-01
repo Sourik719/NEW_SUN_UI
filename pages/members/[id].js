@@ -21,6 +21,7 @@ const profile = () => {
         const fetchData = async () => {
             if (id != undefined) {
                 const userDetails = await httpRequest(`/members/${id}`, 'GET', null);
+                console.log(userDetails);
                 setUser(userDetails.data.member);
             }
         }
