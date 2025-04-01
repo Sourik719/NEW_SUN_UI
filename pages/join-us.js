@@ -24,9 +24,20 @@ const JoinUs = () => {
     const signupHandler = catchAsync(async () => {
         if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
         if (hasErrors(errors)) throw new Error('Please do correct the red-marked details.')
-        const formData = { ...fields, image: imageFile }
-        console.log(formData);
-        const { message } = await httpRequest('/signup', 'POST', formData)
+        const formData = new FormData();
+        for (const key in fields) {
+            if (fields.hasOwnProperty(key)) {
+                formData.append(key, fields[key]);
+            }
+        }
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
+        console.log('Contents of formData:');
+        formData.forEach((value, key) => {
+            console.log(`Key: ${key}, Value: ${value}`);
+        });
+        const { message } = await httpRequest('/signup', 'POST', formData, true)
         setIsVerifying(true)
         dispatch(notificationActions.setNotification({ message }))
     })
@@ -38,7 +49,7 @@ const JoinUs = () => {
             <title>Join Us</title>
         </Head>
         {isVerifying && <EmailVerifier fields={fields} onCancel={() => setIsVerifying(false)} />}
-        <div className={`w-full sm:w-2/5 p-2 mb-10 ${isVerifying && 'blur-lg'}`}>
+        <div className={`w-full lg:w-2/5 md:w-3/5 p-2 mb-10 ${isVerifying && 'blur-lg'}`}>
             <div className="relative rounded-xl shadow-sm">
                 <Background />
                 <div className="relative flex flex-col justify-center items-center z-10 p-3">

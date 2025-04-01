@@ -6,13 +6,13 @@ const ProjectComponent = ({ project }) => {
     const sidebarRefs = useRef([]);
     const contentRefs = useRef([]);
 
-    
+
     const handleScroll = () => {
         const contentContainer = document.getElementById('contentContainer');
         if (!contentContainer) return;
 
-        
-        const scrollPosition = contentContainer.scrollTop + contentContainer.clientHeight / 2; 
+
+        const scrollPosition = contentContainer.scrollTop + contentContainer.clientHeight / 2;
         let index = 0;
 
         for (let i = 0; i < contentRefs.current.length; i++) {
@@ -50,7 +50,7 @@ const ProjectComponent = ({ project }) => {
         if (contentRefs.current[index]) {
             contentRefs.current[index].scrollIntoView({
                 behavior: 'smooth',
-                block: 'start',
+                block: 'center',
             });
         }
         setSelectedSection(index);
@@ -58,7 +58,7 @@ const ProjectComponent = ({ project }) => {
 
     return (
         <div className="md:mx-20 my-5 text-black text-xl text-justify rounded-md relative bg-orange-200">
-            <div className="absolute left-0 md:w-1/4 w-1/3 h-full border-r border-gray-300 overflow-y-auto">
+            <div className="absolute display-none md:display-block left-0 md:w-1/4 w-0 h-full border-r border-gray-300 overflow-y-auto invisible md:visible">
                 <ul className="list-none">
                     {project.content.map((section, index) => (
                         <motion.li
@@ -66,7 +66,7 @@ const ProjectComponent = ({ project }) => {
                             ref={(el) => (sidebarRefs.current[index] = el)}
                             className={`cursor-pointer p-5 ${selectedSection === index ? 'bg-blue-800 font-bold text-white rounded-md' : 'font-semibold'}`}
                             onClick={() => handleSectionClick(index)}
-                            animate={{ fontSize: selectedSection === index ? '1.4rem' : '1.2rem' }}
+                            animate={{ fontSize: selectedSection === index ? '1.3rem' : '1.2rem' }}
                             transition={{ duration: 0.5 }}
                         >
                             {section.section}
@@ -75,7 +75,7 @@ const ProjectComponent = ({ project }) => {
                 </ul>
             </div>
 
-            <div id="contentContainer" className="relative md:left-1/4 left-1/3 md:w-3/4 w-2/3 h-[350px] overflow-y-auto md:p-4 pt-2 pb-20 webkit-scrollbar-track">
+            <div id="contentContainer" className="relative w-full md:left-1/4 md:w-3/4 w-2/3 h-[350px] overflow-y-auto md:p-4 p-2 md:pb-20 webkit-scrollbar-track">
                 <div className="mx-1 my-3">
                     {project.content.map((section, index) => (
                         <div
