@@ -10,16 +10,19 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905550/SpecialDay%20Celebration/IMG-20231217-WA0057_xdkc1x.jpg",
         ],
         label: "Celebration of Special Days",
-        headLine: "To celebrate your special days in a more special way",
+        headLine: "To celebrate our special days in a more special way",
         content: [{
             section: "Introduction",
-            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
+            text: "At the heart of our organization's ethos lies the understanding that happiness blossoms when it's shared. This fundamental belief led us to create a unique initiative: encouraging people to commemorate their special days, like birthdays and anniversaries, by creating joyful experiences with the children we work with. We offer complete, end-to-end support to facilitate these meaningful celebrations, ensuring a seamless and fulfilling experience where the most treasured reward is the pure happiness radiating from the children's smiles."
         }, {
             section: "How it started",
-            text: "As we started our journey many people approached us, who wanted to celebrate their special days by doing something for the needy people, but were unable to do so as arranging such things is hard at an individual level. Then we came up with the idea of launching this project."
+            text: "The journey of our initiative began with a simple yet profound desire among some of our members: to connect their own joyous occasions, their birthdays, with the lives of children in less privileged circumstances. This heartfelt yearning led us to carefully survey various underprivileged areas in our vicinity, identifying communities where many children resided. Our first steps involved planning food distribution ceremonies to coincide with our members' birthdays, and it was through these acts of personal celebration and shared generosity that our initiative truly blossomed."
         }, {
-            section: "How we do it",
-            text: "Firstly, we go to different under-previeleged areas to survey about children of that area. "
+            section: "Over the years",
+            text: "With each passing celebration, the spirit of our initiative resonated further within our community. We've been privileged to witness over 100 special days – birthdays, anniversaries, and more – shared with these bright young souls. What has consistently emerged from these gatherings is the overwhelming feeling of love and connection experienced by the celebrants, often surpassing their initial hopes. This incredible journey has enriched countless lives, and we feel profoundly lucky to be facilitators of such profound moments."
+        }, {
+            section: "Our Birthday Celebration",
+            text: "TEAM NEW SUN FOUNDATION firmly believes in walking the talk when it comes to sharing happiness. Therefore, we celebrate our own foundation day in the same spirit. For the last three years, our birthday celebrations have taken the form of impactful initiatives in Bolpur, Sundarban, and Baspahari. In these communities, we've focused on understanding the genuine needs of the residents and providing the specific support that would make a tangible difference in their lives."
         }
         ],
         href: "specialdaycelebration"
@@ -60,18 +63,6 @@ export const projectDetails = {
         }
         ],
         href: "agomonirahobane"
-    },
-
-    'sunshine': {
-        image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1708759744/samples/New-Sun-Projects/IMG_3631_rheuof.jpg"],
-        label: "SUNSHINE",
-        headLine: "To help families with no active income source by providing them monthly aid.",
-        content: [{
-            section: "Introduction",
-            text: "To spread the happiness of Bengali's greatest festival Durgapuja among the underprevieleged people residing in the remote areas."
-        }
-        ],
-        href: "sunshine"
     },
     'sampreeti': {
         image: ["https://res.cloudinary.com/dcikuo4sk/image/upload/v1708754010/samples/New-Sun-Projects/kfnvegj8o6khmfcsnbal.jpg",
@@ -120,7 +111,7 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888060/Sobujer%20Sondhane/IMG20230604090209_tdwcq1.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888047/Sobujer%20Sondhane/IMG-20230604-WA0065_pskopn.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888052/Sobujer%20Sondhane/IMG20230604080253_cfn7yu.jpg"],
-        headLine: "To celebrate World Evironment Day and to spread awareness about protecting nature.",
+        headLine: "To celebrate World Evironment Day and spread awareness about protecting nature.",
         label: "Sobujer Sondhane",
         content: [
             {
@@ -141,11 +132,11 @@ export const projectDetails = {
             },
             {
                 "section": "Expanding Our Reach",
-                "text": "This year, in 2024, we selected a large ground in Sodepur for our tree plantation drive. Many of the trees planted had been nurtured by our members for an extended period. We installed fences to protect the saplings, ensuring their growth and survival. Notably, we planted larger trees, such as mango trees, which will provide long-term benefits to the local community."
+                "text": "In 2024, we selected a large ground in Sodepur for our tree plantation drive. Many of the trees planted had been nurtured by our members for an extended period. We installed fences to protect the saplings, ensuring their growth and survival. Notably, we planted larger trees, such as mango trees, which will provide long-term benefits to the local community."
             },
             {
                 "section": "Drawing Competition",
-                "text": "In 2024, we realized that, beside planting trees it is also our responsibility to let our younger generation "
+                "text": "In 2024, understanding that environmental stewardship extends beyond planting trees, we took a vital step towards engaging our youth. Our drawing competition, centered on environmental protection, saw an incredible response with almost 350 participants aged 3-16. Thanks to the unwavering commitment of our volunteers, this inspiring event successfully ignited a passion for our planet in the hearts of tomorrow's guardians. "
 
             }
         ]
@@ -165,7 +156,6 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783370/Winter%27s%20Smile/IMG_5801_owsqur.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0144_vdlvwr.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0165_sp3ssf.jpg",
-
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241763/Winter%27s%20Smile/msrbtufzl7fo2fk33r9q.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241767/Winter%27s%20Smile/dnvkcyoyvijfhe0tkok9.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1743241766/Winter%27s%20Smile/m8bakxtlbv4k8skxz04m.jpg"
@@ -175,11 +165,17 @@ export const projectDetails = {
         content: [{
             section: "Introduction",
             text: "As TEAM NEW SUN FOUNDATION expanded its reach and impact, a poignant reality came into sharper focus: the stark vulnerability of many who lack the basic necessities to ward off the winter's chill. For countless individuals, the simple comfort of warm clothing and blankets remains an elusive dream. It was this profound awareness that ignited the inception of our project, Winter's Smile. With a dual purpose at its heart, Winter's Smile aims to provide warmth and protection to those in need through the distribution of blankets and sweaters, while also embracing the spirit of generosity and togetherness inherent in the joyous celebration of Christmas."
-    },{
-             section: "Introduction",
-            text: "As TEAM NEW SUN FOUNDATION expanded its reach and impact, a poignant reality came into sharper focus: the stark vulnerability of many who lack the basic necessities to ward off the winter's chill. For countless individuals, the simple comfort of warm clothing and blankets remains an elusive dream. It was this profound awareness that ignited the inception of our project, Winter's Smile. With a dual purpose at its heart, Winter's Smile aims to provide warmth and protection to those in need through the distribution of blankets and sweaters, while also embracing the spirit of generosity and togetherness inherent in the joyous celebration of Christmas."
-    }
-],
+        }, {
+            section: "Early Days",
+            text: "Winter's Smile began its journey by focusing on the pressing needs of underprivileged areas in Belgharia. Demonstrating our dedication to alleviating hardship, we provided warmth to 70 children in Nowdapara with jacket distributions in 2021. Recognizing the severe vulnerability of those without shelter during winter, our efforts expanded in 2022 to include the distribution of blankets to individuals seeking refuge in the open at Sodepur, Khardah, and Barrackpore stations."
+        }, {
+            section: "Garhbeta",
+            text: "In 2023, our reach extended through a meaningful collaboration with Garhbeta Civil Army, a fellow social welfare organization. Learning firsthand about the challenges faced by residents in the tribal villages of Garhbeta, West Midnapore, we responded with essential winter aid. Our team journeyed to Garhbeta, providing warm jackets to 110 children and comforting blankets to 80 families, demonstrating our growing commitment to supporting vulnerable communities beyond our initial focus."
+        }, {
+            section: "Benapur",
+            text: "Inspired by the positive impact of our outreach in Garhbeta, Winter's Smile continued its commitment to the West Midnapore district in 2024, focusing on Benapur, another tribal village. We visited Kenthia Primary School, providing warm jackets to nearly 110 eager students, ensuring they could face the winter chill comfortably. This year, our initiative also broadened its scope to address another critical health concern, as we distributed mosquito nets to 100 families, aiming to protect them from the threat of mosquito-borne diseases like dengue and malaria prevalent in the region."
+        }
+        ],
         href: "winterssmile"
     }
 }
