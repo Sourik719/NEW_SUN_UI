@@ -20,10 +20,10 @@ const FeedbackCont = () => {
 
     return (
         <div className="w-full px-2 py-3 flex flex-col justify-center items-center bg-black" ref={containerRef}>
-            <h1 className="flex flex-row text-3xl">
+            <p className="text-3xl text-center">
                 <span className="text-white">What people are saying</span>
                 <span className="text-orange-400 ml-1">about Us?</span>
-            </h1>
+            </p>
 
             <div className="mt-4 flex flex-wrap justify-center">
                 {feedBack &&

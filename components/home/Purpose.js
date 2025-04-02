@@ -4,10 +4,10 @@ import Image from "next/image";
 const Purpose = () => {
     return (
         <div className="w-full flex flex-col bg-black px-2 items-center py-5">
-            <div className="flex flex-wrap text-white text-2xl py-10 sm:text-3xl">
-                <h2>WHAT IS</h2>
-                <h2 className="text-orange-400 ml-1">TEAM NEW SUN FOUNDATION?</h2>
-            </div>
+            <p className="text-white py-5 text-3xl text-center">
+                <span>WHAT IS</span>
+                <span className="text-orange-400 ml-1">TEAM NEW SUN FOUNDATION?</span>
+            </p>
             <motion.div
                 initial={{ opacity: 0, x: -100 }}
                 animate={{ opacity: 1, x: 0 }}

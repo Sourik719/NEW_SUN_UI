@@ -12,8 +12,8 @@ const EngageBtn = ({ label, href }) => {
 const Participation = () => {
     const [isAuthenticated] = useAuth();
     return (
-        <div className="flex flex-col items-center justify-center bg-slate-700 text-white py-5">
-            <p className="text-3xl">Want to be a part of <span className="mr-1 text-orange-400">our journey?</span></p>
+        <div className="flex flex-col items-center justify-center bg-slate-700 text-white py-5 p-2">
+            <p className="text-3xl text-center">Want to be a part of <span className="mr-1 text-orange-400">our journey?</span></p>
             <div className="w-full flex sm:flex-row flex-col p-5 justify-center items-center">
                 <EngageBtn label="Sponsor a Event" href={"/donate/sponsor"} />
                 {!isAuthenticated && <EngageBtn label="Become a Member" href={"/join-us"} />}
