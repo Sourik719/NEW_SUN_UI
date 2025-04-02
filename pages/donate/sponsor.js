@@ -1,7 +1,11 @@
 import QueryForm from "@/components/sponsor/queryForm";
 import Container from "@/components/ui/Container";
+import Head from "next/head";
 const sponsorEvent = () => {
     return (<Container className={"bg-red-200"}>
+        <Head>
+            <title>Celebrate your special days</title>
+        </Head>
         <div className="font-semibold text-4xl text-center">
             Is your Special Day coming?
             <div className="text-orange-500 p-2">

@@ -119,7 +119,7 @@ const contributionPage = () => {
         return (
             <Container className="relative bg-blue-200 flex flex-col justify-center items-center py-5">
                 <Head>
-                    <title>Contribution</title>
+                    <title>Member's Contribution || TEAM NEW SUN FOUNDATION</title>
                 </Head>
 
                 <div className='w-full lg:w-2/5 md:w-1/2 sm:w-3/5 bg-white rounded-md p-4 m-2 items-center justify-center text-center'>

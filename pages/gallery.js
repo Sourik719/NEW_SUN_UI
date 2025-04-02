@@ -1,10 +1,14 @@
 import Container from "@/components/ui/Container";
 import { imageData } from "@/data/galleryData";
+import Head from "next/head";
 const ImageGallery = () => {
 
 
     return (
         <Container className="bg-violet-200">
+            <Head>
+            <title>Gallery || TEAM NEW SUN FOUNDATION</title>
+        </Head>
             <div className=" p-10">
                 <div className=" flex flex-col justify-center items-center text-center">
                     <h2 className="text-center text-4xl font-bold text-white p-4">A Glimpse of <span className="text-orange-500">TEAM NEW SUN FOUNDATION</span></h2>

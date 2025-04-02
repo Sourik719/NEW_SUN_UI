@@ -3,6 +3,7 @@ import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -68,6 +69,9 @@ const DonatePage = () => {
 
     return (
         <Container className="bg-violet-200 py-16">
+            <Head>
+                <title>Donate || TEAM NEW SUN FOUNDATION</title>
+            </Head>
             <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
                 <div className="md:flex">
                     <div className="p-8 md:w-1/2">

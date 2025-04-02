@@ -2,6 +2,7 @@ import ImageCarousel from "@/components/projects/Imagechain";
 import ProjectComponent from "@/components/projects/TextSection";
 import Container from "@/components/ui/Container";
 import { projectDetails } from "@/data/projects";
+import Head from "next/head";
 import { useRouter } from "next/router";
 const projectPage = () => {
     const router = useRouter();
@@ -13,6 +14,9 @@ const projectPage = () => {
 
     return (
         <Container className={"bg-lime-200"}>
+            <Head>
+                <title>{project.label} || TEAM NEW SUN FOUNDATION</title>
+            </Head>
             <div className="text-4xl sm:text-5xl font-bold mx-10 p-2 text-orange-500 items-center">{project.label}
                 <hr className="my-2 border-2 border-blue-400 rounded-xl" />
             </div>
