@@ -21,7 +21,7 @@ const Account = () => {
     }
 
     return (<div className="relative cursor-pointer">
-        <section className="flex justify-between items-center rounded" onClick={toggleHandler}>
+        <section className="flex justify-between items-center rounded" onMouseEnter={toggleHandler}>
             <div className="bg-slate-100 rounded-full">
                 <Image
                     src={member.image?.url || '/blank.png'}
