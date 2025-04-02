@@ -75,7 +75,7 @@ const Team = () => {
                 <PositionHolder
                     name="Sohon Biswas"
                     position="Project Coordinator-SUNSHINE"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/c_scale,h_1600,w_1600/core-member/lcukteyr2fnt1y5zh7ok"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743616542/core-member/czrhfjdkgphjtozr72em.jpg"
                 />
                 <PositionHolder
                     name="Debanjan Mandal"
