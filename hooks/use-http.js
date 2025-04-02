@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const domain = 'http://localhost:4000';
+const domain = 'https://new-sun.onrender.com';
 
 export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ export const useHttp = () => {
 
         if (body) {
             if (isFormData) {
-                processedBody = body; // Pass FormData directly as body
+                processedBody = body; 
             } else {
                 headers['content-type'] = 'application/json';
                 processedBody = JSON.stringify(body);
