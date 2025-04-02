@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const domain = 'https://new-sun.onrender.com/';
+const domain = 'http://localhost:4000';
 
 export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +34,7 @@ export const useHttp = () => {
         try {
             responseData = await res.json();
         } catch (error) {
+
             responseData = { success: res.ok, message: res.statusText, data: null };
         }
 

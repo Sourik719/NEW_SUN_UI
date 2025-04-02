@@ -25,7 +25,7 @@ const Team = () => {
                 <PositionHolder
                     name="Arup Dey"
                     position="Treasurer"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071017/core-member/ify4w1gktkjzbq1clyhj.jpg"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071036/core-member/xoo50c45j1gf0i2hfbgf.jpg"
                 />
                 <PositionHolder
                     name="Sayantan Raha"
