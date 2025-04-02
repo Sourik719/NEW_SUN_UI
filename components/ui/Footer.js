@@ -39,7 +39,7 @@ const Footer = () => {
             <a
               className="p-2 cursor-pointer hover:text-pink-500 transition duration-300"
               aria-label="instagram"
-              href="https://www.instagram.com/newsun2019/"
+              href="https://www.instagram.com/teamnewsunofficial"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -48,7 +48,7 @@ const Footer = () => {
             <a
               className="p-2 cursor-pointer hover:text-red-600 transition duration-300"
               aria-label="youtube"
-              href="https://www.youtube.com/@newsunfoundation"
+              href="https://www.youtube.com/@TeamNEWSUN2019"
               target="_blank"
               rel="noopener noreferrer"
             >
