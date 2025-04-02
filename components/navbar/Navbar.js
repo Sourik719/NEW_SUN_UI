@@ -55,7 +55,7 @@ const Navbar = () => {
                     />
                 </div>
             </Link>
-            {isMobile && <span className="text-2xl p-3" onClick={toggleHandler}>{isHidden ? <FaBars /> : <FaTimes />}</span>}
+            {isMobile && <div className="flex flex-row"><h1 className="font-bold text-orange-600 py-1.5 text-2xl text-center mr-5">TEAM NEW SUN FOUNDATION</h1> <span className="text-2xl p-3" onClick={toggleHandler}>{isHidden ? <FaBars /> : <FaTimes />}</span></div>}
         </div>
         <AnimatePresence>
             {(!isMobile || !isHidden) &&
