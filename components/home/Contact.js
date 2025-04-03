@@ -28,7 +28,7 @@ const Contact = () => {
                 </div>
                 <div className="flex flex-row my-2">
                     <a className="text-2xl p-2 hover:scale-110" href="https://www.facebook.com/helpingsociety2019/"><FaFacebook /></a>
-                    <a className="text-2xl p-2 hover:scale-110" href="https://www.instagram.com/newsun2019/"><FaInstagram /></a>
+                    <a className="text-2xl p-2 hover:scale-110" href="https://www.instagram.com/teamnewsunofficial"><FaInstagram /></a>
                     <a className="text-2xl p-2 hover:scale-110" href="https://www.youtube.com/@TeamNEWSUN2019"><FaYoutube /></a>
                     <a className="text-2xl p-2 hover:scale-110" href="https://twitter.com/newsunngo2019"><FaTwitter /></a>
                 </div>

@@ -76,7 +76,7 @@ const FeedBack = ({ onclick }) => {
     };
 
     return (
-        <div className="w-[500px]  flex flex-col justify-center items-center px-5 shadow-md rounded-lg py-5 bg-gray-600 z-80">
+        <div className="w-screen sm:w-[500px]  flex flex-col justify-center items-center px-5 shadow-md rounded-lg py-5 bg-gray-600 z-80">
             <button className='absolute top-0 right-0  rounded-lg hover:bg-yellow-200 p-4 text-black text-xl' onClick={onclick}>
                 <FaXmark />
             </button>

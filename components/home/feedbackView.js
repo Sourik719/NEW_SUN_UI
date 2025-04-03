@@ -19,7 +19,7 @@ const FeedbackCont = () => {
     }, []);
 
     return (
-        <div className="w-full px-2 py-3 flex flex-col justify-center items-center bg-black" ref={containerRef}>
+        <div className="w-full px-2 py-2 flex flex-col justify-center items-center bg-black" ref={containerRef}>
             <p className="text-3xl text-center">
                 <span className="text-white">What people are saying</span>
                 <span className="text-orange-400 ml-1">about Us?</span>
@@ -43,8 +43,6 @@ const FeedbackCont = () => {
                         </div>
                     ))}
             </div>
-
-            <hr className="w-full border-1"></hr>
         </div>
     );
 };
