@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
+import { memberActions } from "@/store/member-slice"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useAsync } from "./use-async"
 import { useHttp } from "./use-http"
-import { memberActions } from "@/store/member-slice"
 
 export const useAuth = () => {
     const dispatch = useDispatch()

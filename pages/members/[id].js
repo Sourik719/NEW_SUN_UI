@@ -3,6 +3,7 @@ import Profile from '@/components/profile/Profile';
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
 import { useAsync } from '@/hooks/use-async';
+import { useAuth } from '@/hooks/use-auth';
 import { useHttp } from '@/hooks/use-http';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -10,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 const profile = () => {
     const router = useRouter();
+    const [isAuthenticated, isAuthLoading] = useAuth();
     const { id } = router.query;
     const [user, setUser] = useState(null);
     const [due, setDue] = useState(null);
@@ -29,21 +31,22 @@ const profile = () => {
     }, [id]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const MembercontriDetails = await httpRequest(`/contributions`, 'GET', null);
-            console.log(MembercontriDetails);
-            setContriData(MembercontriDetails.data);
+        if (isAuthenticated) {
+            const fetchData = async () => {
+                const MembercontriDetails = await httpRequest(`/contributions`, 'GET', null);
+                setContriData(MembercontriDetails.data);
+            }
+            catchAsync(fetchData)();
         }
-        catchAsync(fetchData)();
-    }, []);
+    }, [isAuthenticated]);
 
     useEffect(() => {
-        if (contriData) {
-            setDue(contriData.due.length);
+        if (isAuthenticated) {
+            setDue(contriData?.due?.length || 0);
         } else {
-            setDue(0);
+            setDue("Not Available");
         }
-    }, [contriData]);
+    }, [contriData, isAuthenticated]);
 
 
     if (!user || isLoading) {
@@ -55,9 +58,9 @@ const profile = () => {
                 <Head>
                     <title>Profile</title>
                 </Head>
-                <Profile user={user} id={id} due={due} />
+                <Profile user={user} id={id} due={due} isAuthenticated={isAuthenticated} />
 
-                <Contribution data={contriData ? contriData : null} />
+                {isAuthenticated && <Contribution data={contriData ? contriData : null} />}
 
             </Container>
         )

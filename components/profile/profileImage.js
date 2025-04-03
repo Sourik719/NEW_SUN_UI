@@ -10,7 +10,7 @@ import blank from "../../public/blank.png";
 import female_blank from "../../public/female_blank.jpg";
 import male_blank from "../../public/male_blank.jpg";
 
-const ProfileImage = ({ label, value, gender, id }) => {
+const ProfileImage = ({ label, value, gender, id, editAble }) => {
     const [uploadState, setUploadState] = useState(false);
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -79,7 +79,7 @@ const ProfileImage = ({ label, value, gender, id }) => {
     return (
         <div className="mb-4">
             {label && <label className="block text-gray-700 text-sm font-bold mb-2">{label}</label>}
-            <div className="relative group w-40 h-40 rounded-full overflow-hidden border-2 border-gray-300 hover:border-indigo-500 transition-all duration-200 shadow-md" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="relative group w-40 h-40 rounded-full overflow-hidden border-2 border-gray-300 hover:border-indigo-500 transition-all duration-200 shadow-md" onMouseEnter={editAble ? handleMouseEnter :null} onMouseLeave={handleMouseLeave}>
                 {(uploadState || isEditing) && (
                     <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-gray-100 z-50 cursor-pointer transition-opacity duration-200">
                         {!isEditing ? (
