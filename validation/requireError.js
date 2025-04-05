@@ -20,7 +20,7 @@ const RequireError = ({ label, fieldValue, type }) => {
 
     } else if (length < 2 && type === 'Text') {
         errorMessage = "Too short input.";
-    } else if (dob > today && type === 'Date') {
+    } else if (dob > today && type === 'date') {
         errorMessage = "Invalid D.O.B";
     }
     if (errorMessage !== '') {
