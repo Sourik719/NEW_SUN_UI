@@ -10,23 +10,23 @@ const Goals = () => {
             <ol className="text-lg text-gray-200 space-y-6">
                 <li className="flex items-center">
                     <CheckCircleIcon className="h-6 w-6 text-green-500 mr-4" />
-                    <span className="font-semibold">Equal Education:</span> Ensuring every child has access to quality learning opportunities.
+                    <span className="font-semibold">Equal Education: </span> Ensuring every child has access to quality learning opportunities.
                 </li>
                 <li className="flex items-center">
                     <CheckCircleIcon className="h-6 w-6 text-blue-500 mr-4" />
-                    <span className="font-semibold">Social Awareness:</span> Raising understanding and empathy for diverse social challenges.
+                    <span className="font-semibold">Social Awareness: </span> Raising understanding and empathy for diverse social challenges.
                 </li>
                 <li className="flex items-center">
                     <CheckCircleIcon className="h-6 w-6 text-yellow-500 mr-4" />
-                    <span className="font-semibold">Financial Empowerment:</span> Providing crucial support to individuals facing economic hardship.
+                    <span className="font-semibold">Financial Empowerment: </span> Providing crucial support to individuals facing economic hardship.
                 </li>
                 <li className="flex items-center">
                     <CheckCircleIcon className="h-6 w-6 text-teal-500 mr-4" />
-                    <span className="font-semibold">Environmental Stewardship:</span> Actively protecting and preserving our planet for future generations.
+                    <span className="font-semibold">Environmental Stewardship: </span> Actively protecting and preserving our planet for future generations.
                 </li>
                 <li className="flex items-center">
                     <CheckCircleIcon className="h-6 w-6 text-purple-500 mr-4" />
-                    <span className="font-semibold">Cultural Harmony:</span> Fostering inclusive environments that celebrate and respect all cultures.
+                    <span className="font-semibold">Cultural Harmony: </span> Fostering inclusive environments that celebrate and respect all cultures.
                 </li>
             </ol>
         </div>
