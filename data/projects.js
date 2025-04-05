@@ -75,7 +75,7 @@ export const projectDetails = {
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898114/SAMPREETI/IMG-20230807-WA0004_1_royvr0.jpg",
             "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718898115/SAMPREETI/IMG-20230807-WA0006_r245i0.jpg"],
         label: "SAMPREETI",
-        headLine: "To celebrate the Indepnedence Day of India through various cultural activities.",
+        headLine: "To celebrate the Independence Day of India through various cultural activities.",
         content: [
             {
                 section: "Introduction",
