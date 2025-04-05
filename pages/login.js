@@ -6,7 +6,9 @@ import { useRouter } from 'next/router'
 import { useRef, useState } from "react"
 import { useDispatch } from 'react-redux'
 
+
 import Background from "@/components/login/Background"
+import ForgetPassword from "@/components/login/ForgetPassword"
 import Input from "@/components/login/Input"
 import Container from "@/components/ui/Container"
 import Loader from "@/components/ui/Loader"
@@ -21,6 +23,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const { catchAsync } = useAsync()
     const [httpRequest, isLoading] = useHttp()
+    const [forgotPassword, setForgotPassword] = useState(false);
 
     const credentialsChangeHandler = (field, value) => {
         setCredentials(credentials => ({ ...credentials, [field]: value }))
@@ -37,11 +40,12 @@ const Login = () => {
         dispatch(notificationActions.setNotification({ message }))
     })
 
-    return (<Container className="bg-orange-300 w-full flex justify-center items-center">
+    return (<Container className="bg-orange-300 w-full flex justify-center items-center ">
         <Head>
             <title>Login</title>
         </Head>
-        <div className="w-full sm:w-2/5 p-2">
+        {forgotPassword && <ForgetPassword onCancel={() => setForgotPassword(false)} />}
+        <div className={`w-full sm:w-4/5 md:w-3/5 lg:w-2/5 p-2 ${forgotPassword && 'blur-lg'}`}>
             <div className="relative rounded-xl">
                 <Background />
                 <div className="relative flex flex-col justify-center items-center z-10 p-3">
@@ -64,6 +68,10 @@ const Login = () => {
                             {isLoading ? <Loader /> : 'Login as Member'}
                         </button>
                     </div>
+                    <div className="text-sm mb-2 justify-center items-center text-center cursor-pointer hover:text-blue-800 font-bold text-blue-500 " onClick={() => setForgotPassword(true)}>
+                        Forgot Password ?
+                    </div>
+
                     <div className="text-sm flex justify-center items-center mb-5">
                         <span>Not a member yet?</span>
                         <Link href="/join-us" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Join us</Link>
