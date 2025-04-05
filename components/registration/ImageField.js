@@ -1,7 +1,7 @@
+import { notificationActions } from "@/store/notification-slice";
 import Image from "next/image";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
 const ImageField = ({ actionCreator }) => {
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const dispatch = useDispatch()
@@ -9,8 +9,19 @@ const ImageField = ({ actionCreator }) => {
         if (!e.target.files.length) return
         const file = e.target.files[0]
         const url = URL.createObjectURL(file)
-        setImagePreviewUrl(url)
+        if (file) {
+            const maxSizeKB = 5000;
+            const maxSizeBytes = maxSizeKB * 1024;
+            if (file.size > maxSizeBytes) {
+                dispatch(notificationActions.setNotification(
+                    { type: "error", message: "File size more than limit. Please upload a smaller file." }
+                ));
+                return;
+
+            }
+        }
         actionCreator(file)
+        setImagePreviewUrl(url)
     }
 
     return (<div className="p-3 m-2">
