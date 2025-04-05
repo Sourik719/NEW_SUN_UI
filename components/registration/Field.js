@@ -9,7 +9,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
     const toggleHandler = () => setShowed(isShowed => !isShowed);
 
     const fieldChangeHandler = e => {
-        const value = e.target.value + (type === 'date' ? 'T23:59:59.999Z' : '')
+        const value = e.target.value;
         dispatch(actionCreator(value))
     }
 

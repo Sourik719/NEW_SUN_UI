@@ -1,5 +1,5 @@
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
-import ProfileFields from "./Fields";
+import ProfileFields from "./Profilefields";
 import ProfileImage from "./profileImage";
 
 const Profile = ({ user, id, due, isAuthenticated }) => {
@@ -22,7 +22,7 @@ const Profile = ({ user, id, due, isAuthenticated }) => {
                         <ProfileFields value={user.phone} label="Phone No." dataType="Text" editAble={isAuthenticated} id={id} fieldName="phone" />
                     </div>
                     <div className="w-full sm:w-1/2">
-                        <ProfileFields value={user.dob} label="D.O.B" dataType="Date" editAble={isAuthenticated} id={id} fieldName="dob" />
+                        <ProfileFields value={user.dob} label="D.O.B" dataType="date" editAble={isAuthenticated} id={id} fieldName="dob" />
                     </div>
                 </div>
                 <div className="flex flex-wrap">
@@ -30,7 +30,7 @@ const Profile = ({ user, id, due, isAuthenticated }) => {
                         <ProfileFields value={user.sex} label="Gender" dataType="Select" editAble={isAuthenticated} options={genderOptions} id={id} fieldName="sex" />
                     </div>
                     <div className="w-full sm:w-1/2">
-                        <ProfileFields value={user.bloodGroup} label="Blood Group" dataType="Select" editAble={isAuthenticated} options={bloodGroupOptions} id={id} fieldName="bloodGroup" />
+                        <ProfileFields value={user.bloodGroup || "Not Selected"} label="Blood Group" dataType="Select" editAble={isAuthenticated} options={bloodGroupOptions} id={id} fieldName="bloodGroup" />
                     </div>
                 </div>
                 <div className="flex flex-wrap">
