@@ -6,7 +6,7 @@ const registrationSlice = createSlice({
     name: 'registration',
     initialState: {
         fields: { email: '', password: '', firstname: '', lastname: '', dob: '', phone: '', address: '', sex: '', bloodGroup: '' },
-        errors: { email: null, password: null, firstname: null, lastname: null, dob: null, phone: null, sex: null, bloodGroup: null }
+        errors: { email: null, password: null, firstname: null, lastname: null, dob: null, phone: null, sex: null }
     },
     reducers: {
         emailChangeHandler(state, action) {
@@ -75,10 +75,6 @@ const registrationSlice = createSlice({
                 state.errors.phone = ''
             }
         },
-        /* imageChangeHandler(state, action) {
-             const file = action.payload
-             state.fields.image = file
-         },*/
         addressChangeHandler(state, action) {
             const value = action.payload.trim()
             state.fields.address = value
@@ -91,9 +87,7 @@ const registrationSlice = createSlice({
         },
         bloodGroupChangeHandler(state, action) {
             const value = action.payload.trim()
-            state.fields.bloodGroup = value
-            if (!value) state.errors.bloodGroup = 'You missed to fill sex.'
-            else state.errors.bloodGroup = ''
+            if (value) state.fields.bloodGroup = value
         }
     },
     extraReducers: (builder) => {

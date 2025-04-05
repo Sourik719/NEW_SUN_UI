@@ -22,10 +22,10 @@ const JoinUs = () => {
     const [isVerifying, setIsVerifying] = useState(false)
     const [imageFile, setImageFile] = useState(null);
     const signupHandler = catchAsync(async () => {
+        console.log(errors)
         if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
         if (hasErrors(errors)) {
-            const firstErrorDetail = errors[0] ? ` (e.g., ${Object.keys(errors[0])[0]})` : '';
-            throw new Error(`Please do correct the red-marked details.${firstErrorDetail}`);
+            throw new Error(`Please do correct the red-marked fields`);
         }
         const formData = new FormData();
         for (const key in fields) {
