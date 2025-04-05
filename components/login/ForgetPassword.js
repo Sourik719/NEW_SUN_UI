@@ -62,7 +62,6 @@ const ForgetPassword = ({ onCancel }) => {
         if (otp.length < 6) throw new Error('OTP should be 6-digit long.')
         const otpString = otp.join('');
         const { data } = await httpRequest(`/forgot-password/verify-otp`, "POST", { email: email, otp: otpString });
-        console.log(data)
         setId(data._id)
         setotpVerified(true)
     }
@@ -156,7 +155,7 @@ const ForgetPassword = ({ onCancel }) => {
                             <div className="flex flex-row  items-center my-2">
                                 <span className="font-bold w-1/4"> Confirm Password:</span>
                                 <input
-                                    type='text'
+                                    type={confirmPasswordShowed ? 'text' : 'password'}
                                     placeholder="Confirm Password"
                                     value={confirmPassword}
                                     onChange={(e) => setconfirmPassword(e.target.value)}
