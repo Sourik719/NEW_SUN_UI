@@ -1,10 +1,10 @@
 import { FaFacebook, FaHeart, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <footer className="bg-slate-900 text-white py-8 px-6">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-        {/* Left Section: Copyright and Made With Love */}
         <section className="text-center sm:text-left mb-6 sm:mb-0">
           <p className="text-sm">© {new Date().getFullYear()} TEAM NEW SUN FOUNDATION. All rights reserved.</p>
           <p className="flex justify-center sm:justify-start mt-2 text-sm">
@@ -61,7 +61,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaTwitter />
+              <FaXTwitter/>
             </a>
           </div>
         </section>

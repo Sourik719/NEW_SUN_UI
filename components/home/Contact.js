@@ -1,5 +1,5 @@
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-import { FaLocationDot, FaPhone } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaLocationDot, FaPhone, FaXTwitter } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 const Contact = () => {
     return (
@@ -30,7 +30,7 @@ const Contact = () => {
                     <a className="text-2xl p-2 hover:scale-110" href="https://www.facebook.com/helpingsociety2019/"><FaFacebook /></a>
                     <a className="text-2xl p-2 hover:scale-110" href="https://www.instagram.com/teamnewsunofficial"><FaInstagram /></a>
                     <a className="text-2xl p-2 hover:scale-110" href="https://www.youtube.com/@TeamNEWSUN2019"><FaYoutube /></a>
-                    <a className="text-2xl p-2 hover:scale-110" href="https://twitter.com/newsunngo2019"><FaTwitter /></a>
+                    <a className="text-2xl p-2 hover:scale-110" href="https://twitter.com/newsunngo2019"><FaXTwitter /></a>
                 </div>
             </div>
         </div>
