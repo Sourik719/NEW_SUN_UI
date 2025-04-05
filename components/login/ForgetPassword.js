@@ -14,6 +14,7 @@ const ForgetPassword = ({ onCancel }) => {
     const [confirmPassword, setconfirmPassword] = useState('')
     const [id, setId] = useState(null);
     const [passwordShowed, setPasswordShowed] = useState(false)
+    const [confirmPasswordShowed, setConfirmPasswordShowed] = useState(false)
     const [otpSent, setOtpsent] = useState(false);
     const [otpVerified, setotpVerified] = useState(false);
     const [httpRequest, isLoading] = useHttp();
@@ -142,6 +143,7 @@ const ForgetPassword = ({ onCancel }) => {
                                     title="Password must be at least 8 characters long and include a number,a lowercase letter,an uppercase letter and a special character."
                                     value={password}
                                     placeholder="New Password"
+                                    disabled={isLoading}
                                     onChange={(e) => setPasword(e.target.value)}
                                     className={`w-2/3 px-3 py-2 border-b focus:outline-none focus:border-blue-500 mx-1`}
                                     required
@@ -158,9 +160,13 @@ const ForgetPassword = ({ onCancel }) => {
                                     placeholder="Confirm Password"
                                     value={confirmPassword}
                                     onChange={(e) => setconfirmPassword(e.target.value)}
+                                    disabled={isLoading}
                                     className={`w-2/3 px-3 py-2 border-b focus:outline-none focus:border-blue-500 mx-1`}
                                     required
                                 />
+                                <button className="text-slate-300 absolute right-8 z-10" onClick={() => setConfirmPasswordShowed(!confirmPasswordShowed)}>
+                                    {passwordShowed ? <FaEye /> : <FaEyeSlash />}
+                                </button>
 
                             </div>
                         </div>
