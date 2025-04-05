@@ -17,9 +17,9 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                 amount: orderData.amount,
                 currency: orderData.currency,
-                name: name || 'Your Business Name',
+                name: 'TEAM NEW SUN FOUNDATION',
                 description: description || 'Secure Payment',
-                image: image || '/your_logo.png',
+                image: image || './logo.png',
                 order_id: orderData.id,
                 handler: async function (response) {
                     if (onSuccess) {
