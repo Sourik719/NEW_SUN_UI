@@ -60,7 +60,6 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     };
 
     const handleUpdate = async () => {
-
         const updateData = { "update": { [fieldName]: fieldValue } };
         console.log(updateData)
         const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
@@ -89,6 +88,10 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     const handleChange = (e) => {
         if (dataType === 'Select') {
             setFieldValue(e.target.value);
+        } else if (dataType === 'date') {
+            const dateString = e.target.value;
+            setFieldValue(dateString ? new Date(dateString) : null);
+            setIsBlank(e.target.value === '');
         } else {
             const instantValue = e.target.value.trim();
             setFieldValue(instantValue);
@@ -126,9 +129,9 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                 (
                     <div className="relative mx-2">
                         <input
-                            className={`w-full px-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl`}
+                            className={`${dataType === 'date' ? "pr-12" : ""} w-full p-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl`}
                             readOnly={!editAble || !editMode}
-                            value={!editMode ? (dataType === 'Date' ? formatDate(finalValue) : finalValue) : fieldValue}
+                            value={!editMode ? (dataType === 'date' ? formatDate(finalValue) : finalValue) : (dataType === 'date' ? formatDate(fieldValue) : fieldValue)}
                             type={!editMode ? 'text' : dataType}
                             placeholder={label}
                             onChange={handleChange}
