@@ -3,10 +3,12 @@ import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
+import { regex } from '@/validation/registration';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 const DonatePage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -33,7 +35,8 @@ const DonatePage = () => {
     const paymentHandler = catchAsync(async () => {
         if (!name.trim()) throw new Error("Please fill your name")
         if (name.trim().length < 3) throw new Error("Name must be at least 3 characters long.")
-
+        if (!email.trim()) throw new Error("Email is mandatory")
+        if (!regex.email.test(email.trim())) throw new Error("Please enter a valid email")
         const amountValue = amount.trim()
         if (!amountValue) throw new Error("Please enter amount to donate")
         const amountNumber = Number(amountValue)
@@ -42,8 +45,7 @@ const DonatePage = () => {
 
         const phoneValue = phone.trim()
         if (!phoneValue) throw new Error("Phone Number is mandatory")
-        const phoneRegex = /^[6-9]\d{9}$/
-        if (!phoneRegex.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.")
+        if (!regex.phone.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.")
 
         const updatedPaymentdata = { amount: amountNumber }
         setDonateData(donateData => ({ ...donateData, name: name, email: email, amount: amountNumber, cause: cause, phone: phoneValue }))
