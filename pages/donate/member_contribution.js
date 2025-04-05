@@ -37,8 +37,8 @@ const contributionPage = () => {
         }
         const amountPerMonthNumeric = Number(amountPerMonthValue);
 
-        if (amountPerMonthNumeric < 30) {
-            throw new Error("Minimum contribution per month is Rs.30.");
+        if (amountPerMonthNumeric < 50) {
+            throw new Error("Minimum contribution per month is Rs.50.");
         }
         if (numberOfMonthsNumeric > 12) {
             throw new Error("You can donate for a maximum of 12 months at a time.");

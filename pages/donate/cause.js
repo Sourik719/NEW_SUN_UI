@@ -38,7 +38,7 @@ const DonatePage = () => {
         if (!amountValue) throw new Error("Please enter amount to donate")
         const amountNumber = Number(amountValue)
         if (isNaN(amountNumber)) throw new Error("Please enter a valid numeric amount to donate.")
-        if (amountNumber < 30) throw new Error("Minimum donation acceptable is Rs.30")
+        if (amountNumber < 50) throw new Error("Minimum donation acceptable is Rs.50")
 
         const phoneValue = phone.trim()
         if (!phoneValue) throw new Error("Phone Number is mandatory")
