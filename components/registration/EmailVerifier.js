@@ -1,11 +1,11 @@
-import { useState, useRef } from "react"
-import { useRouter } from "next/router"
-import { useDispatch } from "react-redux"
 import { useAsync } from "@/hooks/use-async"
 import { useHttp } from "@/hooks/use-http"
 import { memberActions } from "@/store/member-slice"
 import { notificationActions } from "@/store/notification-slice"
+import { useRouter } from "next/router"
+import { useRef, useState } from "react"
 import { FaXmark } from "react-icons/fa6"
+import { useDispatch } from "react-redux"
 
 import Loader from "../ui/Loader"
 import Timer from "./Timer"
@@ -21,15 +21,36 @@ const EmailVerifier = ({ fields, onCancel }) => {
     const [httpRequest, isLoading] = useHttp()
 
     const otpChangeHandler = (event, index) => {
-        const digit = event.target.value
-        setOtp(otp => otp.substring(0, index) + digit)
-        if (digit && index < 5) otpRefs.current[index + 1].current.focus()
-    }
+        const value = event.target.value;
+
+        if (value && isNaN(value)) return;
+
+        const newOtp = [...otp];
+        newOtp[index] = value;
+        setOtp(newOtp);
+
+        if (value && index < 5 && otpRefs.current[index + 1] && otpRefs.current[index + 1].current) {
+            otpRefs.current[index + 1].current.focus();
+        }
+    };
+
+    const otpKeyDownHandler = (event, index) => {
+        if (event.key === 'Backspace') {
+            if (index > 0 && !event.target.value) {
+                otpRefs.current[index - 1].current.focus();
+            }
+            if (index >= 0) {
+                const newOtp = [...otp];
+                newOtp[index] = '';
+                setOtp(newOtp);
+            }
+        }
+    };
 
     const emailVerificationHandler = catchAsync(async () => {
-        if (!otp.trim()) throw new Error('Please enter your OTP.')
         if (otp.length < 6) throw new Error('OTP should be 6-digit long.')
-        const { data, message } = await httpRequest('/signup-verify', 'POST', { email: fields.email, otp })
+        const otpString = otp.join('');
+        const { data, message } = await httpRequest('/signup-verify', 'POST', { email: fields.email, otp: otpString })
         const { token } = data
         localStorage.setItem('jwt-token', token)
         dispatch(memberActions.setToken(token))
@@ -37,7 +58,7 @@ const EmailVerifier = ({ fields, onCancel }) => {
         dispatch(notificationActions.setNotification({ message }))
     })
 
-    return (<div className="w-full sm:w-2/5 fixed z-10 top-20 sm:top-1/4 p-2">
+    return (<div className="w-full sm:w-[550px] fixed z-20 top-20 sm:top-1/4 p-2">
         <div className="relative bg-white text-center flex flex-col justify-center items-center shadow rounded-md p-5">
             <button className="absolute right-4 top-4" onClick={onCancel}>
                 <FaXmark />
@@ -45,13 +66,14 @@ const EmailVerifier = ({ fields, onCancel }) => {
             <h4 className="text-3xl p-3 my-5">Please verify your email</h4>
             <p className="text-sm mb-5">A 6-digit verification code has been sent to<span className="font-bold px-1">{fields.email} </span></p>
             <div className="mb-1">
-                <section className="mb-10">
+                <section className="flex flex-row mb-10 justify-center items-center">
                     {arrayOfSix.map((_, index) => (
                         <input
                             ref={otpRefs.current[index]}
                             key={index}
                             value={otp[index] || ''}
                             onChange={(event) => otpChangeHandler(event, index)}
+                            onKeyDown={(event) => otpKeyDownHandler(event, index)}
                             maxLength="1"
                             autoComplete="off"
                             className="w-9 sm:w-12 h-9 sm:h-12 text-2xl text-center border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-1"
