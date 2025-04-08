@@ -80,7 +80,7 @@ const Team = () => {
                 <PositionHolder
                     name="Sankalpa Basak"
                     position="Project Coordinator-Boighor"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743867885/core-member/twmwmncs2f1ckqv7rjsp.jpg"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1744127543/core-member/bqywpieixsjsutqnleps.jpg"
                 />
                 <PositionHolder
                     name="Sohon Biswas"
