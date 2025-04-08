@@ -12,8 +12,8 @@ const Contribution = ({ data }) => {
 
     const getMonth = (dateString) => {
         const date = new Date(dateString);
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+            "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
         const monthIndex = date.getMonth();
         const year = date.getFullYear();
         const monthName = monthNames[monthIndex];
