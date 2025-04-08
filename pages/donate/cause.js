@@ -58,6 +58,7 @@ const DonatePage = () => {
             type: 'donation',
             data: donationData,
         };
+        console.log(paymentPayload)
         const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
         if (data.order && data.order.id) {
             setOrder(data.order);
