@@ -45,6 +45,7 @@ const contributionPage = () => {
         const contributionData = {
             numberOfMonths: numberOfMonthsNumeric,
             endDate: endDate,
+            contributor: member?._id
         };
 
         const paymentPayload = {
