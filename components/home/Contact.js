@@ -21,10 +21,10 @@ const Contact = () => {
                     <p>+91 8617790162 /+91 8981277673</p>
                 </div>
                 <div className="flex flex-row my-2">
-                    <a className=" p-1 text-xl" href="mailto:newsunngo2019@gmail.com">
+                    <a className=" p-1 text-xl" href="mailto:contact@teamnewsunfoundation.org">
                         <IoMail />
                     </a>
-                    <p>newsunngo2019@gmail.com</p>
+                    <p>contact@teamnewsunfoundation.org</p>
                 </div>
                 <div className="flex flex-row my-2">
                     <a className="text-2xl p-2 hover:scale-110" href="https://www.facebook.com/helpingsociety2019/"><FaFacebook /></a>
