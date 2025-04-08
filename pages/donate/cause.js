@@ -33,36 +33,47 @@ const DonatePage = () => {
     ];
 
     const paymentHandler = catchAsync(async () => {
-        if (!name.trim()) throw new Error("Please fill your name")
-        if (name.trim().length < 3) throw new Error("Name must be at least 3 characters long.")
-        if (!email.trim()) throw new Error("Email is mandatory")
-        if (!regex.email.test(email.trim())) throw new Error("Please enter a valid email")
-        const amountValue = amount.trim()
-        if (!amountValue) throw new Error("Please enter amount to donate")
-        const amountNumber = Number(amountValue)
-        if (isNaN(amountNumber)) throw new Error("Please enter a valid numeric amount to donate.")
-        if (amountNumber < 50) throw new Error("Minimum donation acceptable is Rs.50")
+        if (!name.trim()) throw new Error("Please fill your name");
+        if (name.trim().length < 3) throw new Error("Name must be at least 3 characters long.");
+        if (!email.trim()) throw new Error("Email is mandatory");
+        if (!regex.email.test(email.trim())) throw new Error("Please enter a valid email");
+        const amountValue = amount.trim();
+        if (!amountValue) throw new Error("Please enter amount to donate");
+        const amountNumber = Number(amountValue);
+        if (isNaN(amountNumber)) throw new Error("Please enter a valid numeric amount to donate.");
+        if (amountNumber < 50) throw new Error("Minimum donation acceptable is Rs.50");
 
-        const phoneValue = phone.trim()
-        if (!phoneValue) throw new Error("Phone Number is mandatory")
-        if (!regex.phone.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.")
+        const phoneValue = phone.trim();
+        if (!phoneValue) throw new Error("Phone Number is mandatory");
+        if (!regex.phone.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.");
 
-        const updatedPaymentdata = { amount: amountNumber }
-        setDonateData(donateData => ({ ...donateData, name: name, email: email, amount: amountNumber, cause: cause, phone: phoneValue }))
-        const { data, message } = await httpRequest('/payments/order', 'POST', updatedPaymentdata)
-
+        const donationData = {
+            name: name.trim(),
+            email: email.trim(),
+            cause: cause,
+            phone: phone.trim(),
+        };
+        const paymentPayload = {
+            amount: amountNumber,
+            type: 'donation',
+            data: donationData,
+        };
+        const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
     });
+
     const paymentSuccess = catchAsync(async (successData) => {
-        const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
+        /*const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
         if (verificationData?.payment._id) {
             const updatedContriData = { ...donateData, paymentId: verificationData.payment._id };
             const { message: successMessage } = await httpRequest('/donate', 'POST', updatedContriData);
             dispatch(notificationActions.setNotification({ message: successMessage }));
             router.reload();
-        }
+        }*/
+        dispatch(notificationActions.setNotification({ message: "Your payment is recieved. You will get a confirmation soon." }));
+        router.reload();
     });
     const paymentFailure = (error) => {
         dispatch(notificationActions.setNotification(error));
