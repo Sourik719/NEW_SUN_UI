@@ -15,7 +15,6 @@ const contributionPage = () => {
     const [httpRequest, isLoading] = useHttp();
     const { catchAsync } = useAsync();
     const { member } = useSelector(state => state.member)
-    const [contriData, setContridata] = useState({ amount: 0, endDate: '', paymentId: '' });
     const [startDate, setStartDate] = useState();
     const [totalAmount, setTotalAmount] = useState(0);
     const [numberOfMonths, setNumberOfMonths] = useState('');
@@ -43,23 +42,33 @@ const contributionPage = () => {
         if (numberOfMonthsNumeric > 12) {
             throw new Error("You can donate for a maximum of 12 months at a time.");
         }
+        const contributionData = {
+            numberOfMonths: numberOfMonthsNumeric,
+            endDate: endDate,
+        };
 
-        const updatedPaymentdata = { amount: totalAmount };
-        setContridata(contriData => ({ ...contriData, amount: totalAmount, endDate: endDate }));
-        const { data, message } = await httpRequest('/payments/order', 'POST', updatedPaymentdata);
+        const paymentPayload = {
+            amount: totalAmount,
+            type: 'contribution',
+            data: contributionData,
+        }
+        const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
+        console.log(paymentPayload);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
     });
 
     const paymentSuccess = catchAsync(async (successData) => {
-        const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
+        /*const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
         if (verificationData?.payment._id) {
             const updatedContriData = { ...contriData, paymentId: verificationData.payment._id };
             const { message: successMessage } = await httpRequest('/contributions', 'POST', updatedContriData);
             dispatch(notificationActions.setNotification({ message: successMessage }));
             router.reload();
-        }
+        }*/
+        dispatch(notificationActions.setNotification({ message: "Your payment is successful. You will get a confirmation soon." }));
+        router.reload();
     });
     const paymentFailure = (error) => {
         dispatch(notificationActions.setNotification(error));
@@ -145,7 +154,7 @@ const contributionPage = () => {
                             orderData={order}
                             name="TEAM NEW SUN FOUNDATION"
                             description={`Monthly Contribution for ${getMonth(startDate)} to ${getMonth(endDate)}`}
-                            image="/logo.png"
+                            image="./logo.png"
                             onSuccess={paymentSuccess}
                             onFailure={paymentFailure}
                         />
