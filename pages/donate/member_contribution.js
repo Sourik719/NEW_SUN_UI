@@ -47,14 +47,12 @@ const contributionPage = () => {
             endDate: endDate,
             contributor: member?._id
         };
-
         const paymentPayload = {
             amount: totalAmount,
             type: 'contribution',
             data: contributionData,
         }
         const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
-        console.log(paymentPayload);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
@@ -89,19 +87,14 @@ const contributionPage = () => {
         const fetchData = async () => {
             const { data: contriDetails } = await httpRequest(`/contributions`, 'GET', null);
             if (contriDetails && contriDetails.contributions && contriDetails.contributions.length > 0 && typeof contriDetails.contributions[0].endDate === 'string') {
-                const endDate = new Date(contriDetails.contributions[0].endDate);
-                if (!isNaN(endDate)) {
-                    const newStartDate = new Date(
-                        endDate.getFullYear(),
-                        endDate.getMonth() + 1,
-                        1
-                    );
-                    setStartDate(newStartDate);
-                } else {
-                    console.error("Invalid endDate string:", contriDetails.contributions[0].endDate);
-                    setStartDate(member.joinedOn);
-                }
-            } else {
+                const newStartDate = new Date(Date.UTC(
+                    new Date(contriDetails.contributions[0].endDate).getUTCFullYear(),
+                    new Date(contriDetails.contributions[0].endDate).getUTCMonth() + 1,
+                    1
+                ))
+                setStartDate(newStartDate);
+            }
+            else {
                 setStartDate(member.joinedOn);
             }
         };
@@ -111,14 +104,23 @@ const contributionPage = () => {
 
     useEffect(() => {
         if (startDate && numberOfMonths !== '' && numberOfMonths != 0 && !isNaN(parseInt(numberOfMonths))) {
-            const endDateObj = new Date(startDate);
-            endDateObj.setMonth(endDateObj.getMonth() + parseInt(numberOfMonths) - 1);
-            setEndDate(endDateObj);
+            const startDateUTC = new Date(startDate); 
+            let yearUTC = startDateUTC.getUTCFullYear();
+            let monthUTC = startDateUTC.getUTCMonth();
+            let dayUTC = startDateUTC.getUTCDate();
+            let hoursUTC = startDateUTC.getUTCHours();
+            let minutesUTC = startDateUTC.getUTCMinutes();
+            let secondsUTC = startDateUTC.getUTCSeconds();
+            let millisecondsUTC = startDateUTC.getUTCMilliseconds();
+            monthUTC += parseInt(numberOfMonths) - 1;
+
+            const endDateUTC = new Date(Date.UTC(yearUTC, monthUTC, dayUTC, hoursUTC, minutesUTC, secondsUTC, millisecondsUTC));
+
+            setEndDate(endDateUTC);
             setTotalAmount(parseInt(numberOfMonths) * parseFloat(amountPerMonth || 0));
         } else {
             setEndDate('');
             setTotalAmount(0);
-
         }
     }, [startDate, numberOfMonths, amountPerMonth]);
 
