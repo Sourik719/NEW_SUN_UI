@@ -2,7 +2,6 @@ import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
-import { notificationActions } from '@/store/notification-slice';
 import { regex } from '@/validation/registration';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -16,6 +15,7 @@ const DonatePage = () => {
     const [cause, setCause] = useState('');
     const [order, setOrder] = useState(null);
     const [phone, setPhone] = useState();
+    const [referenceId, setReferenceId] = useState('')
     const [donateData, setDonateData] = useState();
     const { catchAsync } = useAsync();
     const [httpRequest, isLoading] = useHttp();
@@ -63,6 +63,7 @@ const DonatePage = () => {
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
+        setReferenceId(data.recordId);
     });
 
     const paymentSuccess = catchAsync(async (successData) => {
@@ -73,12 +74,10 @@ const DonatePage = () => {
             dispatch(notificationActions.setNotification({ message: successMessage }));
             router.reload();
         }*/
-        dispatch(notificationActions.setNotification({ message: "Your payment is recieved. You will get a confirmation soon." }));
-        router.reload();
+        router.push(`/confirm/donation/${referenceId}`)
     });
     const paymentFailure = (error) => {
-        dispatch(notificationActions.setNotification(error));
-        router.reload();
+        router.push(`/confirm/donation/${referenceId}`)
     }
 
     return (

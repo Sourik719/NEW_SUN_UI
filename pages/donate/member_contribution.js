@@ -3,7 +3,6 @@ import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
-import { notificationActions } from '@/store/notification-slice';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -21,6 +20,7 @@ const contributionPage = () => {
     const [amountPerMonth, setAmountPerMonth] = useState('');
     const [endDate, setEndDate] = useState('');
     const [order, setOrder] = useState(null);
+    const [referenceId, setReferenceId] = useState();
     const numberOfMonthref = useRef();
     const amountRef = useRef();
 
@@ -53,25 +53,18 @@ const contributionPage = () => {
             data: contributionData,
         }
         const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
+        console.log(data);
+        setReferenceId(data.recordId);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
     });
 
     const paymentSuccess = catchAsync(async (successData) => {
-        /*const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
-        if (verificationData?.payment._id) {
-            const updatedContriData = { ...contriData, paymentId: verificationData.payment._id };
-            const { message: successMessage } = await httpRequest('/contributions', 'POST', updatedContriData);
-            dispatch(notificationActions.setNotification({ message: successMessage }));
-            router.reload();
-        }*/
-        dispatch(notificationActions.setNotification({ message: "Your payment is successful. You will get a confirmation soon." }));
-        router.reload();
+        router.push(`/confirm/contribution/${referenceId}`)
     });
     const paymentFailure = (error) => {
-        dispatch(notificationActions.setNotification(error));
-        router.reload();
+        router.push(`/confirm/contribution/${referenceId}`)
     }
     const getMonth = (dateString) => {
         const date = new Date(dateString);
@@ -104,7 +97,7 @@ const contributionPage = () => {
 
     useEffect(() => {
         if (startDate && numberOfMonths !== '' && numberOfMonths != 0 && !isNaN(parseInt(numberOfMonths))) {
-            const startDateUTC = new Date(startDate); 
+            const startDateUTC = new Date(startDate);
             let yearUTC = startDateUTC.getUTCFullYear();
             let monthUTC = startDateUTC.getUTCMonth();
             let dayUTC = startDateUTC.getUTCDate();
