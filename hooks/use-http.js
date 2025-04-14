@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const domain = 'https://new-sun.onrender.com/';
+const domain = 'https://new-sun.onrender.com';
 
 export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
