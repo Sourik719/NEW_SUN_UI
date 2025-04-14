@@ -1,13 +1,11 @@
+import ConfirmationElement from '@/components/donation/Confirm';
 import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { regex } from '@/validation/registration';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
 const DonatePage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -15,20 +13,18 @@ const DonatePage = () => {
     const [cause, setCause] = useState('');
     const [order, setOrder] = useState(null);
     const [phone, setPhone] = useState();
-    const [referenceId, setReferenceId] = useState('')
-    const [donateData, setDonateData] = useState();
     const { catchAsync } = useAsync();
+    const [paymentData, setPaymentData] = useState(null);
+    const [paymentStatus, setPaymentStatus] = useState(null);
     const [httpRequest, isLoading] = useHttp();
-    const dispatch = useDispatch();
-    const router = useRouter();
 
     const causeOptions = [
-        { value: '', label: 'Select a Cause (Optional)' },
-        { value: 'sunshine', label: 'Project Sunshine' },
-        { value: 'agomonir ahobane', label: 'Project Agomonir Ahobane' },
-        { value: 'winter smile', label: `Winter's Smile` },
-        { value: 'environment', label: 'Sobujer Sondhane' },
-        { value: 'general', label: 'General Donation' },
+        { value: '', label: 'Select a Cause' },
+        { value: 'Sunshine', label: 'Project Sunshine' },
+        { value: 'Agomonir Ahobane', label: 'Project Agomonir Ahobane' },
+        { value: 'Winter Smile', label: `Winter's Smile` },
+        { value: 'Sobujer Sondhane', label: 'Sobujer Sondhane' },
+        { value: 'Charity', label: 'General Donation' },
 
     ];
 
@@ -46,46 +42,52 @@ const DonatePage = () => {
         const phoneValue = phone.trim();
         if (!phoneValue) throw new Error("Phone Number is mandatory");
         if (!regex.phone.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.");
+        if (!cause.trim()) throw new Error("Please select cause of donation");
 
-        const donationData = {
+        const paymentPayload = {
+            intent: 'donation',
             name: name.trim(),
             email: email.trim(),
-            cause: cause,
+            subjectedTo: cause.trim(),
             phone: phone.trim(),
+            amount: amount
         };
-        const paymentPayload = {
-            amount: amountNumber,
-            type: 'donation',
-            data: donationData,
-        };
-        console.log(paymentPayload)
         const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
-        setReferenceId(data.recordId);
     });
 
     const paymentSuccess = catchAsync(async (successData) => {
-        /*const { data: verificationData, message } = await httpRequest('/payments/verify', 'POST', successData);
-        if (verificationData?.payment._id) {
-            const updatedContriData = { ...donateData, paymentId: verificationData.payment._id };
-            const { message: successMessage } = await httpRequest('/donate', 'POST', updatedContriData);
-            dispatch(notificationActions.setNotification({ message: successMessage }));
-            router.reload();
-        }*/
-        router.push(`/confirm/donation/${referenceId}`)
-    });
+        const updatedData = {
+            ...successData,
+            intent: "donation"
+        }
+        const { data, message } = await httpRequest('/payments/verify', 'POST', updatedData);
+        const confirmData = {
+            ...data.payment,
+            name: name,
+            email: email,
+            phone: phone,
+            amount: amount
+        }
+        setPaymentData(confirmData);
+        setPaymentStatus('success')
+    }
+    );
+
     const paymentFailure = (error) => {
-        router.push(`/confirm/donation/${referenceId}`)
+        setPaymentStatus('failed')
+        setPaymentData("Failed")
     }
 
     return (
-        <Container className="bg-violet-200 py-16">
+        <Container className="bg-violet-200 py-16 relative flex flex-col justify-center items-center">
             <Head>
                 <title>Donate || TEAM NEW SUN FOUNDATION</title>
             </Head>
-            <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+            {paymentData && <ConfirmationElement data={paymentData} status={paymentStatus} type='donation' />}
+            {!paymentData && <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
                 <div className="md:flex">
                     <div className="p-8 md:w-1/2">
                         <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Support Our Cause</div>
@@ -188,7 +190,7 @@ const DonatePage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
         </Container>
     );
 };

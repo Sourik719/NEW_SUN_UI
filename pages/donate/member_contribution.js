@@ -1,26 +1,25 @@
+import ConfirmationElement from '@/components/donation/Confirm';
 import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
 import Loader from '@/components/ui/Loader';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const contributionPage = () => {
-    const dispatch = useDispatch();
-    const router = useRouter();
     const [httpRequest, isLoading] = useHttp();
     const { catchAsync } = useAsync();
     const { member } = useSelector(state => state.member)
-    const [startDate, setStartDate] = useState();
+    const [startDate, setStartDate] = useState('')
     const [totalAmount, setTotalAmount] = useState(0);
     const [numberOfMonths, setNumberOfMonths] = useState('');
     const [amountPerMonth, setAmountPerMonth] = useState('');
     const [endDate, setEndDate] = useState('');
     const [order, setOrder] = useState(null);
-    const [referenceId, setReferenceId] = useState();
+    const [paymentData, setPaymentData] = useState(null);
+    const [paymentStatus, setPaymentStatus] = useState(null);
     const numberOfMonthref = useRef();
     const amountRef = useRef();
 
@@ -35,37 +34,47 @@ const contributionPage = () => {
             throw new Error("Please enter a numeric value for the amount to donate per month.");
         }
         const amountPerMonthNumeric = Number(amountPerMonthValue);
-
         if (amountPerMonthNumeric < 50) {
             throw new Error("Minimum contribution per month is Rs.50.");
         }
         if (numberOfMonthsNumeric > 12) {
             throw new Error("You can donate for a maximum of 12 months at a time.");
         }
-        const contributionData = {
-            numberOfMonths: numberOfMonthsNumeric,
-            endDate: endDate,
-            contributor: member?._id
-        };
         const paymentPayload = {
             amount: totalAmount,
-            type: 'contribution',
-            data: contributionData,
+            intent: 'contribution',
+            numberOfMonths: numberOfMonthsNumeric,
+            startDate: startDate,
+            endDate: endDate,
+            contributor: member?._id
         }
-        const { data, message } = await httpRequest('/payments/order', 'POST', paymentPayload);
-        console.log(data);
-        setReferenceId(data.recordId);
+        const { data } = await httpRequest('/payments/order', 'POST', paymentPayload);
         if (data.order && data.order.id) {
             setOrder(data.order);
         }
     });
 
     const paymentSuccess = catchAsync(async (successData) => {
-        router.push(`/confirm/contribution/${referenceId}`)
-    });
-    const paymentFailure = (error) => {
-        router.push(`/confirm/contribution/${referenceId}`)
+        const updatedData = {
+            ...successData,
+            intent: "contribution"
+        }
+        const { data, message } = await httpRequest('/payments/verify', 'POST', updatedData);
+        const confirmData = {
+            ...data.payment,
+            amount: totalAmount,
+            startDate: startDate,
+            endDate: endDate,
+        }
+        setPaymentData(confirmData);
+        setPaymentStatus('success')
     }
+    );
+    const paymentFailure = (error) => {
+        setPaymentStatus('failed')
+        setPaymentData("Failed")
+    }
+
     const getMonth = (dateString) => {
         const date = new Date(dateString);
         const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -77,23 +86,11 @@ const contributionPage = () => {
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const { data: contriDetails } = await httpRequest(`/contributions`, 'GET', null);
-            if (contriDetails && contriDetails.contributions && contriDetails.contributions.length > 0 && typeof contriDetails.contributions[0].endDate === 'string') {
-                const newStartDate = new Date(Date.UTC(
-                    new Date(contriDetails.contributions[0].endDate).getUTCFullYear(),
-                    new Date(contriDetails.contributions[0].endDate).getUTCMonth() + 1,
-                    1
-                ))
-                setStartDate(newStartDate);
-            }
-            else {
-                setStartDate(member.joinedOn);
-            }
-        };
-        catchAsync(fetchData)();
-    }, [member]);
-
+        if (member && member.lastContributionOn) {
+            const newDate = new Date(member.lastContributionOn)
+            setStartDate(new Date(Date.UTC(newDate.getFullYear(), newDate.getMonth() + 1, 1)))
+        }
+    }, [member])
 
     useEffect(() => {
         if (startDate && numberOfMonths !== '' && numberOfMonths != 0 && !isNaN(parseInt(numberOfMonths))) {
@@ -115,7 +112,7 @@ const contributionPage = () => {
             setEndDate('');
             setTotalAmount(0);
         }
-    }, [startDate, numberOfMonths, amountPerMonth]);
+    }, [numberOfMonths, amountPerMonth]);
 
     if (!member || isLoading) {
         return (<Loader />);
@@ -126,8 +123,8 @@ const contributionPage = () => {
                 <Head>
                     <title>Member's Contribution || TEAM NEW SUN FOUNDATION</title>
                 </Head>
-
-                <div className='w-full lg:w-2/5 md:w-1/2 sm:w-3/5 bg-white rounded-md p-4 m-2 items-center justify-center text-center'>
+                {paymentData && <ConfirmationElement data={paymentData} status={paymentStatus} type='contribution' />}
+                {!paymentData && <div className={`w-full lg:w-2/5 md:w-1/2 sm:w-3/5 bg-white rounded-md p-4 m-2 items-center justify-center text-center ${paymentData && 'blur-lg'} `}>
                     <div className="text-4xl text-center p-2 m-2">
                         Hey, {member.firstname}.<div className='text-orange-500 m-1'> Want to contribute?</div>
                     </div>
@@ -155,7 +152,7 @@ const contributionPage = () => {
                             onFailure={paymentFailure}
                         />
                     )}
-                </div>
+                </div>}
             </Container >
         )
     }

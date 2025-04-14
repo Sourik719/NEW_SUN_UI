@@ -12,7 +12,7 @@ const ForgetPassword = ({ onCancel }) => {
     const [otp, setOtp] = useState('')
     const [password, setPasword] = useState('')
     const [confirmPassword, setconfirmPassword] = useState('')
-    const [id, setId] = useState(null);
+    const [token, setToken] = useState(null);
     const [passwordShowed, setPasswordShowed] = useState(false)
     const [confirmPasswordShowed, setConfirmPasswordShowed] = useState(false)
     const [otpSent, setOtpsent] = useState(false);
@@ -61,8 +61,10 @@ const ForgetPassword = ({ onCancel }) => {
     const verifyOtp = catchAsync(async () => {
         if (otp.length < 6) throw new Error('OTP should be 6-digit long.')
         const otpString = otp.join('');
-        const { data } = await httpRequest(`/forgot-password/verify-otp`, "POST", { email: email, otp: otpString });
-        setId(data._id)
+        const { data } = await httpRequest(`/forgot-password-verify`, "POST", { email: email, otp: otpString })
+        const { token } = data
+        localStorage.setItem('key', token)
+        setToken(token)
         setotpVerified(true)
     }
     );
@@ -70,7 +72,8 @@ const ForgetPassword = ({ onCancel }) => {
         if (!password.trim()) throw new Error("Password can not be blank.")
         if (!regex.password.test(password)) throw new Error("Password must be at least 8 characters long and include a number,a lowercase letter,an uppercase letter and a special character.")
         if (password.trim() != confirmPassword.trim()) throw new Error("Both fields need to have the same value")
-        const { success } = await httpRequest(`/reset-password`, "POST", { email: email, _id: id, password: password });
+        const { success } = await httpRequest(`/reset-password`, "POST", { password: password });
+        localStorage.removeItem('key');
         dispatch(notificationActions.setNotification({ message: "Your password is updated. You can now login." }))
         router.reload();
     }

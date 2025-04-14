@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-const domain = 'https://new-sun.onrender.com';
+const domain = 'http://localhost:4000';
 
 export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const httpRequest = async (url, method = 'GET', body = null, isFormData = false) => {
-        const token = localStorage.getItem('jwt-token');
+        const token = url === '/reset-password' ? localStorage.getItem('key') : localStorage.getItem('jwt-token');
         setIsLoading(true);
-
         const headers = {
             'authorization': `Bearer ${token}`
         };
@@ -17,7 +16,7 @@ export const useHttp = () => {
 
         if (body) {
             if (isFormData) {
-                processedBody = body; 
+                processedBody = body;
             } else {
                 headers['content-type'] = 'application/json';
                 processedBody = JSON.stringify(body);
