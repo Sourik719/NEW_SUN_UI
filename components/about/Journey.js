@@ -1,7 +1,7 @@
 
 const Journey = () => {
     return (
-        <div className="w-full bg-slate-900 py-12 flex flex-col items-center text-gray-800">
+        <div className="w-full bg-slate-900 py-12 flex flex-col items-center text-gray-800 mt-8 sm:mt-0">
             <div className="container md:px-16 px-6">
                 <div className="mb-8 text-center">
                     <h2 className="md:text-4xl text-xl font-bold text-white mb-3">
@@ -12,7 +12,7 @@ const Journey = () => {
 
                 <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
-                        className="w-64 h-auto object-cover rounded-lg shadow-md float-right ml-8 mb-4 md:mb-0"
+                        className="w-48 sm:w-64 h-auto object-cover rounded-lg shadow-md float-right ml-4 mb-2"
                         src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743276319/SAMPREETI/orwnuku2atd4z6t1lfxs.jpg"
                         alt="Team New Sun Foundation - Early Days"
                     />
@@ -26,7 +26,7 @@ const Journey = () => {
 
                 <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
-                        className="w-64 h-auto object-cover rounded-lg shadow-md float-left mr-8 mb-4 md:mb-0"
+                        className="w-48 sm:w-64 h-auto object-cover rounded-lg shadow-md float-left mr-4  mb-2"
                         src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1718905546/SpecialDay%20Celebration/IMG-20230909-WA0034_nvahmy.jpg"
                         alt="Team New Sun Foundation - COVID Response"
                     />
@@ -40,7 +40,7 @@ const Journey = () => {
 
                 <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
-                        className="w-64 h-auto object-cover rounded-lg shadow-md float-right ml-8 mb-4 md:mb-0"
+                        className="w-48 sm:w-64 h-auto object-cover rounded-lg shadow-md float-right ml-4 mb-2"
                         src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743236667/Agomonir%20Ahobane/ro3n1l2gcncpsgsztjfb.jpg"
                         alt="Team New Sun Foundation - Outreach"
                     />
@@ -57,7 +57,7 @@ const Journey = () => {
 
                 <section className="mb-10 text-lg leading-relaxed text-justify overflow-hidden text-white">
                     <img
-                        className="w-80 h-auto object-cover rounded-lg shadow-md float-left mr-8 mb-4 md:mb-0"
+                        className="w-48 sm:w-80 h-auto object-cover rounded-lg shadow-md float-left mr-4 mb-2"
                         src="https://res.cloudinary.com/dcikuo4sk/image/upload/v1718888126/Sobujer%20Sondhane/IMG-20230604-WA0123_c4dbgf.jpg"
                         alt="Team New Sun Foundation - Environment & Culture"
                     />

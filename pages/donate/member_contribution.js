@@ -147,7 +147,7 @@ const contributionPage = () => {
                             orderData={order}
                             name="TEAM NEW SUN FOUNDATION"
                             description={`Monthly Contribution for ${getMonth(startDate)} to ${getMonth(endDate)}`}
-                            image="./logo.png"
+                            image='/logo.png'
                             onSuccess={paymentSuccess}
                             onFailure={paymentFailure}
                         />

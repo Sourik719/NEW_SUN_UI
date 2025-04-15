@@ -17,7 +17,7 @@ const projectPage = () => {
             <Head>
                 <title>{project.label} || TEAM NEW SUN FOUNDATION</title>
             </Head>
-            <div className="text-4xl sm:text-5xl font-bold mx-10 p-2 text-orange-500 items-center">{project.label}
+            <div className="text-4xl sm:text-5xl font-bold mx-10 p-2 text-orange-500 items-center mt-10">{project.label}
                 <hr className="my-2 border-2 border-blue-400 rounded-xl" />
             </div>
 

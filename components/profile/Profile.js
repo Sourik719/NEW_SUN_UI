@@ -1,10 +1,10 @@
 import { bloodGroupOptions, genderOptions } from "@/data/registration";
 import ProfileFields from "./Profilefields";
-import ProfileImage from "./profileImage";
+import ProfileImage from "./Profileimage";
 
 const Profile = ({ user, id, due, isAuthenticated }) => {
     return (
-        <div className="sm:w-2/3 lg:w-1/2 bg-white rounded-md shadow-md my-2 mx-5">
+        <div className="sm:w-2/3 lg:w-1/2 bg-white rounded-md shadow-md my-5 mx-5">
             <div className='px-8 py-6'>
                 <ProfileImage value={user.image?.url} fieldName="image" gender={user.sex} id={id} editAble={isAuthenticated} />
                 <div className="flex flex-wrap">
@@ -38,7 +38,7 @@ const Profile = ({ user, id, due, isAuthenticated }) => {
                         <ProfileFields value={due} label="Due" dataType={isAuthenticated ? "Number" : "text"} editAble={false} id={id} fieldName="due" />
                     </div>
                     <div className="w-full sm:w-1/2">
-                        <ProfileFields value={user.status} label="Membership Status" dataType="text" editAble={false} id={id} fieldName="status" />
+                        <ProfileFields value={user.status === 'active' ? "Active" : "Inactive"} label="Membership Status" dataType="text" editAble={false} id={id} fieldName="status" />
                     </div>
                 </div>
             </div>

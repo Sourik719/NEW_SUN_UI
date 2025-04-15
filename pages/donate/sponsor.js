@@ -6,7 +6,7 @@ const sponsorEvent = () => {
         <Head>
             <title>Celebrate your special days</title>
         </Head>
-        <div className="font-semibold text-4xl text-center">
+        <div className="font-semibold text-4xl text-center mt-10 sm:mt-0">
             Is your Special Day coming?
             <div className="text-orange-500 p-2">
                 Celebrate it in a unique way.
@@ -14,7 +14,7 @@ const sponsorEvent = () => {
         </div>
         <div className="flex flex-col md:flex-row my-5 mx-5 rounded-lg">
             <div className="md:w-1/3 w-full h-[350px]">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/6L6MNBHx6dg?si=Yc5ha3AXwnEpWIqf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen className="items-center"></iframe>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/6L6MNBHx6dg?si=Yc5ha3AXwnEpWIqf" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen className="items-center"></iframe>
             </div>
             <div className="md:w-2/3 w-full bg-white md:h-[350px] md:overflow-y-auto">
                 <h1 className="text-center text-pink-800 font-bold text-2xl pt-2">

@@ -29,7 +29,7 @@ const ProfileImage = ({ label, value, gender, id, editAble }) => {
             const maxSizeBytes = maxSizeKB * 1024;
             if (file.size > maxSizeBytes) {
                 dispatch(notificationActions.setNotification(
-                    { message: "File size more than limit. Please upload a smaller file." }
+                    { type: "error", message: "File size more than limit. Please upload a smaller file." }
                 ));
                 return;
 
@@ -140,7 +140,8 @@ const ProfileImage = ({ label, value, gender, id, editAble }) => {
                         src={previewURL}
                         alt="Profile Preview"
                         className="w-full h-full object-cover transition-opacity duration-300"
-                        fill
+                        width={160}
+                        height={160}
                         style={{ objectFit: 'cover' }}
                         priority
                     />

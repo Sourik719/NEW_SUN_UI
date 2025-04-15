@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/use-auth"
 import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { FaBars, FaTimes } from "react-icons/fa"
 import Loader from "../ui/Loader"
@@ -14,7 +15,7 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const [isHidden, setIsHidden] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
-
+    const { pathname } = useRouter()
     const toggleHandler = () => setIsHidden(isHidden => !isHidden)
     const resizeHandler = () => setIsMobile(window.innerWidth < 640)
 
@@ -47,15 +48,16 @@ const Navbar = () => {
             <Link href="/" aria-label="Go to homepage" className="block">
                 <div className="w-12 h-12 relative rounded-xl overflow-hidden">
                     <Image
-                        src={"/logo.png"}
+                        src="/logo.png"
                         alt="TEAM NEW SUN FOUNDATION Logo"
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        sizes="48px"
                         priority
                     />
                 </div>
             </Link>
-            {isMobile && <div className="flex flex-row"><h1 className="font-bold text-orange-600 py-1.5 text-2xl text-center mr-5">TEAM NEW SUN FOUNDATION</h1> <span className="text-2xl p-3" onClick={toggleHandler}>{isHidden ? <FaBars /> : <FaTimes />}</span></div>}
+            {isMobile && <div className="flex flex-row"><h1 className="font-bold text-orange-600 py-1.5 text-2xl text-center mr-10">TEAM NEW SUN FOUNDATION</h1> <span className="text-2xl p-3 pt-5" onClick={toggleHandler}>{isHidden ? <FaBars /> : <FaTimes />}</span></div>}
         </div>
         <AnimatePresence>
             {(!isMobile || !isHidden) &&
@@ -81,8 +83,8 @@ const Navbar = () => {
                         {isAuthLoading ? <Loader /> : isAuthenticated
                             ? <Account />
                             : <div className={`space-x-10 sm:space-x-2 ${isMobile && 'flex items-center'}`}>
-                                <Link href={'/join-us'} className={`hover:bg-slate-100 rounded p-2 my-1 ${isMobile && 'bg-slate-100 px-5'}`}>Join us</Link>
-                                <Link href={'/login'} className={`hover:bg-slate-100 rounded p-2 my-1 ${isMobile && 'bg-slate-100 px-5'}`}>Login</Link>
+                                <Link href={'/join-us'} className={`hover:bg-slate-100 rounded p-2 my-1 ${pathname === '/join-us' ? 'sm:border-slate-800 bg-slate-200 sm:bg-transparent rounded-md sm:rounded-none' : 'border-transparent'}${isMobile && 'border border-1 px-5'}`}>Join us</Link>
+                                <Link href={'/login'} className={`hover:bg-slate-100 rounded p-2 my-1 ${pathname === '/login' ? 'sm:border-slate-800 bg-slate-200 sm:bg-transparent rounded-md sm:rounded-none' : 'border-transparent'}${isMobile && 'border border-1 px-5'}`}>Login</Link>
                             </div>
                         }
                     </section>

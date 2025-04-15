@@ -22,7 +22,6 @@ const JoinUs = () => {
     const [isVerifying, setIsVerifying] = useState(false)
     const [imageFile, setImageFile] = useState(null);
     const signupHandler = catchAsync(async () => {
-        console.log(errors)
         if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
         if (hasErrors(errors)) {
             throw new Error(`Please do correct the red-marked fields`);
@@ -36,10 +35,6 @@ const JoinUs = () => {
         if (imageFile) {
             formData.append('image', imageFile);
         }
-        console.log('Contents of formData:');
-        formData.forEach((value, key) => {
-            console.log(`Key: ${key}, Value: ${value}`);
-        });
         const { message } = await httpRequest('/signup', 'POST', formData, true)
         setIsVerifying(true)
         dispatch(notificationActions.setNotification({ message }))
@@ -47,12 +42,12 @@ const JoinUs = () => {
     const handleImageSelected = (file) => {
         setImageFile(file);
     };
-    return (<Container className="relative bg-slate-200 w-full flex justify-center items-center" >
+    return (<Container className="bg-slate-200 w-full flex justify-center items-center" >
         <Head>
             <title>Join Us</title>
         </Head>
         {isVerifying && <EmailVerifier fields={fields} onCancel={() => setIsVerifying(false)} />}
-        <div className={`w-full sm:w-[550px] p-2 mb-10 ${isVerifying && 'blur-lg'}`}>
+        <div className={`w-full sm:w-[550px] p-2 my-10 ${isVerifying && 'blur-lg'}`}>
             <div className="relative rounded-xl shadow-sm">
                 <Background />
                 <div className="relative flex flex-col justify-center items-center z-10 p-3">

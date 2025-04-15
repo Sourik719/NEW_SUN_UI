@@ -2,7 +2,7 @@
 function PositionHolder({ name, position, imageUrl }) {
     return (
         <div
-            className="w-[200px] flex flex-col items-center rounded-md p-2 m-4 "
+            className="w-[200px] flex flex-col items-center rounded-md p-2 md:m-4 m-2 "
         >
             {imageUrl && (
                 <div className="mb-4">

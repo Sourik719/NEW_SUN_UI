@@ -19,7 +19,7 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
                 currency: orderData.currency,
                 name: 'TEAM NEW SUN FOUNDATION',
                 description: description || 'Secure Payment',
-                image: image || './logo.png',
+                image: image,
                 order_id: orderData.id,
                 handler: async function (response) {
                     if (onSuccess) {

@@ -12,7 +12,7 @@ const DonatePage = () => {
     const [amount, setAmount] = useState('');
     const [cause, setCause] = useState('');
     const [order, setOrder] = useState(null);
-    const [phone, setPhone] = useState();
+    const [phone, setPhone] = useState('');
     const { catchAsync } = useAsync();
     const [paymentData, setPaymentData] = useState(null);
     const [paymentStatus, setPaymentStatus] = useState(null);
@@ -182,7 +182,7 @@ const DonatePage = () => {
                             {order && <PaymentGateway
                                 orderData={order}
                                 name="TEAM NEW SUN FOUNDATION"
-                                image="./logo.png"
+                                image='/logo.png'
                                 description={cause}
                                 onSuccess={paymentSuccess}
                                 onFailure={paymentFailure} />

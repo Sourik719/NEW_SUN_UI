@@ -58,7 +58,7 @@ const EmailVerifier = ({ fields, onCancel }) => {
         dispatch(notificationActions.setNotification({ message }))
     })
 
-    return (<div className="w-full sm:w-[550px] fixed z-20 top-20 sm:top-1/4 p-2">
+    return (<div className="absolute w-full sm:w-[550px] z-10 top-50 sm:top-1/4 p-2 my-5">
         <div className="relative bg-white text-center flex flex-col justify-center items-center shadow rounded-md p-5">
             <button className="absolute right-4 top-4" onClick={onCancel}>
                 <FaXmark />

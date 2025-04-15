@@ -3,10 +3,11 @@ import PositionHolder from "./Teammembers";
 const Team = () => {
     return (
         <div className="w-full bg-slate-800 py-12 px-6 flex flex-col items-center">
-            <h2 className="text-3xl text-white font-bold mb-8">
-                Meet the people behind <span className="text-orange-500">TEAM NEW SUN FOUNDATION</span>
+            <h2 className="text-3xl text-white font-bold mb-8 text-center">
+                Meet the people behind{" "}
+                <span className="text-orange-500">TEAM NEW SUN FOUNDATION</span>
             </h2>
-            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="flex flex-wrap justify-center gap-4">
                 <PositionHolder
                     name="Sourik Bhuiya"
                     position="Director"
@@ -103,9 +104,14 @@ const Team = () => {
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743867884/core-member/ivnuwe0y13fusmoj2hza.jpg"
                 />
             </div>
-            <p className="text-yellow-500 font-bold text-center">Our organization's strength and impact are a testament to the collective efforts of many. Beyond our core team, dedicated volunteers tirelessly contribute their time and skills during our projects. We are also deeply grateful to our esteemed well-wishers, whose invaluable guidance and feedback shape our direction. Finally, the unwavering belief and generous donations from our supporters enable us to continue our vital work and bring our projects to fruition.
-
-
+            <p className="text-yellow-500 font-bold text-center">
+                Our organization's strength and impact are a testament to the collective
+                efforts of many. Beyond our core team, dedicated volunteers tirelessly
+                contribute their time and skills during our projects. We are also
+                deeply grateful to our esteemed well-wishers, whose invaluable
+                guidance and feedback shape our direction. Finally, the unwavering
+                belief and generous donations from our supporters enable us to
+                continue our vital work and bring our projects to fruition.
             </p>
         </div>
     );

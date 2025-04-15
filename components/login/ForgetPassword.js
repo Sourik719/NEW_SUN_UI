@@ -99,7 +99,7 @@ const ForgetPassword = ({ onCancel }) => {
                     <button
                         onClick={generateOtp}
                         className={`bg-blue-500 text-white h-10 p-2  rounded text-md flex items-center justify-center ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
-                        disabled={isLoading}
+                        disabled={isLoading || otpVerified}
                         aria-label={isLoading ? "Loading, please wait." : (otpSent ? "Resend OTP" : "Send OTP")}
                     >
                         {isLoading ? "Loading.." : (otpSent ? "Resend OTP" : "Send OTP")}

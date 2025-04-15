@@ -20,13 +20,14 @@ const Projects = () => {
                     {Object.keys(projectDetails).map((key) => {
                         const project = projectDetails[key];
                         return (
-                            <div key={key} className="sm:w-1/2 md:w-1/3 w-full bg-transparent rounded-lg shadow-md px-10 py-2 flex flex-col justify-center items-center text-white my-1 ">
+                            <div key={key} className="sm:w-1/2 lg:w-1/3 w-full bg-transparent rounded-lg shadow-md px-10 py-2 flex flex-col justify-center items-center text-white my-1 ">
                                 <div className="overflow-hidden w-[300px] h-[200px] p-5 relative">
                                     <Image
                                         src={project.image[0]}
                                         alt={project.label}
+                                        width="300"
+                                        height="300"
                                         style={{ objectFit: 'cover' }}
-                                        layout="fill"
                                     />
                                 </div>
                                 <p className="font-semibold py-2 text-2xl text-yellow-400">{project.label}</p>
