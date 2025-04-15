@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const domain = 'https://new-sun.onrender.com';
+const domain = 'https://api.teamnewsunfoundation.org';
 
 export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
