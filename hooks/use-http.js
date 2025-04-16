@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const domain = 'https://api.teamnewsunfoundation.org';
+const domain = 'http://localhost:4000';
 
 export const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);

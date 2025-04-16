@@ -39,13 +39,6 @@ const profile = () => {
         }
     }, [isAuthenticated]);
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            setDue(contriData?.due?.length || 0);
-        } else {
-            setDue("Not Available");
-        }
-    }, [contriData, isAuthenticated]);
 
 
     if (!user || isLoading) {
@@ -57,7 +50,7 @@ const profile = () => {
                 <Head>
                     <title>Profile</title>
                 </Head>
-                <Profile user={user} id={id} due={due} isAuthenticated={isAuthenticated} />
+                <Profile user={user} id={id} due={isAuthenticated ? contriData?.due?.length || 0 : "Not Available"} isAuthenticated={isAuthenticated} />
 
                 {isAuthenticated && <Contribution data={contriData ? contriData : null} />}
 
