@@ -31,7 +31,7 @@ const Contribution = ({ data }) => {
                     <div className="p-2 w-1/4 ">Ending Month</div>
                     <div className="p-2 w-1/4 "> Amount</div>
                 </div>
-                {data.contributions.map((contribution) => (
+                {data.contributions.filter(contribution => contribution.payment?.status === 'completed').map((contribution) => (
                     <div className="flex flex-row w-full bg-white p-2 items-center justify-center text-center border text-yellow-600" key={contribution.startDate} >
                         <div className="px-2 w-1/4 ">{formatDate(contribution.contributedOn)}</div>
                         <div className="px-2 w-1/4">{getMonth(contribution.startDate)}</div>
@@ -39,7 +39,7 @@ const Contribution = ({ data }) => {
                         <div className="px-2 w-1/4"> {contribution.amount}</div>
                     </div>
                 ))}
-                {data.contributions.length == 0 && <div className="p-2 text-lg text-center w-full">No contributions to show at the moment.</div>}
+                {data.contributions.filter(contribution => contribution.payment?.status === 'completed').length == 0 && <div className="p-2 text-lg text-center w-full">No contributions to show at the moment.</div>}
                 < h2 className="text-lg bg-green-600 w-full flex flex-row justify-between py-2 px-4 text-gray-700">Total Contribution:<span className="text-xl px-5">{data.totalAmount}</span></h2>
                 <Link className="text-xl w-1/2 p-2 bg-red-800 text-white text-center rounded-md m-2 shadow-xl" href="../donate/member_contribution">Donate now </Link>
             </div>}
