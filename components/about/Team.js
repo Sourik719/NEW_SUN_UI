@@ -89,11 +89,6 @@ const Team = () => {
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743616542/core-member/czrhfjdkgphjtozr72em.jpg"
                 />
                 <PositionHolder
-                    name="Moitrayi Majumdar"
-                    position="Project Coordinator-SUNSHINE"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743867888/core-member/uev4lkn9ldk12nobwsmf.jpg"
-                />
-                <PositionHolder
                     name="Debanjan Mandal"
                     position="Project Coordinator-Sobujer Sondhane"
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071039/core-member/vtsa5qkpijwtjoeifkfj.jpg"
