@@ -23,7 +23,6 @@ const DonatePage = () => {
         { value: 'Sunshine', label: 'Project Sunshine' },
         { value: 'Project Udaan', label: 'Project Udaan'},
         { value: 'Charity', label: 'General Donation' },
-
     ];
 
     const paymentHandler = catchAsync(async () => {
