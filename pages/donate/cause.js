@@ -24,6 +24,7 @@ const DonatePage = () => {
         { value: 'Agomonir Ahobane', label: 'Project Agomonir Ahobane' },
         { value: 'Winter Smile', label: `Winter's Smile` },
         { value: 'Sobujer Sondhane', label: 'Sobujer Sondhane' },
+        { value: 'UDAAN', label: 'UDAAN'},
         { value: 'Charity', label: 'General Donation' },
 
     ];
