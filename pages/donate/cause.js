@@ -19,9 +19,8 @@ const DonatePage = () => {
     const [httpRequest, isLoading] = useHttp();
 
     const causeOptions = [
-        { value: '', label: 'Select a Cause' },
         { value: 'Sunshine', label: 'Project Sunshine' },
-        { value: 'Project Udaan', label: 'Project Udaan'},
+        { value: 'Project Udaan', label: 'Project Udaan' },
         { value: 'Charity', label: 'General Donation' },
     ];
 
@@ -162,6 +161,9 @@ const DonatePage = () => {
                                 onChange={(e) => setCause(e.target.value)}
                                 disabled={order != null}
                             >
+                                <option value="" disabled hidden>
+                                    Select Cause of Donation
+                                </option>
                                 {causeOptions.map((option) => (
                                     <option key={option.value} value={option.value}>
                                         {option.label}
