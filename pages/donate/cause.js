@@ -21,10 +21,7 @@ const DonatePage = () => {
     const causeOptions = [
         { value: '', label: 'Select a Cause' },
         { value: 'Sunshine', label: 'Project Sunshine' },
-        { value: 'Agomonir Ahobane', label: 'Project Agomonir Ahobane' },
-        { value: 'Winter Smile', label: `Winter's Smile` },
-        { value: 'Sobujer Sondhane', label: 'Sobujer Sondhane' },
-        { value: 'UDAAN', label: 'UDAAN'},
+        { value: 'Project Udaan', label: 'Project Udaan'},
         { value: 'Charity', label: 'General Donation' },
 
     ];
