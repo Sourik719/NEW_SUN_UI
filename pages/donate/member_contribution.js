@@ -113,7 +113,8 @@ const contributionPage = () => {
             setTotalAmount(0);
         }
     }, [numberOfMonths, amountPerMonth]);
-
+    const firstname = member?.firstname;
+    const lastname = member?.lastname;
     if (!member || isLoading) {
         return (<Loader />);
     }
@@ -142,11 +143,12 @@ const contributionPage = () => {
 
                     </div>
                     {order == null && <button className="w-2/5 bg-green-500 p-3 m-1 text-center rounded-lg hover:bg-green-700 focus:bg-green-800 text-white transition-colors duration-300" onClick={paymentHandler}>Donate now</button>}
+
                     {order && (
                         <PaymentGateway
                             orderData={order}
                             name="TEAM NEW SUN FOUNDATION"
-                            description={`Monthly Contribution for ${getMonth(startDate)} to ${getMonth(endDate)}`}
+                            description={`Monthly Contribution for ${getMonth(startDate)} to ${getMonth(endDate)} from ${firstname} ${lastname}`}
                             image='/logo.png'
                             onSuccess={paymentSuccess}
                             onFailure={paymentFailure}
