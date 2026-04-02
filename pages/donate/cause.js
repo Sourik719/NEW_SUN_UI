@@ -20,7 +20,8 @@ const DonatePage = () => {
 
     const causeOptions = [
         { value: 'Sunshine', label: 'Project Sunshine' },
-        { value: 'Project Udaan', label: 'Project Udaan' },
+        { value: 'Project Udaan', label: 'Project UDAAN' },
+        { value: 'Project SURAKSHA ', label: 'Project SURAKSHA' },
         { value: 'Charity', label: 'General Donation' },
     ];
 
