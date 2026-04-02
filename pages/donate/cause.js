@@ -183,7 +183,7 @@ const DonatePage = () => {
                                 orderData={order}
                                 name="TEAM NEW SUN FOUNDATION"
                                 image='/logo.png'
-                                description={cause}
+                                description={`"Donation for ${cause} from ${name}`}
                                 onSuccess={paymentSuccess}
                                 onFailure={paymentFailure} />
                             }
