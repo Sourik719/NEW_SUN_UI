@@ -7,16 +7,20 @@ import { useHttp } from "./use-http"
 export const useAuth = () => {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.member)
+    const { member } = useSelector((state) => state.member);
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [httpRequest, isLoading] = useHttp()
     const { catchAsync } = useAsync()
-
+    const [isAdmin, setIsAdmin] = useState(false)
     const persistAuthentication = catchAsync(async () => {
         const savedToken = localStorage.getItem('jwt-token')
         if (savedToken) {
             const { data } = await httpRequest('/authenticate')
             dispatch(memberActions.setToken(savedToken))
             dispatch(memberActions.setMember(data.member))
+            if (member.designation == "Admin") {
+                setIsAdmin(true)
+            }
             setIsAuthenticated(true)
         } else {
             dispatch(memberActions.clearMember())
@@ -28,5 +32,5 @@ export const useAuth = () => {
         persistAuthentication()
     }, [token])
 
-    return [isAuthenticated, isLoading]
+    return [isAuthenticated, isAdmin, isLoading]
 }

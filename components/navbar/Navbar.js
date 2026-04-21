@@ -11,7 +11,7 @@ import NavDropdown from "./NavButton"
 import NavLink from "./NavLink"
 
 const Navbar = () => {
-    const [isAuthenticated, isAuthLoading] = useAuth()
+    const [isAuthenticated, isAdmin, isAuthLoading] = useAuth()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isHidden, setIsHidden] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
@@ -76,6 +76,7 @@ const Navbar = () => {
                                 <NavDropdown label={'Projects'} items={projects} />
                                 <NavDropdown label={'Donate'} items={services} />
                                 <NavLink label={'Gallery'} href={'/gallery'} />
+                                {isAuthenticated && isAdmin && <NavLink label={'Admin Panel'} href={"/adminpanel"} />}
                             </section>
                         </div>
                     </div>
