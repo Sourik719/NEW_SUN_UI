@@ -75,40 +75,45 @@ const AdminPanel = () => {
     }, [endpoint, page, limit]);
 
     return (
-        <Container className="p-6 bg-gray-100 min-h-screen">
+        <Container className="min-h-screen bg-stone-50 px-5 py-16 sm:px-8">
             {!isAdmin ? (
-                <h1>You are not authorized to visit this page.</h1>
+                <main className="mx-auto max-w-3xl rounded-md border border-stone-200 bg-white p-8 text-center shadow-sm">
+                    <h1 className="text-3xl font-extrabold text-slate-950">You are not authorized to visit this page.</h1>
+                </main>
             ) : (
-                <div>
-                    <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+                <main className="mx-auto max-w-7xl">
+                    <div className="mb-8">
+                        <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Operations</p>
+                        <h1 className="mt-3 text-4xl font-extrabold text-slate-950">Admin Panel</h1>
+                    </div>
 
-                    <div className="flex gap-4 mb-6">
+                    <div className="mb-6 flex flex-col gap-3 sm:flex-row">
                         <button
                             onClick={() => handleLoad('/admin/allMember')}
-                            className={endpoint === '/admin/allMember' ? 'btn bg-gray-400 p-2' : 'btn'}
+                            className={`rounded-md px-5 py-3 font-bold transition ${endpoint === '/admin/allMember' ? 'bg-orange-600 text-white' : 'border border-stone-300 bg-white text-slate-800 hover:bg-stone-100'}`}
                         >
                             Members
                         </button>
 
                         <button
                             onClick={() => handleLoad('/admin/allDonation')}
-                            className={endpoint === '/admin/allDonation' ? 'btn bg-gray-400 p-2' : 'btn'}
+                            className={`rounded-md px-5 py-3 font-bold transition ${endpoint === '/admin/allDonation' ? 'bg-orange-600 text-white' : 'border border-stone-300 bg-white text-slate-800 hover:bg-stone-100'}`}
                         >
                             Donations
                         </button>
 
                         <button
                             onClick={() => handleLoad('/admin/allContribution')}
-                            className={endpoint === '/admin/allContribution' ? 'btn bg-gray-400 p-2' : 'btn'}
+                            className={`rounded-md px-5 py-3 font-bold transition ${endpoint === '/admin/allContribution' ? 'bg-orange-600 text-white' : 'border border-stone-300 bg-white text-slate-800 hover:bg-stone-100'}`}
                         >
                             Contributions
                         </button>
                     </div>
 
-                    {/* ✅ Limit */}
-                    <div className="mb-4">
-                        <label className="mr-2">Show top:</label>
+                    <div className="mb-4 flex items-center gap-3 rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+                        <label className="font-bold text-slate-700">Show top:</label>
                         <select
+                            className="rounded-md border border-stone-300 px-3 py-2 outline-none focus:border-orange-500"
                             value={limit}
                             onChange={(e) => {
                                 setLimit(Number(e.target.value));
@@ -122,11 +127,10 @@ const AdminPanel = () => {
                     </div>
 
                     {/* ✅ Loading */}
-                    {loading && <p className="text-center py-4">Loading...</p>}
+                    {loading && <p className="rounded-md bg-white py-6 text-center font-semibold text-slate-700 shadow-sm">Loading...</p>}
 
-                    {/* ✅ Tables */}
                     {!loading && (
-                        <div className="overflow-x-auto">
+                        <div className="overflow-x-auto rounded-md border border-stone-200 bg-white shadow-sm">
                             {data?.length > 0 ? (
                                 endpoint === '/admin/allMember' ? (
                                     // ✅ MEMBER TABLE
@@ -142,36 +146,35 @@ const AdminPanel = () => {
                                     <ContributionTable data={data} />
                                 )
                             ) : (
-                                <p className="text-center py-4">No records found.</p>
+                                <p className="text-center py-8 font-semibold text-slate-600">No records found.</p>
                             )}
                         </div>
                     )}
 
-                    {/* ✅ Pagination */}
                     {pagination && !loading && (
-                        <div className="flex justify-center gap-4 mt-6">
+                        <div className="mt-6 flex items-center justify-center gap-4">
                             <button
                                 onClick={() => setPage((p) => p - 1)}
                                 disabled={page === 1}
-                                className="px-3 py-1 bg-gray-300 rounded"
+                                className="rounded-md border border-stone-300 bg-white px-4 py-2 font-bold text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 Prev
                             </button>
 
-                            <span>
+                            <span className="font-semibold text-slate-700">
                                 Page {pagination.page} of {pagination.totalPages}
                             </span>
 
                             <button
                                 onClick={() => setPage((p) => p + 1)}
                                 disabled={page === pagination.totalPages}
-                                className="px-3 py-1 bg-gray-300 rounded"
+                                className="rounded-md border border-stone-300 bg-white px-4 py-2 font-bold text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 Next
                             </button>
                         </div>
                     )}
-                </div>
+                </main>
             )}
         </Container>
     );

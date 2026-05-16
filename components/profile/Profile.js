@@ -4,8 +4,9 @@ import ProfileImage from "./Profileimage";
 
 const Profile = ({ user, id, due, isAuthenticated }) => {
     return (
-        <div className="sm:w-2/3 lg:w-1/2 bg-white rounded-md shadow-md my-5 mx-5">
+        <section className="w-full rounded-md border border-stone-200 bg-white shadow-xl lg:w-1/2">
             <div className='px-8 py-6'>
+                <p className="mb-5 text-sm font-bold uppercase tracking-wide text-orange-600">Member Profile</p>
                 <ProfileImage value={user.image?.url} fieldName="image" gender={user.sex} id={id} editAble={isAuthenticated} />
                 <div className="flex flex-wrap">
                     <div className="w-full sm:w-1/2">
@@ -42,7 +43,7 @@ const Profile = ({ user, id, due, isAuthenticated }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 export default Profile

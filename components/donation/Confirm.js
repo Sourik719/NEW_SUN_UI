@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FaCheckCircle, FaTimes } from 'react-icons/fa';
 
 const ConfirmationElement = ({ data, status, type }) => {
@@ -6,6 +6,7 @@ const ConfirmationElement = ({ data, status, type }) => {
     let StatusIconComponent = null;
     let statusMessage = '';
     let statusColor = '';
+    let statusBg = '';
     let title = '';
     const getFormattedDate = date => date.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
 
@@ -19,64 +20,68 @@ const ConfirmationElement = ({ data, status, type }) => {
         case 'success':
             StatusIconComponent = FaCheckCircle;
             statusMessage = `Your ${title} has been verified successfully.`;
-            statusColor = 'text-green-500';
+            statusColor = 'text-emerald-600';
+            statusBg = 'bg-emerald-50 border-emerald-200';
             break;
         case 'failed':
             StatusIconComponent = FaTimes;
             statusMessage = `Your ${title} could not be verified.`;
-            statusColor = 'text-red-500';
+            statusColor = 'text-red-600';
+            statusBg = 'bg-red-50 border-red-200';
             break;
 
         default:
             StatusIconComponent = FaCheckCircle;
             statusMessage = `Unknown ${title} status.`;
-            statusColor = 'text-gray-500';
+            statusColor = 'text-slate-600';
+            statusBg = 'bg-stone-50 border-stone-200';
     }
     const handleTryAgain = () => {
         router.push(type === 'donation' ? '/donate/cause' : '/donate/member_contribution');
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-6 w-[400]px">
-            <h2 className="text-2xl font-semibold mb-4">{title} Confirmation</h2>
-            <div className="flex items-center mb-4">
+        <div className="mx-auto w-full max-w-xl rounded-md border border-stone-200 bg-white p-6 shadow-xl sm:p-8">
+            <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Payment Status</p>
+            <h2 className="mb-4 mt-2 text-3xl font-extrabold text-slate-950">{title} Confirmation</h2>
+            <div className={`mb-5 flex items-start rounded-md border p-4 ${statusBg}`}>
 
-                <StatusIconComponent className={`${statusColor} w-8 h-8 mr-3`} />
-                <p className={`${statusColor} text-lg`}>{statusMessage}</p>
+                <StatusIconComponent className={`${statusColor} mr-3 h-7 w-7 shrink-0`} />
+                <p className={`${statusColor} text-lg font-bold`}>{statusMessage}</p>
             </div>
 
             {data && status === 'success' && (
-                <div>
+                <div className="rounded-md border border-stone-200 bg-stone-50 p-4 text-slate-700">
                     {type === 'contribution' && (
-                        <div>
+                        <div className="space-y-3">
                             <p className="mb-2">
-                                <strong className="font-medium">Payment ID:</strong> {data.paymentId}
+                                <strong className="font-bold text-slate-950">Payment ID:</strong> {data.paymentId}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-medium">Amount:</strong> {data.amount}
+                                <strong className="font-bold text-slate-950">Amount:</strong> Rs.{data.amount}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-medium">Contribution for:</strong> {getFormattedDate(data.startDate) === getFormattedDate(data.endDate)
+                                <strong className="font-bold text-slate-950">Contribution for:</strong> {getFormattedDate(data.startDate) === getFormattedDate(data.endDate)
                                     ? `${getFormattedDate(data.startDate)}` : `${getFormattedDate(data.startDate)} to ${getFormattedDate(data.endDate)}`}
                             </p>
                         </div>
                     )}
                     {type === 'donation' && (
-                        <div>
+                        <div className="space-y-3">
                             <p className="mb-2">
-                                <strong className="font-medium">Payment ID:</strong> {data.paymentId}
+                                <strong className="font-bold text-slate-950">Payment ID:</strong> {data.paymentId}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-medium">Donation Amount:</strong> {data.amount}
+                                <strong className="font-bold text-slate-950">Donation Amount:</strong> Rs.{data.amount}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-medium">Donor Name:</strong> {data.name}
+                                <strong className="font-bold text-slate-950">Donor Name:</strong> {data.name}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-medium">Donor Email:</strong> {data.email}
+                                <strong className="font-bold text-slate-950">Donor Email:</strong> {data.email}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-medium">Donor Phone No.:</strong> {data.phone}
+                                <strong className="font-bold text-slate-950">Donor Phone No.:</strong> {data.phone}
                             </p>
                         </div>
                     )}
@@ -84,15 +89,15 @@ const ConfirmationElement = ({ data, status, type }) => {
             )}
             {status === 'failed' && (
                 <button
-                    className="bg-red-600 hover:bg-red-700 text-white rounded-lg p-2 mt-4 w-full"
-                    onClick={() => window.location.reload()}
+                    className="mt-5 w-full rounded-md bg-red-600 p-3 font-bold text-white transition hover:bg-red-700"
+                    onClick={handleTryAgain}
                 >
                     Try Again
                 </button>
             )}
             {status !== 'failed' && (
                 <button
-                    className="bg-green-600 hover:bg-green-700 text-white rounded-lg p-2 mt-4 w-full"
+                    className="mt-5 w-full rounded-md bg-orange-600 p-3 font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                     onClick={() => router.push('/')}
                 >
                     Go to Home

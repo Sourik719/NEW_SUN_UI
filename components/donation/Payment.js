@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useState } from 'react';
+import { FaCreditCard, FaXmark } from 'react-icons/fa6';
 const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFailure }) => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -36,7 +37,7 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
                 },
                 notes: {},
                 theme: {
-                    color: '#3399cc',
+                    color: '#ea580c',
                 },
                 modal: {
                     ondismiss: function () {
@@ -49,7 +50,8 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
                 },
             };
 
-            window.Razorpay.open(options);
+            const razorpay = new window.Razorpay(options);
+            razorpay.open();
 
         } else {
             alert('Invalid order data provided.');
@@ -67,14 +69,19 @@ const PaymentGateway = ({ orderData, name, description, image, onSuccess, onFail
     }
 
     return (
-        <div className='flex flex-row items-center justify-center'>
+        <div className="mt-4 rounded-md border border-orange-200 bg-orange-50 p-4">
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-            <button className="w-2/5 bg-green-500 p-3 m-1 text-center rounded-lg hover:bg-green-700 focus:bg-green-800 text-white transition-colors duration-300 border-2" id="rzp-button1" onClick={handlePayment} >
-                {loading ? 'Processing Payment...' : 'Pay with Razorpay'}
-            </button>
-            <button className="w-2/5 bg-red-400 p-3 m-1 text-center rounded-lg hover:bg-red-500 focus:bg-red-800 text-white transition-colors duration-300 border-2" id="rzp-button1" onClick={handlePaymentCancel} >
-                Cancel Payment
-            </button>
+            <p className="mb-3 text-sm font-semibold text-slate-700">Your payment order is ready. Continue to Razorpay to complete the secure payment.</p>
+            <div className='flex flex-col items-stretch justify-center gap-3 sm:flex-row'>
+                <button className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-600 px-5 py-3 text-center font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-70" id="rzp-button1" onClick={handlePayment} disabled={loading}>
+                    <FaCreditCard />
+                    {loading ? 'Processing...' : 'Pay with Razorpay'}
+                </button>
+                <button className="inline-flex items-center justify-center gap-2 rounded-md border border-stone-300 bg-white px-5 py-3 text-center font-bold text-slate-800 transition hover:bg-stone-100" onClick={handlePaymentCancel}>
+                    <FaXmark />
+                    Cancel
+                </button>
+            </div>
         </div>
     );
 };

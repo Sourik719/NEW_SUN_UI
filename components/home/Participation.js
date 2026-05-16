@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const EngageBtn = ({ label, href }) => {
     return (
-        <Link className="sm:w-1/3 w-full text-xl px-2 py-10 mx-2 my-2 bg-green-500 text-white font-bold hover:bg-yellow-500 hover:text-violet-600 hover:scale-105 focus:bg-blue-500 focus:text-red-200 focus:scale-95 duration-300 mx-2 justify-center text-center rounded-lg shadow-xl" href={href}>
+        <Link className="w-full rounded-md bg-white px-5 py-4 text-center text-base font-extrabold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-orange-100 sm:w-auto" href={href}>
             {label}
         </Link>
     );
@@ -12,18 +12,25 @@ const EngageBtn = ({ label, href }) => {
 const Participation = () => {
     const [isAuthenticated] = useAuth();
     return (
-        <div className="flex flex-col items-center justify-center bg-black text-white py-5 p-2">
-            <p className="text-3xl text-center">Want to be a part of <span className="mr-1 text-orange-400">our journey?</span></p>
-            <div className="w-full flex sm:flex-row flex-col p-5 justify-center items-center">
+        <section className="bg-slate-950 px-5 py-16 text-white sm:px-8">
+            <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+                <div className="max-w-2xl">
+                    <p className="text-sm font-bold uppercase tracking-wide text-orange-300">Take part</p>
+                    <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl">Want to be part of our journey?</h2>
+                    <p className="mt-4 text-lg leading-8 text-stone-300">
+                        Sponsor an event, become a member, or support a cause that brings help directly to communities in need.
+                    </p>
+                </div>
+                <div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
                 <EngageBtn label="Sponsor an Event" href={"/donate/sponsor"} />
                 {!isAuthenticated && <EngageBtn label="Become a Member" href={"/join-us"} />}
                 {isAuthenticated && <EngageBtn label="Monthly Contribution" href={"/donate/member_contribution"} />}
                 <EngageBtn label="Donate for a Cause" href={"/donate/cause"} />
             </div>
-        </div>
+            </div>
+        </section>
     );
 }
 
 export default Participation;
-
 

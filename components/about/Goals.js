@@ -2,17 +2,19 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 const Goals = () => {
   return (
-    <div className="w-full bg-gradient-to-br from-slate-700 to-slate-800 py-10 px-6 md:px-16 flex flex-col items-center justify-center">
+    <section className="w-full bg-stone-50 px-5 py-16 sm:px-8">
+      <div className="mx-auto max-w-7xl">
       <div className="max-w-3xl mx-auto text-center mb-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Principles</p>
+        <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-slate-950 mb-4">
           Our Guiding Principles
         </h2>
-        <p className="text-lg text-gray-300">
+        <p className="text-lg text-slate-700">
           These are the core goals that drive our work and inspire our mission.
         </p>
       </div>
-      <ol className="text-lg text-gray-200 space-y-6">
-        <li className="flex items-start">
+      <ol className="mx-auto grid max-w-5xl gap-4 text-lg text-slate-700 sm:grid-cols-2">
+        <li className="flex items-start rounded-md border border-stone-200 bg-white p-5 shadow-sm">
           <CheckCircleIcon className="h-6 w-6 text-green-500 mr-4 mt-1" />
           <div className="flex-1">
             <span className="font-semibold inline-block mr-2">
@@ -24,7 +26,7 @@ const Goals = () => {
             </span>
           </div>
         </li>
-        <li className="flex items-start">
+        <li className="flex items-start rounded-md border border-stone-200 bg-white p-5 shadow-sm">
           <CheckCircleIcon className="h-6 w-6 text-blue-500 mr-4 mt-1" />
           <div className="flex-1">
             <span className="font-semibold inline-block mr-2">
@@ -36,7 +38,7 @@ const Goals = () => {
             </span>
           </div>
         </li>
-        <li className="flex items-start">
+        <li className="flex items-start rounded-md border border-stone-200 bg-white p-5 shadow-sm">
           <CheckCircleIcon className="h-6 w-6 text-yellow-500 mr-4 mt-1" />
           <div className="flex-1">
             <span className="font-semibold inline-block mr-2">Support:</span>
@@ -46,7 +48,7 @@ const Goals = () => {
             </span>
           </div>
         </li>
-        <li className="flex items-start">
+        <li className="flex items-start rounded-md border border-stone-200 bg-white p-5 shadow-sm">
           <CheckCircleIcon className="h-6 w-6 text-teal-500 mr-4 mt-1" />
           <div className="flex-1">
             <span className="font-semibold inline-block mr-2">
@@ -58,7 +60,7 @@ const Goals = () => {
             </span>
           </div>
         </li>
-        <li className="flex items-start">
+        <li className="flex items-start rounded-md border border-stone-200 bg-white p-5 shadow-sm sm:col-span-2">
           <CheckCircleIcon className="h-6 w-6 text-purple-500 mr-4 mt-1" />
           <div className="flex-1">
             <span className="font-semibold inline-block mr-2">
@@ -71,7 +73,8 @@ const Goals = () => {
           </div>
         </li>
       </ol>
-    </div>
+      </div>
+    </section>
   );
 };
 

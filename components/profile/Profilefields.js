@@ -28,12 +28,12 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
 
     const EditModebtn = () => {
         return (
-            <div className="absolute top-5 right-2">
+            <div className="absolute right-3 top-5">
                 <button onClick={handleSave}>
-                    <FaSave className="text-black text-sm mx-1" />
+                    <FaSave className="mx-1 text-sm text-slate-900" />
                 </button>
                 <button onClick={handleCancel} >
-                    <FaXmark className="text-black text-sm mx-1" />
+                    <FaXmark className="mx-1 text-sm text-slate-900" />
                 </button>
             </div>
         )
@@ -61,10 +61,8 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
 
     const handleUpdate = async () => {
         const updateData = { "update": { [fieldName]: fieldValue } };
-        console.log(updateData)
         const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
         setFinalValue(fieldValue);
-        console.log(responseData.message);
         if (responseData) {
             router.reload();
             dispatch(notificationActions.setNotification({
@@ -100,10 +98,10 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     };
 
     return (
-        <div className="relative w-full mx-2 my-1">
-            <label className="bg-transparent text-black text-sm top-1 left-3 px-1 transition-all duration-300 z-10 flex flex-row">
+        <div className="relative my-2 w-full">
+            <label className="z-10 flex flex-row px-1 text-sm font-bold text-slate-700 transition-all duration-300">
                 {!isBlank && <div>{label}:</div>}
-                {errors && <span className="text-yellow-600 ml-1 text-sm">{errors}</span>}
+                {errors && <span className="ml-1 text-sm text-red-600">{errors}</span>}
             </label>
             {fieldType === 'Select' ? (
                 <div className="relative">
@@ -112,7 +110,7 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                         onChange={handleChange}
                         ref={selectRef}
                         required
-                        className={`w-full px-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl appearance-none`}
+                        className={`my-1 w-full appearance-none rounded-md border px-4 py-3 outline-none transition ${editMode ? (!errors ? 'border-orange-500 ring-2 ring-orange-100' : 'border-red-400 ring-2 ring-red-100') : 'border-stone-200 bg-stone-50'}`}
                     >
                         <option value="" disabled>Select {label}</option>
                         {options.map((option) => (
@@ -127,9 +125,9 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                 </div>
             ) :
                 (
-                    <div className="relative mx-2">
+                    <div className="relative">
                         <input
-                            className={`${dataType === 'date' ? "pr-12" : ""} w-full p-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl`}
+                            className={`${dataType === 'date' ? "pr-12" : ""} my-1 w-full rounded-md border px-4 py-3 outline-none transition ${editMode ? (!errors ? 'border-orange-500 ring-2 ring-orange-100' : 'border-red-400 ring-2 ring-red-100') : 'border-stone-200 bg-stone-50'}`}
                             readOnly={!editAble || !editMode}
                             value={!editMode ? (dataType === 'date' ? formatDate(finalValue) : finalValue) : (dataType === 'date' ? formatDate(fieldValue) : fieldValue)}
                             type={!editMode ? 'text' : dataType}
@@ -139,8 +137,8 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                         />
 
                         {editAble && !editMode && (
-                            <button onClick={handleEdit} className="absolute top-6 right-2">
-                                <FaPen className="text-black text-sm" />
+                            <button onClick={handleEdit} className="absolute right-3 top-5 rounded p-1 hover:bg-stone-200" aria-label={`Edit ${label}`}>
+                                <FaPen className="text-sm text-slate-800" />
                             </button>
                         )}
                         {editAble && editMode && !errors && (

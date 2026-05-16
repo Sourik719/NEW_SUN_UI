@@ -3,7 +3,6 @@ import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
 import { notificationActions } from '@/store/notification-slice';
 import FeedbackError from '@/validation/feedbackerror';
-import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
@@ -12,10 +11,9 @@ const FeedBack = ({ onclick }) => {
     const nameRef = useRef(null);
     const contentRef = useRef(null);
     const [selectedStars, setSelectedStars] = useState(0);
-    const [httpRequest] = useHttp();
+    const [httpRequest, isLoading] = useHttp();
     const { catchAsync } = useAsync();
     const dispatch = useDispatch();
-    const router = useRouter();
 
     const [validationError, setValidationError] = useState({
         name: '',
@@ -55,7 +53,7 @@ const FeedBack = ({ onclick }) => {
             dispatch(notificationActions.setNotification({
                 message: responseData.message
             }));
-            router.reload();
+            onclick();
         }
         return responseData;
     };
@@ -76,31 +74,45 @@ const FeedBack = ({ onclick }) => {
     };
 
     return (
-        <div className="w-screen sm:w-[500px]  flex flex-col justify-center items-center px-5 shadow-md rounded-lg py-5 bg-gray-600 z-80">
-            <button className='absolute top-0 right-0  rounded-lg hover:bg-yellow-200 p-4 text-black text-xl' onClick={onclick}>
+        <div className="w-[calc(100vw-2rem)] max-w-[460px] rounded-md border border-stone-200 bg-white p-5 shadow-2xl">
+            <button className='absolute right-3 top-3 rounded-md p-2 text-slate-600 transition hover:bg-stone-100 hover:text-slate-950' onClick={onclick} aria-label="Close feedback form">
                 <FaXmark />
             </button>
-            <p className='text-2xl text-left py-2'>Share Your Feedback</p>
-            <StarRating totalStars={5} onStarChange={(star) => setSelectedStars(star)} validationError={validationError.rating} givenStars={0} editAble={true} />
+            <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Feedback</p>
+            <h2 className='mt-2 text-2xl font-extrabold text-slate-950'>Share your experience</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Your feedback helps the team improve future events and community work.</p>
+            <div className="mt-4">
+                <label className="mb-1 block text-sm font-bold text-slate-700">Rating</label>
+                <StarRating totalStars={5} onStarChange={(star) => setSelectedStars(star)} validationError={validationError.rating} givenStars={0} editAble={true} />
+                {validationError.rating && <p className="text-sm font-semibold text-red-600">{validationError.rating}</p>}
+            </div>
+            <label className="mt-3 block text-sm font-bold text-slate-700">Email</label>
             <input
                 ref={emailRef}
                 placeholder="Email"
                 onChange={(event) => handleFieldChange('email', event.target.value)}
-                className={`w-full px-3 py-2 my-1 border rounded-md focus:outline-none ${validationError.email ? 'border-2 border-red-500' : 'border-black'}`}
+                className={`my-1 w-full rounded-md border px-3 py-3 outline-none transition ${validationError.email ? 'border-red-500 ring-2 ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
             />
+            {validationError.email && <p className="text-sm font-semibold text-red-600">{validationError.email}</p>}
+            <label className="mt-3 block text-sm font-bold text-slate-700">Name</label>
             <input
                 ref={nameRef}
                 placeholder="Name"
                 onChange={(event) => handleFieldChange('name', event.target.value)}
-                className={`w-full px-3 py-2 my-1 border rounded-md focus:outline-none ${validationError.name ? 'border-2 border-red-500' : 'border-black'}`}
+                className={`my-1 w-full rounded-md border px-3 py-3 outline-none transition ${validationError.name ? 'border-red-500 ring-2 ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
             />
+            {validationError.name && <p className="text-sm font-semibold text-red-600">{validationError.name}</p>}
+            <label className="mt-3 block text-sm font-bold text-slate-700">Experience</label>
             <textarea
                 ref={contentRef}
                 placeholder="Describe Your Experience"
                 onChange={(event) => handleFieldChange('content', event.target.value)}
-                className={`w-full px-3 py-2 my-1 border rounded-md focus:outline-none ${validationError.content ? 'border-2 border-red-200' : 'border-black'}`}
+                className={`my-1 min-h-[110px] w-full resize-none rounded-md border px-3 py-3 outline-none transition ${validationError.content ? 'border-red-500 ring-2 ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
             />
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleFormSubmit}>Submit Feedback</button>
+            {validationError.content && <p className="text-sm font-semibold text-red-600">{validationError.content}</p>}
+            <button className="mt-4 w-full rounded-md bg-orange-600 px-4 py-3 font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-70" onClick={handleFormSubmit} disabled={isLoading}>
+                {isLoading ? 'Submitting...' : 'Submit Feedback'}
+            </button>
         </div>
     );
 };

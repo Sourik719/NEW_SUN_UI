@@ -21,32 +21,32 @@ const ContributionTable = ({ data = [] }) => {
     };
 
     return (
-        <table className="w-full border bg-white">
-            <thead className="bg-gray-200">
+        <table className="w-full min-w-[720px] bg-white text-sm">
+            <thead className="bg-slate-950 text-white">
                 <tr>
-                    <th className="p-2 border">Member</th>
-                    <th className="p-2 border">Contribution For</th>
-                    <th className="p-2 border">Amount</th>
-                    <th className="p-2 border">Payment Date</th>
+                    <th className="p-3 text-left">Member</th>
+                    <th className="p-3 text-left">Contribution For</th>
+                    <th className="p-3 text-left">Amount</th>
+                    <th className="p-3 text-left">Payment Date</th>
                 </tr>
             </thead>
 
             <tbody>
                 {data.map((item, idx) => (
-                    <tr key={idx} className="text-center">
-                        <td className="p-2 border">
+                    <tr key={idx} className="border-b border-stone-200 text-left hover:bg-orange-50">
+                        <td className="p-3 font-semibold text-slate-900">
                             {item.memberName || '-'}
                         </td>
 
-                        <td className="p-2 border font-medium">
+                        <td className="p-3 font-medium">
                             {getContributionRange(item.startDate, item.endDate)}
                         </td>
 
-                        <td className="p-2 border font-semibold">
+                        <td className="p-3 font-semibold">
                             ₹{item.amount}
                         </td>
 
-                        <td className="p-2 border">
+                        <td className="p-3">
                             {item.contributedOn
                                 ? new Date(item.contributedOn).toLocaleDateString('en-IN')
                                 : '-'}

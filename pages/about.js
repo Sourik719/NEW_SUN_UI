@@ -6,7 +6,7 @@ import Head from "next/head";
 const aboutUs = () => {
     return (
 
-        <Container className="bg-orange-300">
+        <Container className="bg-white">
             <Head>
                 <title>About Us || TEAM NEW SUN FOUNDATION</title>
             </Head>

@@ -3,8 +3,10 @@ import React from 'react';
 
 const TermsAndConditions = () => {
   return (
-    <Container className="container mx-auto p-4 max-w-3xl">
-      <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
+    <Container className="bg-stone-50 px-5 py-16 sm:px-8">
+      <main className="mx-auto max-w-4xl rounded-md border border-stone-200 bg-white p-6 leading-8 text-slate-700 shadow-sm sm:p-10">
+      <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Legal</p>
+      <h1 className="mb-6 mt-3 text-4xl font-extrabold text-slate-950">Terms and Conditions</h1>
 
       <p className="mb-4">
         For the purpose of these Terms and Conditions, The term "we", "us", "our" used anywhere on this page shall mean TEAM NEW SUN FOUNDATION, whose registered/operational office is 2/A, Degree College Road, Belgharia, Kol-56. "you", “your”, "user", “visitor” shall mean any natural or legal person who is visiting our website and/or agreed to purchase from us. Your use of the website and/or purchase from us are governed by the following Terms and Conditions:
@@ -30,10 +32,11 @@ const TermsAndConditions = () => {
         We, shall be under no liability whatsoever in respect of any loss or damage arising directly or indirectly out of the decline of authorization for any Transaction, on Account of the Cardholder having exceeded the preset limit mutually agreed by us with our acquiring bank from time to time.
       </p>
 
-      <p className="font-bold mb-4">
+      <p className="font-bold text-slate-950 mb-4">
         TEAM NEW SUN FOUNDATION Address:
       </p>
       <p>2/A, Degree College Road, Belgharia, Kol-56</p>
+      </main>
     </Container>
   );
 };

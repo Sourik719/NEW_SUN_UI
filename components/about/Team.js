@@ -2,12 +2,13 @@ import PositionHolder from "./Teammembers";
 
 const Team = () => {
     return (
-        <div className="w-full bg-slate-800 py-12 px-6 flex flex-col items-center">
-            <h2 className="text-3xl text-white font-bold mb-8 text-center">
+        <section className="flex w-full flex-col items-center bg-white px-5 py-16 sm:px-8">
+            <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Core Team</p>
+            <h2 className="mb-8 mt-3 max-w-3xl text-center text-3xl font-extrabold text-slate-950 sm:text-4xl">
                 Meet the people behind{" "}
-                <span className="text-orange-500">TEAM NEW SUN FOUNDATION</span>
+                <span className="text-orange-600">TEAM NEW SUN FOUNDATION</span>
             </h2>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <PositionHolder
                     name="Sourik Bhuiya"
                     position="Director"
@@ -99,7 +100,7 @@ const Team = () => {
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743867884/core-member/ivnuwe0y13fusmoj2hza.jpg"
                 />
             </div>
-            <p className="text-yellow-500 font-bold text-center">
+            <p className="mx-auto mt-10 max-w-4xl rounded-md bg-slate-950 p-6 text-center font-semibold leading-7 text-stone-100">
                 Our organization's strength and impact are a testament to the collective
                 efforts of many. Beyond our core team, dedicated volunteers tirelessly
                 contribute their time and skills during our projects. We are also
@@ -108,7 +109,7 @@ const Team = () => {
                 belief and generous donations from our supporters enable us to
                 continue our vital work and bring our projects to fruition.
             </p>
-        </div>
+        </section>
     );
 };
 

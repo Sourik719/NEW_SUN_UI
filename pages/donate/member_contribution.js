@@ -120,29 +120,30 @@ const contributionPage = () => {
     }
     if (member) {
         return (
-            <Container className="relative bg-blue-200 flex flex-col justify-center items-center py-5">
+            <Container className="relative flex flex-col items-center bg-stone-50 px-5 py-16 sm:px-8">
                 <Head>
                     <title>Member's Contribution || TEAM NEW SUN FOUNDATION</title>
                 </Head>
                 {paymentData && <ConfirmationElement data={paymentData} status={paymentStatus} type='contribution' />}
-                {!paymentData && <div className={`w-full lg:w-2/5 md:w-1/2 sm:w-3/5 bg-white rounded-md p-4 m-2 items-center justify-center text-center ${paymentData && 'blur-lg'} `}>
-                    <div className="text-4xl text-center p-2 m-2">
-                        Hey, {member.firstname}.<div className='text-orange-500 m-1'> Want to contribute?</div>
+                {!paymentData && <div className={`w-full max-w-2xl rounded-md border border-stone-200 bg-white p-6 text-center shadow-xl sm:p-8 ${paymentData && 'blur-lg'} `}>
+                    <div className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl">
+                        Hey, {member.firstname}.<div className='mt-2 text-orange-600'>Want to contribute?</div>
                     </div>
-                    <div className='flex flex-col text-xl text-bold mx-2'>
-                        <div className='flex relative w-full px-5 m-2'>
-                            {numberOfMonths && <label className="text-left pr-5 py-2 mb-1">No. of Months</label>}
-                            <input className="w-full border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-300 p-2" placeholder="No. of Months" ref={numberOfMonthref} value={numberOfMonths} onChange={(e) => setNumberOfMonths(e.target.value)} disabled={order !== null} />
+                    <p className="mx-auto mt-4 max-w-lg text-slate-600">Choose a contribution period and monthly amount. The total will be calculated automatically.</p>
+                    <div className='mt-8 flex flex-col gap-4 text-left'>
+                        <div>
+                            <label className="mb-2 block text-sm font-bold text-slate-700">No. of Months</label>
+                            <input className="w-full rounded-md border border-stone-300 px-3 py-3 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100" placeholder="No. of Months" ref={numberOfMonthref} value={numberOfMonths} onChange={(e) => setNumberOfMonths(e.target.value)} disabled={order !== null} />
                         </div>
-                        <div className='flex relative w-full px-5 m-2'>
-                            {amountPerMonth && <label className="text-left pr-5 py-1 ">Amount per Month</label>}
-                            <input className="w-full border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-300 p-2" placeholder="Donation Amount per month" ref={amountRef} value={amountPerMonth} onChange={(e) => setAmountPerMonth(e.target.value)} disabled={order !== null} />
+                        <div>
+                            <label className="mb-2 block text-sm font-bold text-slate-700">Amount per Month</label>
+                            <input className="w-full rounded-md border border-stone-300 px-3 py-3 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100" placeholder="Donation Amount per month" ref={amountRef} value={amountPerMonth} onChange={(e) => setAmountPerMonth(e.target.value)} disabled={order !== null} />
                         </div>
-                        {endDate && <div className='p-2'>Selected Period: {startDate ? getMonth(startDate) : 'N/A'} to {getMonth(endDate) || 'N/A'}</div>}
-                        {totalAmount != 0 && <div className='p-2'>Total Amount to be donated: {totalAmount}</div>}
+                        {endDate && <div className='rounded-md bg-stone-50 p-4 font-semibold text-slate-700'>Selected Period: {startDate ? getMonth(startDate) : 'N/A'} to {getMonth(endDate) || 'N/A'}</div>}
+                        {totalAmount != 0 && <div className='rounded-md bg-orange-50 p-4 text-xl font-extrabold text-orange-700'>Total Amount: Rs.{totalAmount}</div>}
 
                     </div>
-                    {order == null && <button className="w-2/5 bg-green-500 p-3 m-1 text-center rounded-lg hover:bg-green-700 focus:bg-green-800 text-white transition-colors duration-300" onClick={paymentHandler}>Donate now</button>}
+                    {order == null && <button className="mt-6 w-full rounded-md bg-orange-600 p-3 text-center font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700 sm:w-auto sm:px-8" onClick={paymentHandler}>Donate now</button>}
 
                     {order && (
                         <PaymentGateway
