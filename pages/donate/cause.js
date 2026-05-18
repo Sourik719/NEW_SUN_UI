@@ -19,10 +19,10 @@ const DonatePage = () => {
     const [httpRequest, isLoading] = useHttp();
 
     const causeOptions = [
-        { value: 'Sunshine', label: 'Project Sunshine' },
+        { value: 'Project Sunshine', label: 'Project Sunshine' },
         { value: 'Project Udaan', label: 'Project UDAAN' },
         { value: 'Project SURAKSHA ', label: 'Project SURAKSHA' },
-        { value: 'Charity', label: 'General Donation' },
+        { value: 'Charity', label: 'General Donation' }
     ];
 
     const paymentHandler = catchAsync(async () => {
