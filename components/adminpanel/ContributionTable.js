@@ -1,25 +1,7 @@
+import { formatDate, formatDateRange } from "@/utils/date";
+import { formatCurrency } from "@/utils/currency";
+
 const ContributionTable = ({ data = [] }) => {
-
-    const formatMonthYear = (date) =>
-        new Date(date).toLocaleDateString('en-IN', {
-            month: 'short',
-            year: 'numeric'
-        });
-
-    const getContributionRange = (startDate, endDate) => {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-
-        if (
-            start.getMonth() === end.getMonth() &&
-            start.getFullYear() === end.getFullYear()
-        ) {
-            return formatMonthYear(start);
-        }
-
-        return `${formatMonthYear(start)} - ${formatMonthYear(end)}`;
-    };
-
     return (
         <table className="w-full min-w-[720px] bg-white text-sm">
             <thead className="bg-slate-950 text-white">
@@ -39,16 +21,16 @@ const ContributionTable = ({ data = [] }) => {
                         </td>
 
                         <td className="p-3 font-medium">
-                            {getContributionRange(item.startDate, item.endDate)}
+                            {formatDateRange(item.startDate, item.endDate)}
                         </td>
 
                         <td className="p-3 font-semibold">
-                            ₹{item.amount}
+                            {formatCurrency(item.amount)}
                         </td>
 
                         <td className="p-3">
                             {item.contributedOn
-                                ? new Date(item.contributedOn).toLocaleDateString('en-IN')
+                                ? formatDate(item.contributedOn)
                                 : '-'}
                         </td>
                     </tr>

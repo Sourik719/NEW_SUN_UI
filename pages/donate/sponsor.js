@@ -4,7 +4,7 @@ import Head from "next/head";
 const sponsorEvent = () => {
     return (<Container className="bg-stone-50">
         <Head>
-            <title>Celebrate your special days</title>
+            <title>Sponsor an Event | Team New Sun Foundation</title>
         </Head>
         <main className="px-5 py-16 sm:px-8">
             <div className="mx-auto max-w-7xl">

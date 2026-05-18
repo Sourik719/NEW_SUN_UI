@@ -14,8 +14,8 @@ const QueryForm = () => {
     const [httpRequest, isLoading] = useHttp();
     const router = useRouter();
     const queryHandler = catchAsync(async () => {
-        if (hasUntouched(errors)) throw new Error('Fill out all the necessary details')
-        if (hasErrors(errors)) throw new Error('Check the red marked fields')
+        if (hasUntouched(errors)) throw new Error('Please complete all required details.')
+        if (hasErrors(errors)) throw new Error('Please fix the highlighted fields before submitting.')
         const { message } = await httpRequest('/queries', 'POST', fields)
         dispatch(notificationActions.setNotification({ message }))
         router.reload();
@@ -64,7 +64,7 @@ const QueryForm = () => {
                 actionCreator={queryActions.budgetChangeHandler}
                 error={errors.budget} />
             <button className="mt-4 w-full rounded-md bg-orange-600 p-3 text-md font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700 sm:w-1/2" onClick={queryHandler}>
-                {isLoading ? 'Submitting...' : 'Submit'}
+                {isLoading ? 'Submitting...' : 'Send Request'}
             </button>
         </div>
     )

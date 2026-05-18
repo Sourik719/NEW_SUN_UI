@@ -34,13 +34,13 @@ const Timer = ({ fields }) => {
     return (<div className="w-full flex justify-between text-sm text-center mb-5">
         {seconds >= 0 ?
             <section className="flex">
-                <p>Your OTP will expire in</p>
+                <p>Code expires in</p>
                 <p className="font-bold float-right px-1">{minutes < 10 ? '0' + minutes : minutes}:{remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}</p>
             </section> :
-            <p>Your OTP has expired</p>
+            <p>This code has expired.</p>
         }
         {isLoading ? <Loader /> :
-            <button className="text-blue-600 hover:underline" onClick={resendOtpHandler}>{isResent ? 'OTP Resent' : 'Resend'}</button>
+            <button className="text-blue-600 hover:underline" onClick={resendOtpHandler}>{isResent ? 'Code sent' : 'Send again'}</button>
         }
     </div >)
 }

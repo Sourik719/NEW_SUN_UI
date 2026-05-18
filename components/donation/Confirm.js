@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { FaCheckCircle, FaTimes } from 'react-icons/fa';
+import { formatDateRange } from '@/utils/date';
+import { formatCurrency } from '@/utils/currency';
 
 const ConfirmationElement = ({ data, status, type }) => {
     const router = useRouter();
@@ -8,7 +10,6 @@ const ConfirmationElement = ({ data, status, type }) => {
     let statusColor = '';
     let statusBg = '';
     let title = '';
-    const getFormattedDate = date => date.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
 
     if (type === 'contribution') {
         title = 'Contribution';
@@ -19,20 +20,20 @@ const ConfirmationElement = ({ data, status, type }) => {
     switch (status) {
         case 'success':
             StatusIconComponent = FaCheckCircle;
-            statusMessage = `Your ${title} has been verified successfully.`;
+            statusMessage = `Your ${title.toLowerCase()} was completed successfully.`;
             statusColor = 'text-emerald-600';
             statusBg = 'bg-emerald-50 border-emerald-200';
             break;
         case 'failed':
             StatusIconComponent = FaTimes;
-            statusMessage = `Your ${title} could not be verified.`;
+            statusMessage = `We could not confirm your ${title.toLowerCase()} payment.`;
             statusColor = 'text-red-600';
             statusBg = 'bg-red-50 border-red-200';
             break;
 
         default:
             StatusIconComponent = FaCheckCircle;
-            statusMessage = `Unknown ${title} status.`;
+            statusMessage = `We are checking your ${title.toLowerCase()} status.`;
             statusColor = 'text-slate-600';
             statusBg = 'bg-stone-50 border-stone-200';
     }
@@ -58,11 +59,10 @@ const ConfirmationElement = ({ data, status, type }) => {
                                 <strong className="font-bold text-slate-950">Payment ID:</strong> {data.paymentId}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-bold text-slate-950">Amount:</strong> Rs.{data.amount}
+                                <strong className="font-bold text-slate-950">Amount:</strong> {formatCurrency(data.amount)}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-bold text-slate-950">Contribution for:</strong> {getFormattedDate(data.startDate) === getFormattedDate(data.endDate)
-                                    ? `${getFormattedDate(data.startDate)}` : `${getFormattedDate(data.startDate)} to ${getFormattedDate(data.endDate)}`}
+                                <strong className="font-bold text-slate-950">Contribution for:</strong> {formatDateRange(data.startDate, data.endDate)}
                             </p>
                         </div>
                     )}
@@ -72,7 +72,7 @@ const ConfirmationElement = ({ data, status, type }) => {
                                 <strong className="font-bold text-slate-950">Payment ID:</strong> {data.paymentId}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-bold text-slate-950">Donation Amount:</strong> Rs.{data.amount}
+                                <strong className="font-bold text-slate-950">Donation Amount:</strong> {formatCurrency(data.amount)}
                             </p>
                             <p className="mb-2">
                                 <strong className="font-bold text-slate-950">Donor Name:</strong> {data.name}
@@ -81,7 +81,7 @@ const ConfirmationElement = ({ data, status, type }) => {
                                 <strong className="font-bold text-slate-950">Donor Email:</strong> {data.email}
                             </p>
                             <p className="mb-2">
-                                <strong className="font-bold text-slate-950">Donor Phone No.:</strong> {data.phone}
+                                <strong className="font-bold text-slate-950">Donor Phone:</strong> {data.phone}
                             </p>
                         </div>
                     )}
@@ -92,7 +92,7 @@ const ConfirmationElement = ({ data, status, type }) => {
                     className="mt-5 w-full rounded-md bg-red-600 p-3 font-bold text-white transition hover:bg-red-700"
                     onClick={handleTryAgain}
                 >
-                    Try Again
+                    Try Payment Again
                 </button>
             )}
             {status !== 'failed' && (
@@ -100,7 +100,7 @@ const ConfirmationElement = ({ data, status, type }) => {
                     className="mt-5 w-full rounded-md bg-orange-600 p-3 font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                     onClick={() => router.push('/')}
                 >
-                    Go to Home
+                    Back to Home
                 </button>
             )}
         </div>

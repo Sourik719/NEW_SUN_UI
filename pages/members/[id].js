@@ -42,13 +42,13 @@ const profile = () => {
 
 
     if (!user || isLoading) {
-        return (<Loader />);
+        return (<Loader fullPage label="Loading profile" />);
     }
     if (user) {
         return (
             <Container className="relative min-h-screen bg-stone-50 px-5 py-16 sm:px-8">
                 <Head>
-                    <title>Profile</title>
+                    <title>{`${user.firstname} ${user.lastname}`} | Team New Sun Foundation</title>
                 </Head>
                 <main className="mx-auto flex max-w-7xl flex-col items-start justify-center gap-6 lg:flex-row">
                     <Profile user={user} id={id} due={isAuthenticated ? contriData?.due?.length || 0 : "Not Available"} isAuthenticated={isAuthenticated} />

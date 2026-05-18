@@ -52,14 +52,14 @@ const ForgetPassword = ({ onCancel }) => {
     };
 
     const generateOtp = catchAsync(async () => {
-        if (!email.trim()) throw new Error("Please enter your email")
+        if (!email.trim()) throw new Error("Enter your email address.")
 
         const { success } = await httpRequest(`/forgot-password`, "POST", { email });
         setOtpsent(true)
     }
     );
     const verifyOtp = catchAsync(async () => {
-        if (otp.length < 6) throw new Error('OTP should be 6-digit long.')
+        if (otp.length < 6) throw new Error('Enter the 6-digit verification code.')
         const otpString = otp.join('');
         const { data } = await httpRequest(`/forgot-password-verify`, "POST", { email: email, otp: otpString })
         const { token } = data
@@ -69,12 +69,12 @@ const ForgetPassword = ({ onCancel }) => {
     }
     );
     const resetPassword = catchAsync(async () => {
-        if (!password.trim()) throw new Error("Password can not be blank.")
-        if (!regex.password.test(password)) throw new Error("Password must be at least 8 characters long and include a number,a lowercase letter,an uppercase letter and a special character.")
-        if (password.trim() != confirmPassword.trim()) throw new Error("Both fields need to have the same value")
+        if (!password.trim()) throw new Error("Enter a new password.")
+        if (!regex.password.test(password)) throw new Error("Use at least 8 characters with uppercase, lowercase, number, and special character.")
+        if (password.trim() != confirmPassword.trim()) throw new Error("Both passwords must match.")
         const { success } = await httpRequest(`/reset-password`, "POST", { password: password });
         localStorage.removeItem('key');
-        dispatch(notificationActions.setNotification({ message: "Your password is updated. You can now login." }))
+        dispatch(notificationActions.setNotification({ message: "Your password has been updated. You can sign in now." }))
         router.reload();
     }
     )
@@ -85,12 +85,12 @@ const ForgetPassword = ({ onCancel }) => {
                 <button className="absolute right-4 top-4" onClick={onCancel}>
                     <FaXmark />
                 </button>
-                <h4 className="text-3xl p-3 my-2">Reset Your Password</h4>
+                <h4 className="text-3xl p-3 my-2">Reset your password</h4>
                 <div className="w-full flex flex-row  sm:items-center justify-center">
                     <input
                         type="email"
                         id="emailInput"
-                        placeholder="Enter your email"
+                        placeholder="Enter your email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={otpVerified}
@@ -100,12 +100,12 @@ const ForgetPassword = ({ onCancel }) => {
                         onClick={generateOtp}
                         className={`bg-blue-500 text-white h-10 p-2  rounded text-md flex items-center justify-center ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
                         disabled={isLoading || otpVerified}
-                        aria-label={isLoading ? "Loading, please wait." : (otpSent ? "Resend OTP" : "Send OTP")}
+                        aria-label={isLoading ? "Sending code" : (otpSent ? "Send code again" : "Send code")}
                     >
-                        {isLoading ? "Loading.." : (otpSent ? "Resend OTP" : "Send OTP")}
+                        {isLoading ? "Sending..." : (otpSent ? "Send code again" : "Send code")}
                     </button>
                 </div>
-                {otpSent && <div className="w-full"> <p>OTP has been sent to {email}</p>
+                {otpSent && <div className="w-full"> <p>We sent a verification code to {email}</p>
                     <div className="w-full flex flex-row items-center justify-center">
 
                         <section className="mt-3 w-2/3 flex flex-row items-center justify-center">
@@ -127,9 +127,9 @@ const ForgetPassword = ({ onCancel }) => {
                             onClick={verifyOtp}
                             className={`h-10 text-white mx-2 p-2 rounded text-md flex items-center justify-center ${isLoading ? 'opacity-50 cursor-not-allowed' : otpVerified ? "bg-green-500" : "bg-blue-500"}`}
                             disabled={isLoading || otpVerified}
-                            aria-label={isLoading ? "Loading..." : (otpVerified ? "Verified" : "Verify OTP")}
+                            aria-label={isLoading ? "Checking code..." : (otpVerified ? "Verified" : "Verify code")}
                         >
-                            {isLoading ? "Loading..." : (otpVerified ? "Verified" : "Verify OTP")}
+                            {isLoading ? "Checking..." : (otpVerified ? "Verified" : "Verify code")}
                         </button>
                     </div>
 
@@ -139,12 +139,12 @@ const ForgetPassword = ({ onCancel }) => {
                     <div className="flex flex-col w-full my-3 justify-center items-center">
                         <div className="w-full my-1">
                             <div className="flex flex-row items-center mb-2">
-                                <span className="font-bold w-1/4">New Password:</span>
+                                <span className="font-bold w-1/4">New password:</span>
                                 <input
                                     type={!passwordShowed ? 'password' : 'text'}
-                                    title="Password must be at least 8 characters long and include a number,a lowercase letter,an uppercase letter and a special character."
+                                    title="Use at least 8 characters with uppercase, lowercase, number, and special character."
                                     value={password}
-                                    placeholder="New Password"
+                                    placeholder="New password"
                                     disabled={isLoading}
                                     onChange={(e) => setPasword(e.target.value)}
                                     className={`w-2/3 px-3 py-2 border-b focus:outline-none focus:border-blue-500 mx-1`}
@@ -156,10 +156,10 @@ const ForgetPassword = ({ onCancel }) => {
 
                             </div>
                             <div className="flex flex-row  items-center my-2">
-                                <span className="font-bold w-1/4"> Confirm Password:</span>
+                                <span className="font-bold w-1/4"> Confirm password:</span>
                                 <input
                                     type={confirmPasswordShowed ? 'text' : 'password'}
-                                    placeholder="Confirm Password"
+                                    placeholder="Confirm password"
                                     value={confirmPassword}
                                     onChange={(e) => setconfirmPassword(e.target.value)}
                                     disabled={isLoading}
@@ -173,7 +173,7 @@ const ForgetPassword = ({ onCancel }) => {
                             </div>
                         </div>
                         <button className="w-[200px] bg-green-500 p-2 items-center hover:bg-green-700 text-white mt-1 rounded-md shadow-md" onClick={resetPassword}>
-                            Reset Password
+                            Update Password
                         </button>
                     </div>}
 

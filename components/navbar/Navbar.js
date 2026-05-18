@@ -45,9 +45,9 @@ const Navbar = () => {
         { label: 'Sobujer Sondhane', href: '/projects/sobujersondhane' },
     ];
     const services = [
-        { label: 'Sponsor an Event', href: '/donate/sponsor' },
-        { label: 'Donate for a cause', href: '/donate/cause' },
-        ...isAuthenticated ? [{ label: 'Member Contribution', href: '/donate/member_contribution' }] : []
+        { label: 'Sponsor a Celebration', href: '/donate/sponsor' },
+        { label: 'Donate to a Cause', href: '/donate/cause' },
+        ...isAuthenticated ? [{ label: 'Pay Member Contribution', href: '/donate/member_contribution' }] : []
     ];
 
 

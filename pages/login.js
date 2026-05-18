@@ -29,8 +29,8 @@ const Login = () => {
     }
 
     const loginHandler = catchAsync(async () => {
-        if (!credentials.email.trim()) throw new Error('Please enter your email.')
-        if (!credentials.password.trim()) throw new Error('Please enter your password.')
+        if (!credentials.email.trim()) throw new Error('Enter your email address.')
+        if (!credentials.password.trim()) throw new Error('Enter your password.')
         const { data, message } = await httpRequest('/signin', 'POST', credentials)
         const { token } = data
         localStorage.setItem('jwt-token', token)
@@ -41,7 +41,7 @@ const Login = () => {
 
     return (<Container className="w-full bg-stone-50 px-5 py-16 sm:px-8">
         <Head>
-            <title>Login</title>
+            <title>Login | Team New Sun Foundation</title>
         </Head>
         {forgotPassword && <ForgetPassword onCancel={() => setForgotPassword(false)} />}
         <main className={`mx-auto grid max-w-5xl overflow-hidden rounded-md border border-stone-200 bg-white shadow-xl md:grid-cols-[0.85fr_1.15fr] ${forgotPassword && 'blur-lg'}`}>
@@ -68,11 +68,11 @@ const Login = () => {
                         <button className="w-full rounded-md bg-orange-600 p-3 text-center font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                             onClick={loginHandler}
                         >
-                            {isLoading ? <Loader /> : 'Login as Member'}
+                            {isLoading ? <Loader /> : 'Sign In'}
                         </button>
                     </div>
                     <div className="mb-2 cursor-pointer text-center text-sm font-bold text-orange-600 hover:text-orange-700" onClick={() => setForgotPassword(true)}>
-                        Forgot Password ?
+                        Forgot password?
                     </div>
 
                     <div className="text-sm flex justify-center items-center mb-5">

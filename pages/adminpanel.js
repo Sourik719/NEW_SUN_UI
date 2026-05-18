@@ -5,6 +5,7 @@ import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useAuth } from '@/hooks/use-auth';
 import { useHttp } from '@/hooks/use-http';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 const AdminPanel = () => {
@@ -76,9 +77,12 @@ const AdminPanel = () => {
 
     return (
         <Container className="min-h-screen bg-stone-50 px-5 py-16 sm:px-8">
+            <Head>
+                <title>Admin Panel | Team New Sun Foundation</title>
+            </Head>
             {!isAdmin ? (
                 <main className="mx-auto max-w-3xl rounded-md border border-stone-200 bg-white p-8 text-center shadow-sm">
-                    <h1 className="text-3xl font-extrabold text-slate-950">You are not authorized to visit this page.</h1>
+                    <h1 className="text-3xl font-extrabold text-slate-950">You do not have access to this page.</h1>
                 </main>
             ) : (
                 <main className="mx-auto max-w-7xl">
@@ -127,7 +131,7 @@ const AdminPanel = () => {
                     </div>
 
                     {/* ✅ Loading */}
-                    {loading && <p className="rounded-md bg-white py-6 text-center font-semibold text-slate-700 shadow-sm">Loading...</p>}
+                    {loading && <p className="rounded-md bg-white py-6 text-center font-semibold text-slate-700 shadow-sm">Loading records...</p>}
 
                     {!loading && (
                         <div className="overflow-x-auto rounded-md border border-stone-200 bg-white shadow-sm">
@@ -146,7 +150,7 @@ const AdminPanel = () => {
                                     <ContributionTable data={data} />
                                 )
                             ) : (
-                                <p className="text-center py-8 font-semibold text-slate-600">No records found.</p>
+                                <p className="text-center py-8 font-semibold text-slate-600">No records to show yet.</p>
                             )}
                         </div>
                     )}

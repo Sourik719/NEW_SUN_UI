@@ -13,9 +13,9 @@ const querySlice = createSlice({
             const value = action.payload.trim();
             state.fields.email = value;
             if (!value) {
-                state.errors.email = 'You missed to fill email.';
+                state.errors.email = 'Enter your email address.';
             } else if (!regex.email.test(value)) {
-                state.errors.email = "Your email is invalid.";
+                state.errors.email = "Enter a valid email address.";
             } else {
                 state.errors.email = '';
             }
@@ -24,9 +24,9 @@ const querySlice = createSlice({
             const value = action.payload.trim();
             state.fields.firstname = value;
             if (!value) {
-                state.errors.firstname = 'You missed to fill firstname.';
+                state.errors.firstname = 'Enter your first name.';
             } else if (value.length < 3) {
-                state.errors.firstname = "Your firstname is too short.";
+                state.errors.firstname = "First name must be at least 3 characters.";
             } else {
                 state.errors.firstname = '';
             }
@@ -35,9 +35,9 @@ const querySlice = createSlice({
             const value = action.payload.trim();
             state.fields.lastname = value;
             if (!value) {
-                state.errors.lastname = 'You missed to fill lastname.';
+                state.errors.lastname = 'Enter your last name.';
             } else if (value.length < 3) {
-                state.errors.lastname = "Your lastname is too short.";
+                state.errors.lastname = "Last name must be at least 3 characters.";
             } else {
                 state.errors.lastname = '';
             }
@@ -48,9 +48,9 @@ const querySlice = createSlice({
             const today = new Date();
             const selectedDate = new Date(value);
             if (!value) {
-                state.errors.eventdate = 'You missed to fill date of event.';
+                state.errors.eventdate = 'Choose the event date.';
             } else if (selectedDate < today) {
-                state.errors.eventdate = 'Your selected date of event is invalid.';
+                state.errors.eventdate = 'Choose today or a future date.';
             } else {
                 state.errors.eventdate = '';
             }
@@ -59,9 +59,9 @@ const querySlice = createSlice({
             const value = action.payload.trim();
             state.fields.phone = value;
             if (!value) {
-                state.errors.phone = 'You missed to fill mobile number.';
+                state.errors.phone = 'Enter your mobile number.';
             } else if (!regex.phone.test(value)) {
-                state.errors.phone = 'Your mobile number is invalid.';
+                state.errors.phone = 'Enter a valid 10-digit mobile number.';
             } else {
                 state.errors.phone = '';
             }
@@ -69,13 +69,13 @@ const querySlice = createSlice({
         causeChangeHandler(state, action) {
             const value = action.payload.trim();
             state.fields.cause = value;
-            if (!value) state.errors.cause = 'Specify your cause';
+            if (!value) state.errors.cause = 'Choose what you would like to sponsor.';
             else state.errors.cause = '';
         },
         budgetChangeHandler(state, action) {
             const value = action.payload.trim();
             state.fields.budget = value;
-            if (!value) state.errors.budget = 'Specify your budget';
+            if (!value) state.errors.budget = 'Choose an estimated budget.';
             else state.errors.budget = '';
         }
     },

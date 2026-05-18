@@ -1,3 +1,6 @@
+import { formatDate } from "@/utils/date";
+import { formatCurrency } from "@/utils/currency";
+
 const DonationTable = ({ data = [] }) => {
     return (
         <table className="w-full min-w-[950px] bg-white text-sm">
@@ -27,12 +30,12 @@ const DonationTable = ({ data = [] }) => {
                         </td>
 
                         <td className="p-3 font-semibold">
-                            ₹{item.amount}
+                            {formatCurrency(item.amount)}
                         </td>
 
                         <td className="p-3">
                             {item.paymentDate
-                                ? new Date(item.paymentDate).toLocaleDateString('en-IN')
+                                ? formatDate(item.paymentDate)
                                 : '-'}
                         </td>
 

@@ -21,9 +21,9 @@ const JoinUs = () => {
     const [isVerifying, setIsVerifying] = useState(false)
     const [imageFile, setImageFile] = useState(null);
     const signupHandler = catchAsync(async () => {
-        if (hasUntouched(errors)) throw new Error('Please fill all your details to be a member.')
+        if (hasUntouched(errors)) throw new Error('Please complete all required member details.')
         if (hasErrors(errors)) {
-            throw new Error(`Please do correct the red-marked fields`);
+            throw new Error(`Please fix the highlighted fields before continuing.`);
         }
         const formData = new FormData();
         for (const key in fields) {
@@ -43,7 +43,7 @@ const JoinUs = () => {
     };
     return (<Container className="w-full bg-stone-50 px-5 py-16 sm:px-8" >
         <Head>
-            <title>Join Us</title>
+            <title>Join Us | Team New Sun Foundation</title>
         </Head>
         {isVerifying && <EmailVerifier fields={fields} onCancel={() => setIsVerifying(false)} />}
         <main className={`mx-auto grid max-w-6xl overflow-hidden rounded-md border border-stone-200 bg-white shadow-xl lg:grid-cols-[0.85fr_1.15fr] ${isVerifying && 'blur-lg'}`}>
@@ -62,11 +62,11 @@ const JoinUs = () => {
                         <button className="w-full rounded-md bg-orange-600 p-3 text-center font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                             onClick={signupHandler}
                         >
-                            {isLoading ? <Loader /> : 'Join as Member'}
+                            {isLoading ? <Loader /> : 'Create Member Account'}
                         </button>
                     </div>
                     <div className="text-sm flex justify-center items-center mb-5">
-                        <span>Are you a member already ? </span>
+                        <span>Already a member?</span>
                         <Link href="/login" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Login</Link>
                     </div>
                 </div>

@@ -1,3 +1,5 @@
+import { formatDate } from "@/utils/date";
+
 const MemberTable = ({ data = [], calculateDueMonths }) => {
     return (
         <table className="w-full min-w-[900px] bg-white text-sm">
@@ -25,7 +27,7 @@ const MemberTable = ({ data = [], calculateDueMonths }) => {
                         <td className="p-3">{item.phone}</td>
 
                         <td className="p-3">
-                            {new Date(item.joinedOn).toLocaleDateString('en-IN')}
+                            {formatDate(item.joinedOn)}
                         </td>
 
                         <td className="p-3">{item.bloodGroup}</td>
@@ -35,7 +37,7 @@ const MemberTable = ({ data = [], calculateDueMonths }) => {
                         <td className="p-3">
                             {(() => {
                                 const due = calculateDueMonths(item.lastContributionOn);
-                                return due === 0 ? 'No Due' : `${due} month(s)`;
+                                return due === 0 ? 'Up to date' : `${due} ${due === 1 ? 'month' : 'months'} due`;
                             })()}
                         </td>
                     </tr>

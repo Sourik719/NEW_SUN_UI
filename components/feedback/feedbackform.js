@@ -89,7 +89,7 @@ const FeedBack = ({ onclick }) => {
             <label className="mt-3 block text-sm font-bold text-slate-700">Email</label>
             <input
                 ref={emailRef}
-                placeholder="Email"
+                placeholder="Enter your email address"
                 onChange={(event) => handleFieldChange('email', event.target.value)}
                 className={`my-1 w-full rounded-md border px-3 py-3 outline-none transition ${validationError.email ? 'border-red-500 ring-2 ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
             />
@@ -97,7 +97,7 @@ const FeedBack = ({ onclick }) => {
             <label className="mt-3 block text-sm font-bold text-slate-700">Name</label>
             <input
                 ref={nameRef}
-                placeholder="Name"
+                placeholder="Enter your name"
                 onChange={(event) => handleFieldChange('name', event.target.value)}
                 className={`my-1 w-full rounded-md border px-3 py-3 outline-none transition ${validationError.name ? 'border-red-500 ring-2 ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
             />
@@ -105,7 +105,7 @@ const FeedBack = ({ onclick }) => {
             <label className="mt-3 block text-sm font-bold text-slate-700">Experience</label>
             <textarea
                 ref={contentRef}
-                placeholder="Describe Your Experience"
+                placeholder="Tell us what went well or what we can improve"
                 onChange={(event) => handleFieldChange('content', event.target.value)}
                 className={`my-1 min-h-[110px] w-full resize-none rounded-md border px-3 py-3 outline-none transition ${validationError.content ? 'border-red-500 ring-2 ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
             />

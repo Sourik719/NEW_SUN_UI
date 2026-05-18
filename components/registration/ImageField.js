@@ -14,7 +14,7 @@ const ImageField = ({ actionCreator }) => {
             const maxSizeBytes = maxSizeKB * 1024;
             if (file.size > maxSizeBytes) {
                 dispatch(notificationActions.setNotification(
-                    { type: "error", message: "File size more than limit. Please upload a smaller file." }
+                    { type: "error", message: "This image is too large. Please upload an image under 5 MB." }
                 ));
                 return;
 
@@ -28,13 +28,13 @@ const ImageField = ({ actionCreator }) => {
         <div className="group bg-white relative flex justify-center items-end w-40 h-40 rounded-full overflow-hidden">
             <Image
                 src={imagePreviewUrl || "/blank.png"}
-                alt="Your Picture"
+                alt="Profile photo preview"
                 width={100}
                 height={100}
                 className="w-full h-full"
             />
             <span className="bg-white absolute text-xs opacity-0 group-hover:opacity-100 transition-all duration-100 p-1 mb-4 rounded-md">
-                {imagePreviewUrl ? "Change Photo" : "Add Photo"}
+                {imagePreviewUrl ? "Change photo" : "Add photo"}
             </span>
             <input
                 type="file"

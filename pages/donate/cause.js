@@ -3,6 +3,7 @@ import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
+import { formatCurrency } from '@/utils/currency';
 import { regex } from '@/validation/registration';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -26,20 +27,20 @@ const DonatePage = () => {
     ];
 
     const paymentHandler = catchAsync(async () => {
-        if (!name.trim()) throw new Error("Please fill your name");
+        if (!name.trim()) throw new Error("Enter your name.");
         if (name.trim().length < 3) throw new Error("Name must be at least 3 characters long.");
-        if (!email.trim()) throw new Error("Email is mandatory");
-        if (!regex.email.test(email.trim())) throw new Error("Please enter a valid email");
+        if (!email.trim()) throw new Error("Enter your email address.");
+        if (!regex.email.test(email.trim())) throw new Error("Enter a valid email address.");
         const amountValue = amount.trim();
-        if (!amountValue) throw new Error("Please enter amount to donate");
+        if (!amountValue) throw new Error("Enter the amount you want to donate.");
         const amountNumber = Number(amountValue);
-        if (isNaN(amountNumber)) throw new Error("Please enter a valid numeric amount to donate.");
-        if (amountNumber < 50) throw new Error("Minimum donation acceptable is Rs.50");
+        if (isNaN(amountNumber)) throw new Error("Enter a valid donation amount.");
+        if (amountNumber < 50) throw new Error(`Minimum donation amount is ${formatCurrency(50)}.`);
 
         const phoneValue = phone.trim();
-        if (!phoneValue) throw new Error("Phone Number is mandatory");
-        if (!regex.phone.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.");
-        if (!cause.trim()) throw new Error("Please select cause of donation");
+        if (!phoneValue) throw new Error("Enter your phone number.");
+        if (!regex.phone.test(phoneValue)) throw new Error("Enter a valid 10-digit Indian mobile number.");
+        if (!cause.trim()) throw new Error("Choose a cause for your donation.");
 
         const paymentPayload = {
             intent: 'donation',
@@ -81,7 +82,7 @@ const DonatePage = () => {
     return (
         <Container className="relative bg-stone-50 px-5 py-16 sm:px-8">
             <Head>
-                <title>Donate || TEAM NEW SUN FOUNDATION</title>
+                <title>Donate | Team New Sun Foundation</title>
             </Head>
             {paymentData && <ConfirmationElement data={paymentData} status={paymentStatus} type='donation' />}
             {!paymentData && <main className="mx-auto grid max-w-6xl overflow-hidden rounded-md border border-stone-200 bg-white shadow-xl md:grid-cols-[0.9fr_1.1fr]">
@@ -153,7 +154,7 @@ const DonatePage = () => {
                         </div>
                         <div className="mb-6">
                             <label htmlFor="cause" className="block text-slate-700 text-sm font-bold mb-2">
-                                Cause of Donation
+                                Donation Cause
                             </label>
                             <select
                                 id="cause"
@@ -163,7 +164,7 @@ const DonatePage = () => {
                                 disabled={order != null}
                             >
                                 <option value="" disabled hidden>
-                                    Select Cause of Donation
+                                    Choose a cause
                                 </option>
                                 {causeOptions.map((option) => (
                                     <option key={option.value} value={option.value}>
@@ -177,7 +178,7 @@ const DonatePage = () => {
                                 className="rounded-md bg-orange-600 px-6 py-3 font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                                 onClick={paymentHandler}
                             >
-                                {isLoading ? 'Preparing...' : 'Donate Now'}
+                                {isLoading ? 'Preparing payment...' : 'Proceed to Payment'}
                             </button>}
                             {order && <PaymentGateway
                                 orderData={order}

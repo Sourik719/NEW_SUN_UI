@@ -1,9 +1,13 @@
 
 import Container from "@/components/ui/Container";
+import Head from "next/head";
 
 const PrivacyPolicyElement = () => {
     return (
         <Container className="bg-stone-50 px-5 py-16 sm:px-8">
+            <Head>
+                <title>Privacy Policy | Team New Sun Foundation</title>
+            </Head>
             <main className="mx-auto max-w-4xl rounded-md border border-stone-200 bg-white p-6 leading-8 text-slate-700 shadow-sm sm:p-10">
             <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Legal</p>
             <h1 className="mb-6 mt-3 text-4xl font-extrabold text-slate-950">Privacy Policy</h1>
