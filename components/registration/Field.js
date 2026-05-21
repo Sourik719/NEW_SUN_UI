@@ -26,7 +26,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
             placeholder={label}
             onChange={fieldChangeHandler}
             required
-            className={`w-full px-3 py-2  border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+            className={`w-full rounded-md border px-3 py-3 outline-none transition ${error ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
         />
     );
 
@@ -36,7 +36,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
             value={value}
             onChange={fieldChangeHandler}
             required
-            className={`w-full px-3 py-2  border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+            className={`w-full rounded-md border px-3 py-3 outline-none transition ${error ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
         >
             <option value='' disabled>{label}</option>
             {options.map((option, i) => (
@@ -54,7 +54,7 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
                 placeholder={label}
                 onChange={fieldChangeHandler}
                 onFocus={fieldFocusHandler}
-                className={`w-full px-3 py-2 border rounded-md ${error ? 'border-red-300 focus:outline-red-300' : 'border-gray-300 focus:outline-blue-300'}`}
+                className={`w-full rounded-md border px-3 py-3 outline-none transition ${error ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100' : 'border-stone-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-100'}`}
                 required
             />
             {type === 'password' && (
@@ -66,15 +66,15 @@ const Field = ({ label, type = 'text', value, actionCreator, error, options = []
     );
 
     return (
-        <div className="relative w-full px-5 my-2 group">
+        <div className="relative my-2 w-full px-2 sm:px-3 group">
             {value && (
-                <label className="text-xs absolute -top-2 left-8 bg-white rounded px-1 z-10">
+                <label className="absolute -top-2 left-5 z-10 rounded bg-white px-1 text-xs font-semibold text-slate-600">
                     {label}
                 </label>
             )}
             {type === 'textarea' ? textAreaField : type === 'select' ? selectField : complexField}
             {error && (
-                <label className="bg-black rounded-md absolute left-6 top-9 p-2 text-sm text-white z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <label className="absolute left-4 top-11 z-20 rounded-md bg-slate-950 p-2 text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                     {error}
                 </label>)}
         </div>

@@ -14,22 +14,22 @@ const QueryForm = () => {
     const [httpRequest, isLoading] = useHttp();
     const router = useRouter();
     const queryHandler = catchAsync(async () => {
-        if (hasUntouched(errors)) throw new Error('Fill out all the necessary details')
-        if (hasErrors(errors)) throw new Error('Check the red marked fields')
+        if (hasUntouched(errors)) throw new Error('Please complete all required details.')
+        if (hasErrors(errors)) throw new Error('Please fix the highlighted fields before submitting.')
         const { message } = await httpRequest('/queries', 'POST', fields)
         dispatch(notificationActions.setNotification({ message }))
         router.reload();
 
     })
     return (
-        <div className="flex flex-col lg:w-2/5 sm:w-3/5 px-5 py-5 rounded-md bg-white m-2 justify-center items-center">
-            <div className="font-bold text-blue-800 text-center text-xl pb-4 flex md:flex-row flex-col">
+        <div className="mt-10 flex w-full max-w-2xl flex-col items-center justify-center rounded-md border border-stone-200 bg-white px-5 py-6 shadow-xl">
+            <div className="pb-4 text-center text-2xl font-extrabold text-slate-950">
                 Have something in mind?
-                <div className="text-orange-500 mx-1">
-                    Let us know!!
+                <div className="text-orange-600">
+                    Let us know
                 </div>
             </div>
-            <div className="flex flex-row">
+            <div className="flex w-full flex-col sm:flex-row">
                 <Field label={'First Name'} value={fields.firstname}
                     actionCreator={queryActions.firstnameChangeHandler}
                     error={errors.firstname} />
@@ -63,11 +63,10 @@ const QueryForm = () => {
                 options={budgetOptions}
                 actionCreator={queryActions.budgetChangeHandler}
                 error={errors.budget} />
-            <button className=" p-3 rounded-lg bg-green-400 text-md w-1/2 hover:bg-blue-800 hover:text-white  font-bold mt-4" onClick={queryHandler}>
-                Submit
+            <button className="mt-4 w-full rounded-md bg-orange-600 p-3 text-md font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700 sm:w-1/2" onClick={queryHandler}>
+                {isLoading ? 'Submitting...' : 'Send Request'}
             </button>
         </div>
     )
 }
 export default QueryForm;
-

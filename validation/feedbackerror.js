@@ -2,26 +2,26 @@
 const FeedbackError = (feedback, fieldName) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const errors = {};
-    if (feedback.name) {
-        if ((feedback.name.length) < 2) {
-            errors.name = "Input too short";
-        }
+    if (!feedback.name.trim()) {
+        errors.name = "Enter your name.";
+    } else if (feedback.name.trim().length < 2) {
+        errors.name = "Name must be at least 2 characters.";
     }
 
     if (!feedback.email.trim()) {
-        errors.email = "Email is required";
+        errors.email = "Enter your email address.";
     } else if (!emailRegex.test(feedback.email)) {
-        errors.email = "Invalid email"
+        errors.email = "Enter a valid email address."
     }
 
     if (feedback.rating == '') {
-        errors.rating = "Rating is required";
+        errors.rating = "Choose a rating.";
     }
 
-    if (feedback.content) {
-        if ((feedback.content.length) < 3) {
-            errors.content = "Input too short";
-        }
+    if (!feedback.content.trim()) {
+        errors.content = "Tell us about your experience.";
+    } else if (feedback.content.trim().length < 3) {
+        errors.content = "Feedback must be at least 3 characters.";
     }
 
     return fieldName ? errors[fieldName] : errors;

@@ -10,7 +10,7 @@ import Head from "next/head"
 const Home = () => {
     return (<Container>
         <Head>
-            <title>Home || TEAM NEW SUN FOUNDATION</title>
+            <title>Home | Team New Sun Foundation</title>
         </Head>
         <Carousel />
         <Purpose />

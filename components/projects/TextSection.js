@@ -57,16 +57,16 @@ const ProjectComponent = ({ project }) => {
     };
 
     return (
-        <div className="md:mx-20 my-5 text-black text-xl text-justify rounded-md relative bg-orange-200">
-            <div className="absolute display-none md:display-block left-0 md:w-1/4 w-0 h-full border-r border-gray-300 overflow-y-auto invisible md:visible">
+        <div className="relative my-8 overflow-hidden rounded-md border border-stone-200 bg-white text-slate-800 shadow-sm">
+            <div className="absolute left-0 h-full w-0 overflow-y-auto border-r border-stone-200 bg-stone-50 invisible md:visible md:w-1/4">
                 <ul className="list-none">
                     {project.content.map((section, index) => (
                         <motion.li
                             key={index}
                             ref={(el) => (sidebarRefs.current[index] = el)}
-                            className={`cursor-pointer p-5 ${selectedSection === index ? 'bg-blue-800 font-bold text-white rounded-md' : 'font-semibold'}`}
+                            className={`cursor-pointer p-5 ${selectedSection === index ? 'bg-orange-600 font-bold text-white' : 'font-semibold text-slate-700 hover:bg-orange-50'}`}
                             onClick={() => handleSectionClick(index)}
-                            animate={{ fontSize: selectedSection === index ? '1.3rem' : '1.2rem' }}
+                            animate={{ fontSize: selectedSection === index ? '1.05rem' : '1rem' }}
                             transition={{ duration: 0.5 }}
                         >
                             {section.section}
@@ -75,16 +75,16 @@ const ProjectComponent = ({ project }) => {
                 </ul>
             </div>
 
-            <div id="contentContainer" className="relative w-full md:left-1/4 md:w-3/4 w-2/3 h-[350px] overflow-y-auto md:p-4 p-2 md:pb-20 webkit-scrollbar-track">
-                <div className="mx-1 my-3">
+            <div id="contentContainer" className="relative h-[520px] w-full overflow-y-auto p-5 md:left-1/4 md:w-3/4 md:p-8">
+                <div className="mx-1 my-3 space-y-8">
                     {project.content.map((section, index) => (
                         <div
                             key={index}
                             ref={(el) => (contentRefs.current[index] = el)}
-                            className="my-3 cursor-pointer"
+                            className="cursor-pointer"
                         >
-                            <h1 className="font-bold text-2xl my-2 text-blue-800">{section.section}</h1>
-                            <p className="md:mx-6 mx-2 text-md my-2">
+                            <h2 className="my-2 text-2xl font-extrabold text-slate-950">{section.section}</h2>
+                            <p className="text-base leading-8 text-slate-700 sm:text-lg">
                                 {section.text}
                             </p>
 

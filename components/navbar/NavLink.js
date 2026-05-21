@@ -6,7 +6,7 @@ const NavLink = ({ label, href }) => {
     const { pathname } = useRouter()
     return (<Link
         href={href}
-        className={`text-center border-b ${pathname === href ? 'sm:border-slate-800 bg-slate-200 sm:bg-transparent rounded-md sm:rounded-none' : 'border-transparent'} hover:sm:border-slate-800 transition-colors duration-200 p-2 mx-3 my-1 w-full sm:w-auto`}
+        className={`w-full rounded-md px-3 py-2 text-center text-sm font-bold transition sm:w-auto ${pathname === href ? 'bg-orange-50 text-orange-700' : 'text-slate-700 hover:bg-stone-100 hover:text-slate-950'}`}
     >
         {label}
     </Link>)

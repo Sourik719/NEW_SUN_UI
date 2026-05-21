@@ -1,22 +1,20 @@
 
 function PositionHolder({ name, position, imageUrl }) {
     return (
-        <div
-            className="w-[200px] flex flex-col items-center rounded-md p-2 md:m-4 m-2 "
-        >
+        <article className="flex flex-col items-center rounded-md border border-stone-200 bg-stone-50 p-4 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             {imageUrl && (
                 <div className="mb-4">
                     <img
                         src={imageUrl}
                         alt={name}
-                        className="w-40 h-40 object-cover shadow-md rounded-md transition duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg" />
+                        className="h-40 w-40 rounded-md object-cover shadow-md" />
                 </div>
             )}
-            <div className="text-center">
-                <h3 className="text-xl font-semibold text-white mb-1 hover:text-blue-200">{name}</h3>
-                <p className="text-pink-500 text-md font-bold">{position}</p>
+            <div>
+                <h3 className="mb-1 text-xl font-extrabold text-slate-950">{name}</h3>
+                <p className="text-sm font-bold uppercase tracking-wide text-orange-600">{position}</p>
             </div>
-        </div>
+        </article>
     );
 }
 

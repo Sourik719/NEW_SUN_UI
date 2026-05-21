@@ -1,42 +1,45 @@
+import { formatDate } from "@/utils/date";
+import { formatCurrency } from "@/utils/currency";
+
 const DonationTable = ({ data = [] }) => {
     return (
-        <table className="w-full border bg-white">
-            <thead className="bg-gray-200">
+        <table className="w-full min-w-[950px] bg-white text-sm">
+            <thead className="bg-slate-950 text-white">
                 <tr>
-                    <th className="p-2 border">Name</th>
-                    <th className="p-2 border">Email</th>
-                    <th className="p-2 border">Phone</th>
-                    <th className="p-2 border">Purpose</th>
-                    <th className="p-2 border">Amount</th>
-                    <th className="p-2 border">Payment Date</th>
-                    <th className="p-2 border">Payment ID</th>
+                    <th className="p-3 text-left">Name</th>
+                    <th className="p-3 text-left">Email</th>
+                    <th className="p-3 text-left">Phone</th>
+                    <th className="p-3 text-left">Purpose</th>
+                    <th className="p-3 text-left">Amount</th>
+                    <th className="p-3 text-left">Payment Date</th>
+                    <th className="p-3 text-left">Payment ID</th>
                 </tr>
             </thead>
 
             <tbody>
                 {data.map((item, idx) => (
-                    <tr key={idx} className="text-center">
-                        <td className="p-2 border">{item.name}</td>
+                    <tr key={idx} className="border-b border-stone-200 text-left hover:bg-orange-50">
+                        <td className="p-3 font-semibold text-slate-900">{item.name}</td>
 
-                        <td className="p-2 border">{item.email}</td>
+                        <td className="p-3">{item.email}</td>
 
-                        <td className="p-2 border">{item.phone}</td>
+                        <td className="p-3">{item.phone}</td>
 
-                        <td className="p-2 border">
+                        <td className="p-3">
                             {item.subjectedTo || '-'}
                         </td>
 
-                        <td className="p-2 border font-semibold">
-                            ₹{item.amount}
+                        <td className="p-3 font-semibold">
+                            {formatCurrency(item.amount)}
                         </td>
 
-                        <td className="p-2 border">
+                        <td className="p-3">
                             {item.paymentDate
-                                ? new Date(item.paymentDate).toLocaleDateString('en-IN')
+                                ? formatDate(item.paymentDate)
                                 : '-'}
                         </td>
 
-                        <td className="p-2 border text-xs break-all">
+                        <td className="break-all p-3 text-xs">
                             {item.paymentId || '-'}
                         </td>
                     </tr>
