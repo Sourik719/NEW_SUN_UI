@@ -23,6 +23,7 @@ const DonatePage = () => {
         { value: 'Sunshine', label: 'Project Sunshine' },
         { value: 'Project Udaan', label: 'Project UDAAN' },
         { value: 'Project SURAKSHA ', label: 'Project SURAKSHA' },
+        { value: 'Agomonir Ahobane', label: 'Agomonir Ahobane'},
         { value: 'Charity', label: 'General Donation' },
     ];
 
