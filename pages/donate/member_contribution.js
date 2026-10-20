@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 const ContributionPage = () => {
     const [httpRequest, isLoading] = useHttp();
-    const [isAuthenticated, isAuthLoading] = useAuth();
+    const [isAuthenticated, isAdmin,isAuthLoading] = useAuth();
     const { catchAsync } = useAsync();
 
     const { member } = useSelector((state) => state.member);
