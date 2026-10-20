@@ -31,7 +31,26 @@ export const imageData = [
     "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783346/Winter%27s%20Smile/20211225_122013_p9ivtc.jpg",
     "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783370/Winter%27s%20Smile/IMG_5801_owsqur.jpg",
     "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0144_vdlvwr.jpg",
-    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0165_sp3ssf.jpg"
-
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1718783564/Winter%27s%20Smile/IMG-20221225-WA0165_sp3ssf.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814919/20260104_122927_rqjn0z.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814919/IMG-20260422-WA0051_i1figl.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814919/IMG20260104121635_lglgaj.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814922/IMG_8571_dsmpne.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814922/IMG_8481_zngzsn.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814941/IMG_3209_zsq0k0.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814934/IMG_3186_ilc6yp.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814914/IMG-20260105-WA0070_psqwac.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814910/WhatsApp_Image_2026-05-26_at_10.25.14_PM_cae6nm.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814909/Celebrated_5_years_of_this_wonderful_journey_as_a_part_of_newsun2019._%EF%B8%8F_The_support_we_are_r_cpwkhx.webp",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814909/Celebrated_5_years_of_this_wonderful_journey_as_a_part_of_newsun2019._%EF%B8%8F_The_support_we_are_r_1_nz0jqb.webp",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814911/jk_a4xjwe.webp",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814913/An_evening_of_poetry_music_and_timeless_culture_Celebrating_Rabindra_Jayanti_with_soulful_vtts4e.webp",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814916/IMG-20241221-WA0089_fliymt.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814923/IMG_8554_mjmr77.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814924/IMG_8512_j07xzm.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814934/IMG_2965_rzpfm6.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814940/IMG_8642_jbqjah.jpg",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814936/20220926_142923_gyhall.heic",
+    "https://res.cloudinary.com/dcikuo4sk/image/upload/v1779814925/IMG_8367_v7yfti.jpg"
 
 ]
