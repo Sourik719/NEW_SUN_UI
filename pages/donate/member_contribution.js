@@ -1,17 +1,19 @@
 import ConfirmationElement from '@/components/donation/Confirm';
 import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
-import Loader from '@/components/ui/Loader';
 import { useAsync } from '@/hooks/use-async';
+import { useAuth } from '@/hooks/use-auth';
 import { useHttp } from '@/hooks/use-http';
 import { formatCurrency } from '@/utils/currency';
 import { formatDateRange, formatMonthYear } from '@/utils/date';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const contributionPage = () => {
     const [httpRequest, isLoading] = useHttp();
+    const [isAuthenticated, isAuthLoading] = useAuth();
     const { catchAsync } = useAsync();
     const { member } = useSelector(state => state.member)
     const [startDate, setStartDate] = useState('')
@@ -24,6 +26,7 @@ const contributionPage = () => {
     const [paymentStatus, setPaymentStatus] = useState(null);
     const numberOfMonthref = useRef();
     const amountRef = useRef();
+    const router = useRouter();
 
     const paymentHandler = catchAsync(async () => {
         const numberOfMonthsValue = numberOfMonths.trim();
@@ -107,10 +110,16 @@ const contributionPage = () => {
     }, [numberOfMonths, amountPerMonth]);
     const firstname = member?.firstname;
     const lastname = member?.lastname;
-    if (!member || isLoading) {
-        return (<Loader fullPage label="Loading contribution details" />);
+    useEffect(() => {
+        if (!isAuthLoading && !isAuthenticated) {
+            router.replace("/login");
+        }
+    }, [isAuthenticated, isAuthLoading]);
+
+    if (isAuthLoading || !member) {
+        return <div>Loading...</div>;
     }
-    if (member) {
+    if (isAuthenticated && member) {
         return (
             <Container className="relative flex flex-col items-center bg-stone-50 px-5 py-16 sm:px-8">
                 <Head>
