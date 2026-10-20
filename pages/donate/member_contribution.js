@@ -110,10 +110,10 @@ const contributionPage = () => {
     }, [numberOfMonths, amountPerMonth]);
     const firstname = member?.firstname;
     const lastname = member?.lastname;
-  
-    // if (!isAuthLoading && !isAuthenticated) {
-    //     router.replace("/login");
-    // }
+    console.log(isAuthLoading)
+    if (!isAuthLoading && !isAuthenticated) {
+        router.replace("/login");
+    }
    
     if (isAuthLoading || !member) {
         return <div>Loading...</div>;
