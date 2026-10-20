@@ -2,6 +2,7 @@
 import ConfirmationElement from '@/components/donation/Confirm';
 import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
+import Loader from '@/components/ui/Loader';
 import { useAsync } from '@/hooks/use-async';
 import { useAuth } from '@/hooks/use-auth';
 import { useHttp } from '@/hooks/use-http';
@@ -11,8 +12,10 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const ContributionPage = () => {
+    const router = useRouter();
+
     const [httpRequest, isLoading] = useHttp();
-    const [isAuthenticated, isAdmin,isAuthLoading] = useAuth();
+    const [isAuthenticated, isAuthLoading] = useAuth();
     const { catchAsync } = useAsync();
 
     const { member } = useSelector((state) => state.member);
@@ -27,8 +30,6 @@ const ContributionPage = () => {
     const [paymentData, setPaymentData] = useState(null);
     const [paymentStatus, setPaymentStatus] = useState(null);
 
-    const router = useRouter();
-
     // Redirect only after authentication has finished loading.
     useEffect(() => {
         if (!router.isReady || isAuthLoading) return;
@@ -36,9 +37,9 @@ const ContributionPage = () => {
         if (!isAuthenticated) {
             router.replace('/login');
         }
-    }, [router.isReady, isAuthenticated, isAuthLoading, router]);
+    }, [router.isReady, router, isAuthenticated, isAuthLoading]);
 
-    // Set the next contribution start date.
+    // Determine the next contribution start date.
     useEffect(() => {
         if (!member) return;
 
@@ -59,12 +60,16 @@ const ContributionPage = () => {
             }
         }
 
-        // If there is no previous contribution, start with the current month.
+        // If there is no previous contribution, start this month.
         const now = new Date();
 
         setStartDate(
             new Date(
-                Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)
+                Date.UTC(
+                    now.getUTCFullYear(),
+                    now.getUTCMonth(),
+                    1
+                )
             )
         );
     }, [member]);
@@ -120,33 +125,41 @@ const ContributionPage = () => {
         });
     };
 
+    // Create the payment order.
     const paymentHandler = catchAsync(async () => {
-        if (!startDate || !endDate) {
-            throw new Error('Please enter valid contribution details.');
-        }
-
         const months = Number(numberOfMonths);
         const monthlyAmount = Number(amountPerMonth);
 
         if (
+            numberOfMonths.trim() === '' ||
             !Number.isInteger(months) ||
             months < 1 ||
             months > 12
         ) {
             throw new Error(
-                'Number of months must be between 1 and 12.'
+                'Number of months must be an integer between 1 and 12.'
             );
         }
 
-        if (!Number.isFinite(monthlyAmount) || monthlyAmount < 50) {
+        if (
+            amountPerMonth.trim() === '' ||
+            !Number.isFinite(monthlyAmount) ||
+            monthlyAmount < 50
+        ) {
             throw new Error(
                 'Minimum contribution per month is Rs.50.'
             );
         }
 
+        if (!startDate || !endDate) {
+            throw new Error(
+                'Please wait until the contribution dates are ready.'
+            );
+        }
+
         if (!member?._id) {
             throw new Error(
-                'Member information is unavailable. Please refresh the page.'
+                'Member details are unavailable. Please refresh the page.'
             );
         }
 
@@ -168,10 +181,13 @@ const ContributionPage = () => {
         if (data?.order?.id) {
             setOrder(data.order);
         } else {
-            throw new Error('Unable to create the payment order.');
+            throw new Error(
+                'Unable to create the payment order. Please try again.'
+            );
         }
     });
 
+    // Verify the payment on the backend.
     const paymentSuccess = catchAsync(async (successData) => {
         const updatedData = {
             ...successData,
@@ -185,7 +201,9 @@ const ContributionPage = () => {
         );
 
         if (!data?.payment) {
-            throw new Error('Payment verification failed.');
+            throw new Error(
+                'Payment verification failed. Please contact support if money was deducted.'
+            );
         }
 
         setPaymentData({
@@ -203,17 +221,32 @@ const ContributionPage = () => {
         setPaymentData('Failed');
     };
 
-    // Wait until authentication is resolved before rendering the page.
+    // Wait for authentication before rendering the page.
     if (isAuthLoading || !router.isReady) {
-        return <div className="p-6 text-center">Checking authentication...</div>;
+        return (
+            <Loader
+                fullPage
+                label="Checking authentication"
+            />
+        );
     }
 
     if (!isAuthenticated) {
-        return <div className="p-6 text-center">Redirecting to login...</div>;
+        return (
+            <Loader
+                fullPage
+                label="Redirecting to login"
+            />
+        );
     }
 
     if (!member) {
-        return <div className="p-6 text-center">Loading member details...</div>;
+        return (
+            <Loader
+                fullPage
+                label="Loading member details"
+            />
+        );
     }
 
     const firstname = member.firstname || '';

@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 const profile = () => {
     const router = useRouter();
-    const [isAuthenticated, isAuthLoading] = useAuth();
+    const [isAuthenticated, isAuthLoading,isAdmin] = useAuth();
     const { id } = router.query;
     const [user, setUser] = useState(null);
     const [due, setDue] = useState(null);

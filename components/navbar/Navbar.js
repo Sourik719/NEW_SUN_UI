@@ -11,7 +11,7 @@ import NavDropdown from "./NavButton"
 import NavLink from "./NavLink"
 
 const Navbar = () => {
-    const [isAuthenticated, isAdmin, isAuthLoading] = useAuth()
+    const [isAuthenticated, isAuthLoading, isAdmin] = useAuth()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isHidden, setIsHidden] = useState(true)
     const [isMobile, setIsMobile] = useState(false)

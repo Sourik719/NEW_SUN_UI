@@ -15,7 +15,7 @@ const AdminPanel = () => {
     const [limit, setLimit] = useState(10);
     const [pagination, setPagination] = useState(null);
 
-    const [isAuthenticated, isAdmin, isAuthLoading] = useAuth();
+    const [isAuthenticated, isAuthLoading,isAdmin] = useAuth();
     const [loading, setLoading] = useState(false);
 
     const [httpRequest] = useHttp();
