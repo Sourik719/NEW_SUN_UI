@@ -110,11 +110,11 @@ const contributionPage = () => {
     }, [numberOfMonths, amountPerMonth]);
     const firstname = member?.firstname;
     const lastname = member?.lastname;
-    useEffect(() => {
-        if (!isAuthLoading && !isAuthenticated) {
-            router.replace("/login");
-        }
-    }, [isAuthenticated, isAuthLoading]);
+  
+    if (!isAuthLoading && !isAuthenticated) {
+        router.replace("/login");
+    }
+   
 
     if (isAuthLoading || !member) {
         return <div>Loading...</div>;
