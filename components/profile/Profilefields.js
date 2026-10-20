@@ -2,6 +2,7 @@ import { useAsync } from "@/hooks/use-async";
 import { useAuth } from "@/hooks/use-auth";
 import { useHttp } from "@/hooks/use-http";
 import { notificationActions } from "@/store/notification-slice";
+import { formatDate, formatDateInputValue } from "@/utils/date";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
@@ -28,25 +29,26 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
 
     const EditModebtn = () => {
         return (
-            <div className="absolute top-5 right-2">
-                <button onClick={handleSave}>
-                    <FaSave className="text-black text-sm mx-1" />
+            <div className="absolute right-2 top-1/2 flex -translate-y-1/2 gap-1">
+                <button
+                    type="button"
+                    onClick={handleSave}
+                    className="rounded-md bg-emerald-50 p-2 text-emerald-700 transition hover:bg-emerald-100"
+                    aria-label={`Save ${label}`}
+                >
+                    <FaSave className="text-sm" />
                 </button>
-                <button onClick={handleCancel} >
-                    <FaXmark className="text-black text-sm mx-1" />
+                <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="rounded-md bg-red-50 p-2 text-red-700 transition hover:bg-red-100"
+                    aria-label={`Cancel editing ${label}`}
+                >
+                    <FaXmark className="text-sm" />
                 </button>
             </div>
         )
     }
-
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
 
     useEffect(() => {
         const errorMsg = RequireError({ label: label, fieldValue: fieldValue, type: dataType });
@@ -56,15 +58,16 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     const handleEdit = () => {
         setFieldType(dataType);
         setEditMode(true);
-        inputRef.current.focus();
+        setTimeout(() => {
+            const fieldRef = dataType === 'Select' ? selectRef : inputRef;
+            fieldRef.current?.focus();
+        }, 0);
     };
 
     const handleUpdate = async () => {
         const updateData = { "update": { [fieldName]: fieldValue } };
-        console.log(updateData)
         const responseData = await httpRequest(`/members/${id}`, 'PUT', updateData);
         setFinalValue(fieldValue);
-        console.log(responseData.message);
         if (responseData) {
             router.reload();
             dispatch(notificationActions.setNotification({
@@ -100,10 +103,9 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
     };
 
     return (
-        <div className="relative w-full mx-2 my-1">
-            <label className="bg-transparent text-black text-sm top-1 left-3 px-1 transition-all duration-300 z-10 flex flex-row">
-                {!isBlank && <div>{label}:</div>}
-                {errors && <span className="text-yellow-600 ml-1 text-sm">{errors}</span>}
+        <div className="relative w-full">
+            <label className="mb-1 flex min-h-[20px] items-center justify-between px-1 text-xs font-bold uppercase tracking-wide text-slate-500">
+                <span>{label}</span>
             </label>
             {fieldType === 'Select' ? (
                 <div className="relative">
@@ -112,9 +114,9 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                         onChange={handleChange}
                         ref={selectRef}
                         required
-                        className={`w-full px-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl appearance-none`}
+                        className={`w-full appearance-none rounded-md border bg-white px-4 py-3 pr-24 font-semibold text-slate-900 outline-none transition ${editMode ? (!errors ? 'border-orange-500 ring-2 ring-orange-100' : 'border-red-400 ring-2 ring-red-100') : 'border-stone-200'}`}
                     >
-                        <option value="" disabled>Select {label}</option>
+                        <option value="" disabled>Choose {label.toLowerCase()}</option>
                         {options.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
@@ -124,14 +126,15 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                     {editAble && editMode && !errors && (
                         <EditModebtn />
                     )}
+                    {errors && editMode && <p className="mt-1 text-sm font-semibold text-red-600">{errors}</p>}
                 </div>
             ) :
                 (
-                    <div className="relative mx-2">
+                    <div className="relative">
                         <input
-                            className={`${dataType === 'date' ? "pr-12" : ""} w-full p-4 py-3 my-1 ${editMode ? (!errors ? 'border-blue-400' : 'border-red-400') : 'border-gray-200'} focus:outline-none border rounded-3xl`}
+                            className={`w-full rounded-md border px-4 py-3 font-semibold outline-none transition ${editAble ? 'pr-12' : ''} ${editMode ? (!errors ? 'border-orange-500 bg-white text-slate-950 ring-2 ring-orange-100' : 'border-red-400 bg-white text-slate-950 ring-2 ring-red-100') : 'border-stone-200 bg-white text-slate-800 shadow-sm'}`}
                             readOnly={!editAble || !editMode}
-                            value={!editMode ? (dataType === 'date' ? formatDate(finalValue) : finalValue) : (dataType === 'date' ? formatDate(fieldValue) : fieldValue)}
+                            value={!editMode ? (dataType === 'date' ? formatDate(finalValue) : finalValue) : (dataType === 'date' ? formatDateInputValue(fieldValue) : fieldValue)}
                             type={!editMode ? 'text' : dataType}
                             placeholder={label}
                             onChange={handleChange}
@@ -139,13 +142,14 @@ const ProfileFields = ({ label, dataType, value, editAble, options, id, fieldNam
                         />
 
                         {editAble && !editMode && (
-                            <button onClick={handleEdit} className="absolute top-6 right-2">
-                                <FaPen className="text-black text-sm" />
+                            <button type="button" onClick={handleEdit} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-2 text-slate-500 transition hover:bg-orange-50 hover:text-orange-700" aria-label={`Edit ${label}`}>
+                                <FaPen className="text-sm" />
                             </button>
                         )}
                         {editAble && editMode && !errors && (
                             <EditModebtn />
                         )}
+                        {errors && editMode && <p className="mt-1 text-sm font-semibold text-red-600">{errors}</p>}
                     </div>
                 )
             }

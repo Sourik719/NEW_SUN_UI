@@ -6,9 +6,9 @@ import Head from "next/head";
 const aboutUs = () => {
     return (
 
-        <Container className="bg-orange-300">
+        <Container className="bg-white">
             <Head>
-                <title>About Us || TEAM NEW SUN FOUNDATION</title>
+                <title>About Us | Team New Sun Foundation</title>
             </Head>
             <Journey />
             <div className="flex flex-col ">

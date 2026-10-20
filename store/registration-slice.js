@@ -13,9 +13,9 @@ const registrationSlice = createSlice({
             const value = action.payload.trim()
             state.fields.email = value
             if (!value) {
-                state.errors.email = 'You missed to fill email.'
+                state.errors.email = 'Enter your email address.'
             } else if (!regex.email.test(value)) {
-                state.errors.email = "Your email is invalid."
+                state.errors.email = "Enter a valid email address."
             } else {
                 state.errors.email = ''
             }
@@ -24,9 +24,9 @@ const registrationSlice = createSlice({
             const value = action.payload.trim()
             state.fields.password = value
             if (!value) {
-                state.errors.password = 'You missed to fill password.'
+                state.errors.password = 'Create a password.'
             } else if (!regex.password.test(value)) {
-                state.errors.password = "Your password must contain at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long."
+                state.errors.password = "Use at least 8 characters with uppercase, lowercase, number, and special character."
             } else {
                 state.errors.password = ''
             }
@@ -35,9 +35,9 @@ const registrationSlice = createSlice({
             const value = action.payload.trim()
             state.fields.firstname = value
             if (!value) {
-                state.errors.firstname = 'You missed to fill firstname.'
+                state.errors.firstname = 'Enter your first name.'
             } else if (value.length < 3) {
-                state.errors.firstname = "Your firstname is too short."
+                state.errors.firstname = "First name must be at least 3 characters."
             } else {
                 state.errors.firstname = ''
             }
@@ -46,9 +46,9 @@ const registrationSlice = createSlice({
             const value = action.payload.trim()
             state.fields.lastname = value
             if (!value) {
-                state.errors.lastname = 'You missed to fill lastname.'
+                state.errors.lastname = 'Enter your last name.'
             } else if (value.length < 3) {
-                state.errors.lastname = "Your lastname is too short."
+                state.errors.lastname = "Last name must be at least 3 characters."
             } else {
                 state.errors.lastname = ''
             }
@@ -57,9 +57,9 @@ const registrationSlice = createSlice({
             const value = action.payload.trim()
             state.fields.dob = value
             if (!value) {
-                state.errors.dob = 'You missed to fill date of birth.'
+                state.errors.dob = 'Enter your date of birth.'
             } else if (value >= new Date().toISOString()) {
-                state.errors.dob = 'Your date of birth is invalid.';
+                state.errors.dob = 'Enter a valid date of birth.';
             } else {
                 state.errors.dob = ''
             }
@@ -68,9 +68,9 @@ const registrationSlice = createSlice({
             const value = action.payload.trim()
             state.fields.phone = value
             if (!value) {
-                state.errors.phone = 'You missed to fill mobile number.'
+                state.errors.phone = 'Enter your mobile number.'
             } else if (!regex.phone.test(value)) {
-                state.errors.phone = 'Your mobile number is invalid'
+                state.errors.phone = 'Enter a valid 10-digit mobile number.'
             } else {
                 state.errors.phone = ''
             }
@@ -82,7 +82,7 @@ const registrationSlice = createSlice({
         sexChangeHandler(state, action) {
             const value = action.payload.trim()
             state.fields.sex = value
-            if (!value) state.errors.sex = 'You missed to fill sex.'
+            if (!value) state.errors.sex = 'Select your gender.'
             else state.errors.sex = ''
         },
         bloodGroupChangeHandler(state, action) {

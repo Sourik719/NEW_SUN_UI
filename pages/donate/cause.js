@@ -3,6 +3,7 @@ import PaymentGateway from '@/components/donation/Payment';
 import Container from '@/components/ui/Container';
 import { useAsync } from '@/hooks/use-async';
 import { useHttp } from '@/hooks/use-http';
+import { formatCurrency } from '@/utils/currency';
 import { regex } from '@/validation/registration';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -26,20 +27,20 @@ const DonatePage = () => {
     ];
 
     const paymentHandler = catchAsync(async () => {
-        if (!name.trim()) throw new Error("Please fill your name");
+        if (!name.trim()) throw new Error("Enter your name.");
         if (name.trim().length < 3) throw new Error("Name must be at least 3 characters long.");
-        if (!email.trim()) throw new Error("Email is mandatory");
-        if (!regex.email.test(email.trim())) throw new Error("Please enter a valid email");
+        if (!email.trim()) throw new Error("Enter your email address.");
+        if (!regex.email.test(email.trim())) throw new Error("Enter a valid email address.");
         const amountValue = amount.trim();
-        if (!amountValue) throw new Error("Please enter amount to donate");
+        if (!amountValue) throw new Error("Enter the amount you want to donate.");
         const amountNumber = Number(amountValue);
-        if (isNaN(amountNumber)) throw new Error("Please enter a valid numeric amount to donate.");
-        if (amountNumber < 50) throw new Error("Minimum donation acceptable is Rs.50");
+        if (isNaN(amountNumber)) throw new Error("Enter a valid donation amount.");
+        if (amountNumber < 50) throw new Error(`Minimum donation amount is ${formatCurrency(50)}.`);
 
         const phoneValue = phone.trim();
-        if (!phoneValue) throw new Error("Phone Number is mandatory");
-        if (!regex.phone.test(phoneValue)) throw new Error("Please enter a valid 10-digit Indian mobile number.");
-        if (!cause.trim()) throw new Error("Please select cause of donation");
+        if (!phoneValue) throw new Error("Enter your phone number.");
+        if (!regex.phone.test(phoneValue)) throw new Error("Enter a valid 10-digit Indian mobile number.");
+        if (!cause.trim()) throw new Error("Choose a cause for your donation.");
 
         const paymentPayload = {
             intent: 'donation',
@@ -79,30 +80,30 @@ const DonatePage = () => {
     }
 
     return (
-        <Container className="bg-violet-200 py-16 relative flex flex-col justify-center items-center">
+        <Container className="relative bg-stone-50 px-5 py-16 sm:px-8">
             <Head>
-                <title>Donate || TEAM NEW SUN FOUNDATION</title>
+                <title>Donate | Team New Sun Foundation</title>
             </Head>
             {paymentData && <ConfirmationElement data={paymentData} status={paymentStatus} type='donation' />}
-            {!paymentData && <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-                <div className="md:flex">
-                    <div className="p-8 md:w-1/2">
-                        <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Support Our Cause</div>
-                        <h2 className="mt-2 text-3xl leading-tight font-bold text-gray-900">Make a Donation</h2>
-                        <p className="mt-4 text-gray-600">Your generous contribution will help us continue our work in the community.</p>
-                        <p className='mt-4 text-blue-800'>
-                            All donations are eligible for deduction u/s 80G of Income Tax Act 1961.</p>
+            {!paymentData && <main className="mx-auto grid max-w-6xl overflow-hidden rounded-md border border-stone-200 bg-white shadow-xl md:grid-cols-[0.9fr_1.1fr]">
+                    <div className="bg-slate-950 p-8 text-white sm:p-10">
+                        <div className="text-sm font-bold uppercase tracking-wide text-orange-300">Support Our Cause</div>
+                        <h1 className="mt-3 text-3xl font-extrabold leading-tight sm:text-5xl">Make a donation that reaches real community work.</h1>
+                        <p className="mt-5 text-lg leading-8 text-stone-300">Your contribution helps us continue education support, festive outreach, cultural programs, environmental awareness, and essential relief.</p>
+                        <p className='mt-5 rounded-md bg-white/10 p-4 text-sm font-semibold text-orange-100'>
+                            Donations are eligible for deduction u/s 80G of Income Tax Act 1961.
+                        </p>
                     </div>
-                    <div className="p-8 md:w-1/2 bg-gray-100">
+                    <div className="p-6 sm:p-8">
 
                         <div className="mb-4">
-                            <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+                            <label htmlFor="name" className="block text-slate-700 text-sm font-bold mb-2">
                                 Name
                             </label>
                             <input
                                 type="text"
                                 id="name"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="w-full rounded-md border border-stone-300 px-3 py-3 text-slate-700 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
@@ -110,26 +111,26 @@ const DonatePage = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+                            <label htmlFor="email" className="block text-slate-700 text-sm font-bold mb-2">
                                 Email
                             </label>
                             <input
                                 type="email"
                                 id="email"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="w-full rounded-md border border-stone-300 px-3 py-3 text-slate-700 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 disabled={order !== null}
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+                            <label htmlFor="phone" className="block text-slate-700 text-sm font-bold mb-2">
                                 Phone Number
                             </label>
                             <input
                                 type="text"
-                                id="name"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="phone"
+                                className="w-full rounded-md border border-stone-300 px-3 py-3 text-slate-700 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 disabled={order !== null}
@@ -137,13 +138,13 @@ const DonatePage = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="amount" className="block text-gray-700 text-sm font-bold mb-2">
+                            <label htmlFor="amount" className="block text-slate-700 text-sm font-bold mb-2">
                                 Amount (INR)
                             </label>
                             <input
                                 type="number"
                                 id="amount"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="w-full rounded-md border border-stone-300 px-3 py-3 text-slate-700 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                                 min="1"
@@ -152,18 +153,18 @@ const DonatePage = () => {
                             />
                         </div>
                         <div className="mb-6">
-                            <label htmlFor="cause" className="block text-gray-700 text-sm font-bold mb-2">
-                                Cause of Donation
+                            <label htmlFor="cause" className="block text-slate-700 text-sm font-bold mb-2">
+                                Donation Cause
                             </label>
                             <select
                                 id="cause"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="w-full rounded-md border border-stone-300 px-3 py-3 text-slate-700 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
                                 value={cause}
                                 onChange={(e) => setCause(e.target.value)}
                                 disabled={order != null}
                             >
                                 <option value="" disabled hidden>
-                                    Select Cause of Donation
+                                    Choose a cause
                                 </option>
                                 {causeOptions.map((option) => (
                                     <option key={option.value} value={option.value}>
@@ -174,10 +175,10 @@ const DonatePage = () => {
                         </div>
                         <div className="flex items-center justify-between">
                             {order == null && <button
-                                className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                className="rounded-md bg-orange-600 px-6 py-3 font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                                 onClick={paymentHandler}
                             >
-                                Donate Now
+                                {isLoading ? 'Preparing payment...' : 'Proceed to Payment'}
                             </button>}
                             {order && <PaymentGateway
                                 orderData={order}
@@ -189,8 +190,7 @@ const DonatePage = () => {
                             }
                         </div>
                     </div>
-                </div>
-            </div>}
+            </main>}
         </Container>
     );
 };

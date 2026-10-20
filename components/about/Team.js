@@ -2,104 +2,92 @@ import PositionHolder from "./Teammembers";
 
 const Team = () => {
     return (
-        <div className="w-full bg-slate-800 py-12 px-6 flex flex-col items-center">
-            <h2 className="text-3xl text-white font-bold mb-8 text-center">
+        <section className="flex w-full flex-col items-center bg-white px-5 py-16 sm:px-8">
+            <p className="text-sm font-bold uppercase tracking-wide text-orange-600">Core Team</p>
+            <h2 className="mb-8 mt-3 max-w-3xl text-center text-3xl font-extrabold text-slate-950 sm:text-4xl">
                 Meet the people behind{" "}
-                <span className="text-orange-500">TEAM NEW SUN FOUNDATION</span>
+                <span className="text-orange-600">TEAM NEW SUN FOUNDATION</span>
             </h2>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <PositionHolder
                     name="Sourik Bhuiya"
-                    position="Director"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743072064/core-member/qqsycbs28zxanckeqrwf.jpg"
+                    position="Director and Project Coordinator - UDAAN"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364632/core%20member%202026-27/IMG-20260501-WA0010.jpg_psrhod.jpg"
                 />
                 <PositionHolder
                     name="Bikram Basak"
-                    position="Director"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071038/core-member/jdj9tpl3mnnm7arbkzj3.jpg"
-                />
-                <PositionHolder
-                    name="Kaustuv Das"
-                    position="Treasurer"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743076914/core-member/bkx1askxrbtv0t8cobrs.jpg"
+                    position="Director and Project Coordinator - SUNSHINE"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779365398/core%20member%202026-27/img_1767622849736.jpg_eplnls.jpg"
                 />
                 <PositionHolder
                     name="Arup Dey"
-                    position="Treasurer"
+                    position="Treasurer and Project Coordinator - UDAAN"
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071036/core-member/xoo50c45j1gf0i2hfbgf.jpg"
                 />
                 <PositionHolder
-                    name="Sayantan Raha"
-                    position="Head of Operations"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743078132/core-member/gcnjg32aru6dnztlgaiz.jpg"
+                    name="Kaustuv Das"
+                    position="Project Coordinator - Sobujer Sondhane"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743076914/core-member/bkx1askxrbtv0t8cobrs.jpg"
                 />
                 <PositionHolder
                     name="Rupali Bhuiya"
-                    position="Head of Operations"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743101959/core-member/yf2zn761f7vsr9qx3knh.jpg"
+                    position="Project Coordinator - Sobujer Sondhane"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364633/core%20member%202026-27/IMG-20260502-WA0001_1_-a_vzrxfn.jpg"
+                />
+                <PositionHolder
+                    name="Sudipa Saha"
+                    position="Project Coordinator - Sobujer Sondhane"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364829/core%20member%202026-27/IMG-20260426-WA0004_1.jpg_jd8pd6.jpg"
+                />
+                <PositionHolder
+                    name="Sayantan Raha"
+                    position="Project Coordinator - BOIGHOR"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364632/core%20member%202026-27/IMG-20260426-WA0022.jpg_zaz9ie.jpg"
+                />
+                <PositionHolder
+                    name="Debanjan Mandal"
+                    position="Project Coordinator - BOIGHOR"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364632/core%20member%202026-27/IMG_20260502_123056.jpg_ttpxn4.jpg"
                 />
                 <PositionHolder
                     name="Sanchari Dey"
-                    position="Head of Women Cell"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743097787/core-member/qedhhdu4pwbgwzpdusno.jpg"
+                    position="Head of Women Cell & Project Coordinator - SURAKSHA"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364633/core%20member%202026-27/IMG-20260430-WA0002.jpg_zfxgts.jpg"
                 />
                 <PositionHolder
                     name="Soumita Mullick"
-                    position="Head of Women Cell"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743101795/core-member/rskwjuirthf3u3u36lyu.jpg"
+                    position="Head of Women Cell & Project Coordinator - SURAKSHA"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364728/core%20member%202026-27/IMG-20260426-WA0008.jpg_olfmrv.jpg"
                 />
                 <PositionHolder
                     name="Sucharita Dey"
-                    position="Social Media Manager"
+                    position="Head of Social Media & PR Cell"
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/t_Sucharita_Dey/core-member/a8fon10cmn8hipgzxqca"
                 />
                 <PositionHolder
                     name="Ayantika Ghosh"
-                    position="Social Media Manager"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743097670/core-member/heefvdx37oevu8tv2ecn.jpg"
+                    position="Head of Social Media & PR Cell"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364633/core%20member%202026-27/IMG-20260502-WA0001_1.jpg_e42ii8.jpg"
                 />
                 <PositionHolder
                     name="Anisha Adhikary"
-                    position="Head of Cultural Cell"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743145133/core-member/d46z9pdjvenkxreuxdqb.jpg"
+                    position="Head of Cultural Cell & Coordinator - SAMPREETI"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364632/core%20member%202026-27/IMG-20260430-WA0002-a_cnfroy.jpg"
                 />
                 <PositionHolder
                     name="Kankana Basak"
-                    position="Head of Cultural Cell"
+                    position="Head of Cultural Cell & Coordinator - SAMPREETI"
                     imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/c_crop,g_north,h_800,w_800/core-member/rslvcnphfbfe6rxjo40p"
                 />
-                <PositionHolder
-                    name="Sudipa Saha"
-                    position="Head of Cultural Cell"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743867889/core-member/p2tp1k3loefuywwxcqyv.jpg"
-                />
-                <PositionHolder
-                    name="Niladri Banerjee"
-                    position="Project Coordinator-Boighor"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071037/core-member/fhq3l8wl3nwssdo3spp4.jpg"
-                />
-                <PositionHolder
-                    name="Sankalpa Basak"
-                    position="Project Coordinator-Boighor"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1744127543/core-member/bqywpieixsjsutqnleps.jpg"
-                />
+
                 <PositionHolder
                     name="Sohon Biswas"
-                    position="Project Coordinator-SUNSHINE"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743616542/core-member/czrhfjdkgphjtozr72em.jpg"
+                    position="Project Coordinator - SUNSHINE"
+                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1779364632/core%20member%202026-27/IMG-20260501-WA0002.jpg_tla60q.jpg"
                 />
-                <PositionHolder
-                    name="Debanjan Mandal"
-                    position="Project Coordinator-Sobujer Sondhane"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743071039/core-member/vtsa5qkpijwtjoeifkfj.jpg"
-                />
-                <PositionHolder
-                    name="Shibam Sanyal"
-                    position="Project Coordinator-Sobujer Sondhane"
-                    imageUrl="https://res.cloudinary.com/dcikuo4sk/image/upload/v1743867884/core-member/ivnuwe0y13fusmoj2hza.jpg"
-                />
+
             </div>
-            <p className="text-yellow-500 font-bold text-center">
+            <p className="mx-auto mt-10 max-w-4xl rounded-md bg-slate-950 p-6 text-center font-semibold leading-7 text-stone-100">
                 Our organization's strength and impact are a testament to the collective
                 efforts of many. Beyond our core team, dedicated volunteers tirelessly
                 contribute their time and skills during our projects. We are also
@@ -108,7 +96,7 @@ const Team = () => {
                 belief and generous donations from our supporters enable us to
                 continue our vital work and bring our projects to fruition.
             </p>
-        </div>
+        </section>
     );
 };
 

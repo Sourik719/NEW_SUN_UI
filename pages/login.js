@@ -7,7 +7,6 @@ import { useRef, useState } from "react"
 import { useDispatch } from 'react-redux'
 
 
-import Background from "@/components/login/Background"
 import ForgetPassword from "@/components/login/ForgetPassword"
 import Input from "@/components/login/Input"
 import Container from "@/components/ui/Container"
@@ -30,8 +29,8 @@ const Login = () => {
     }
 
     const loginHandler = catchAsync(async () => {
-        if (!credentials.email.trim()) throw new Error('Please enter your email.')
-        if (!credentials.password.trim()) throw new Error('Please enter your password.')
+        if (!credentials.email.trim()) throw new Error('Enter your email address.')
+        if (!credentials.password.trim()) throw new Error('Enter your password.')
         const { data, message } = await httpRequest('/signin', 'POST', credentials)
         const { token } = data
         localStorage.setItem('jwt-token', token)
@@ -40,16 +39,20 @@ const Login = () => {
         dispatch(notificationActions.setNotification({ message }))
     })
 
-    return (<Container className="bg-orange-300 w-full flex justify-center items-center ">
+    return (<Container className="w-full bg-stone-50 px-5 py-16 sm:px-8">
         <Head>
-            <title>Login</title>
+            <title>Login | Team New Sun Foundation</title>
         </Head>
         {forgotPassword && <ForgetPassword onCancel={() => setForgotPassword(false)} />}
-        <div className={`w-full sm:w-4/5 md:w-3/5 lg:w-2/5 p-2 ${forgotPassword && 'blur-lg'}`}>
-            <div className="relative rounded-xl">
-                <Background />
-                <div className="relative flex flex-col justify-center items-center z-10 p-3">
-                    <p className="text-xl p-3 m-2 mb-5 pointer-events-none">TEAM NEW SUN FOUNDATION</p>
+        <main className={`mx-auto grid max-w-5xl overflow-hidden rounded-md border border-stone-200 bg-white shadow-xl md:grid-cols-[0.85fr_1.15fr] ${forgotPassword && 'blur-lg'}`}>
+            <section className="bg-slate-950 p-8 text-white sm:p-10">
+                <p className="text-sm font-bold uppercase tracking-wide text-orange-300">Member Login</p>
+                <h1 className="mt-3 text-3xl font-extrabold leading-tight sm:text-5xl">Welcome back to Team New Sun Foundation.</h1>
+                <p className="mt-5 text-lg leading-8 text-stone-300">Access your member profile, contribution details, and community updates.</p>
+            </section>
+            <section className="p-6 sm:p-8">
+                <div className="relative flex flex-col justify-center items-center z-10">
+                    <p className="mb-5 text-center text-2xl font-extrabold text-slate-950">Sign in</p>
                     <Input
                         label={'Email'}
                         ref={emailRef}
@@ -61,15 +64,15 @@ const Login = () => {
                         onChange={credentialsChangeHandler}
                         hidden
                     />
-                    <div className="w-full sm:w-2/3 p-3 mt-5">
-                        <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 focus:bg-blue-700 text-white transition-colors duration-300"
+                    <div className="mt-5 w-full p-3 sm:w-2/3">
+                        <button className="w-full rounded-md bg-orange-600 p-3 text-center font-bold text-white shadow-lg shadow-orange-600/20 transition hover:bg-orange-700"
                             onClick={loginHandler}
                         >
-                            {isLoading ? <Loader /> : 'Login as Member'}
+                            {isLoading ? <Loader /> : 'Sign In'}
                         </button>
                     </div>
-                    <div className="text-sm mb-2 justify-center items-center text-center cursor-pointer hover:text-blue-800 font-bold text-blue-500 " onClick={() => setForgotPassword(true)}>
-                        Forgot Password ?
+                    <div className="mb-2 cursor-pointer text-center text-sm font-bold text-orange-600 hover:text-orange-700" onClick={() => setForgotPassword(true)}>
+                        Forgot password?
                     </div>
 
                     <div className="text-sm flex justify-center items-center mb-5">
@@ -77,8 +80,8 @@ const Login = () => {
                         <Link href="/join-us" className="text-blue-500 hover:text-blue-700 px-1 cursor-pointer">Join us</Link>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     </Container>)
 }
 

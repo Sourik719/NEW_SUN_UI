@@ -1,5 +1,6 @@
-const { useState } = require("react");
-const { default: FeedBack } = require("../feedback/feedbackform");
+import { useState } from "react";
+import { FaMessage } from "react-icons/fa6";
+import FeedBack from "../feedback/feedbackform";
 
 const Feedbackbtn = () => {
     const [editMode, setEditMode] = useState(false);
@@ -8,10 +9,13 @@ const Feedbackbtn = () => {
         setEditMode(!editMode);
     }
     return (
-        <div className="fixed bottom-0 right-0 z-50">
+        <div className="fixed bottom-4 right-4 z-50">
             {editMode ? <FeedBack onclick={handleClick} />
                 :
-                <button className="bg-blue-800 text-white  p-2 px-3 rounded-sm hover:bg-yellow-600 hover:text-black hover:scale-105 transform-linear duration-300" onClick={handleClick}>Feedback</button>}
+                <button className="inline-flex items-center gap-2 rounded-md bg-slate-950 px-4 py-3 font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-orange-600" onClick={handleClick} aria-label="Open feedback form">
+                    <FaMessage />
+                    Feedback
+                </button>}
         </div>
     )
 }

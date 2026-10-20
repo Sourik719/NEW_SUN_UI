@@ -48,7 +48,7 @@ const EmailVerifier = ({ fields, onCancel }) => {
     };
 
     const emailVerificationHandler = catchAsync(async () => {
-        if (otp.length < 6) throw new Error('OTP should be 6-digit long.')
+        if (otp.length < 6) throw new Error('Enter the 6-digit verification code.')
         const otpString = otp.join('');
         const { data, message } = await httpRequest('/signup-verify', 'POST', { email: fields.email, otp: otpString })
         const { token } = data
@@ -63,8 +63,8 @@ const EmailVerifier = ({ fields, onCancel }) => {
             <button className="absolute right-4 top-4" onClick={onCancel}>
                 <FaXmark />
             </button>
-            <h4 className="text-3xl p-3 my-5">Please verify your email</h4>
-            <p className="text-sm mb-5">A 6-digit verification code has been sent to<span className="font-bold px-1">{fields.email} </span></p>
+            <h4 className="text-3xl p-3 my-5">Verify your email</h4>
+            <p className="text-sm mb-5">We sent a 6-digit verification code to <span className="font-bold px-1">{fields.email}</span></p>
             <div className="mb-1">
                 <section className="flex flex-row mb-10 justify-center items-center">
                     {arrayOfSix.map((_, index) => (
@@ -86,7 +86,7 @@ const EmailVerifier = ({ fields, onCancel }) => {
                 <button className="w-full bg-blue-500 p-2 text-center rounded-lg hover:bg-blue-700 focus:bg-blue-700 text-white transition-colors duration-300"
                     onClick={emailVerificationHandler}
                 >
-                    {isLoading ? <Loader /> : 'Verify'}
+                    {isLoading ? <Loader /> : 'Verify Email'}
                 </button>
             </div>
         </div>

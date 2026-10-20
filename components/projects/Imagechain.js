@@ -32,7 +32,7 @@ const ImageCarousel = ({ images }) => {
     return (
         <div
             ref={containerRef}
-            className="relative w-full overflow-hidden bg-gray-800 p-2"
+            className="relative w-full overflow-hidden bg-slate-950 p-3"
         >
             <motion.div
                 className="flex"
@@ -44,7 +44,7 @@ const ImageCarousel = ({ images }) => {
                         key={index}
                         src={src}
                         alt={`Slide ${index + 1}`}
-                        className="h-32 w-auto object-cover border border-2 rounded-md mx-1"
+                        className="mx-1 h-32 w-auto rounded-md border border-white/20 object-cover shadow-sm"
                     />
                 ))}
             </motion.div>
