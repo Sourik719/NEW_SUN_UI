@@ -111,9 +111,9 @@ const contributionPage = () => {
     const firstname = member?.firstname;
     const lastname = member?.lastname;
     console.log(isAuthLoading)
-    if (!isAuthLoading && !isAuthenticated) {
-        router.replace("/login");
-    }
+    // if (!isAuthLoading && !isAuthenticated) {
+    //     router.replace("/login");
+    // }
    
     if (isAuthLoading || !member) {
         return <div>Loading...</div>;
